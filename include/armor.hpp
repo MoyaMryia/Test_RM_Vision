@@ -1,11 +1,19 @@
-  struct LightBar 
+//Later init OpenCV
+//but I don't have any GPUs
+//fuck.
+#ifndef ARMOR_HPP
+
+#define ARMOR_HPP
+
+
+struct LightBar 
   {
       cv::Point2f center;              // 灯条的中心点
       cv::Point2f top;                 // 灯条上方的点
       cv::Point2f bottom;              // 灯条下方的点
       cv::Point2f top2bottom;          // 灯条从上到下的方向向量
   };
-  
+
 struct Armor 
   {
       cv::Rect Box;                    // 方形位置，使用cv::Rect来表示装甲板的矩形框
@@ -19,3 +27,4 @@ struct Armor
       float yaw;                       // pnp解算出的偏航角
       cv::Point3f p_camera;            // pnp解算出的三维位置信息，包含(x, y, z)
   };
+#endif

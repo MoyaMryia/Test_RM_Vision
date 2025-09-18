@@ -1,4 +1,7 @@
-  #include "armor.hpp"
+#ifndef STRUCTURES_HPP
+#define STRUCTURES_HPP
+
+#include "armor.hpp"
 
   struct Robot 
   {
@@ -7,3 +10,5 @@
       float vx;                        // 机器人在水平方向的线速度
       float vz;                        // 机器人在垂直方向的线速度
   };
+
+#endif

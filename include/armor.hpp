@@ -1,6 +1,7 @@
 //Later init OpenCV
 //but I don't have any GPUs
 //fuck.
+#include <opencv2/opencv.hpp>
 #ifndef ARMOR_HPP
 
 #define ARMOR_HPP

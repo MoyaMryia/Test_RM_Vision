@@ -17,7 +17,7 @@ cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
         auto rotaterect = cv::minAreaRect(contour);
         rotaterects.emplace_back(rotaterect);
     }  
-    cv::Mat processedFrame=inputFrame;
+    cv::Mat processedFrame=inputFrame.clone();
     cv::drawContours(processedFrame, contours, -1 ,cv::Scalar(0,0,255),2);
     return processedFrame;
 }

@@ -4,7 +4,7 @@
 #include "include/VideoProcessor.hpp"
 //#include "video_capture.hpp"
 //Step1 把assets/下面那个视频拉出来 使用opencv处理成图像然后挂事件
-//done ?
+//done
 //Step2 处理YOLO 
 //Step3 OPENCV confirm 装甲
 //Step4 预测

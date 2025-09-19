@@ -1,0 +1,3 @@
+/home/moyamryia/NJU_RM/CMakeFiles/Test.dir
+/home/moyamryia/NJU_RM/CMakeFiles/edit_cache.dir
+/home/moyamryia/NJU_RM/CMakeFiles/rebuild_cache.dir

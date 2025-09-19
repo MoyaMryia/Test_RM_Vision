@@ -1,4 +1,4 @@
-#include "../include/VideoProcessor.hpp"
+#include "../include/video_processor.hpp"
 
 cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
 /*

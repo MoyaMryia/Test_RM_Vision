@@ -129,77 +129,77 @@ Test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
 .PHONY : Test/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+src/main.o: src/main.cpp.o
+.PHONY : src/main.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
-src/VideoProcessor.o: src/VideoProcessor.cpp.o
-.PHONY : src/VideoProcessor.o
+src/video_processor.o: src/video_processor.cpp.o
+.PHONY : src/video_processor.o
 
 # target to build an object file
-src/VideoProcessor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/VideoProcessor.cpp.o
-.PHONY : src/VideoProcessor.cpp.o
+src/video_processor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/video_processor.cpp.o
+.PHONY : src/video_processor.cpp.o
 
-src/VideoProcessor.i: src/VideoProcessor.cpp.i
-.PHONY : src/VideoProcessor.i
+src/video_processor.i: src/video_processor.cpp.i
+.PHONY : src/video_processor.i
 
 # target to preprocess a source file
-src/VideoProcessor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/VideoProcessor.cpp.i
-.PHONY : src/VideoProcessor.cpp.i
+src/video_processor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/video_processor.cpp.i
+.PHONY : src/video_processor.cpp.i
 
-src/VideoProcessor.s: src/VideoProcessor.cpp.s
-.PHONY : src/VideoProcessor.s
+src/video_processor.s: src/video_processor.cpp.s
+.PHONY : src/video_processor.s
 
 # target to generate assembly for a file
-src/VideoProcessor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/VideoProcessor.cpp.s
-.PHONY : src/VideoProcessor.cpp.s
+src/video_processor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/video_processor.cpp.s
+.PHONY : src/video_processor.cpp.s
 
-src/VideoReader.o: src/VideoReader.cpp.o
-.PHONY : src/VideoReader.o
+tools/video_reader.o: tools/video_reader.cpp.o
+.PHONY : tools/video_reader.o
 
 # target to build an object file
-src/VideoReader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/VideoReader.cpp.o
-.PHONY : src/VideoReader.cpp.o
+tools/video_reader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_reader.cpp.o
+.PHONY : tools/video_reader.cpp.o
 
-src/VideoReader.i: src/VideoReader.cpp.i
-.PHONY : src/VideoReader.i
+tools/video_reader.i: tools/video_reader.cpp.i
+.PHONY : tools/video_reader.i
 
 # target to preprocess a source file
-src/VideoReader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/VideoReader.cpp.i
-.PHONY : src/VideoReader.cpp.i
+tools/video_reader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_reader.cpp.i
+.PHONY : tools/video_reader.cpp.i
 
-src/VideoReader.s: src/VideoReader.cpp.s
-.PHONY : src/VideoReader.s
+tools/video_reader.s: tools/video_reader.cpp.s
+.PHONY : tools/video_reader.s
 
 # target to generate assembly for a file
-src/VideoReader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/VideoReader.cpp.s
-.PHONY : src/VideoReader.cpp.s
+tools/video_reader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_reader.cpp.s
+.PHONY : tools/video_reader.cpp.s
 
 # Help Target
 help:
@@ -210,15 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Test"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... src/VideoProcessor.o"
-	@echo "... src/VideoProcessor.i"
-	@echo "... src/VideoProcessor.s"
-	@echo "... src/VideoReader.o"
-	@echo "... src/VideoReader.i"
-	@echo "... src/VideoReader.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/video_processor.o"
+	@echo "... src/video_processor.i"
+	@echo "... src/video_processor.s"
+	@echo "... tools/video_reader.o"
+	@echo "... tools/video_reader.i"
+	@echo "... tools/video_reader.s"
 .PHONY : help
 
 

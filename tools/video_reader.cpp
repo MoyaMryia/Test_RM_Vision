@@ -1,4 +1,4 @@
-#include "../include/VideoReader.hpp"
+#include "../include/video_reader.hpp"
 
 VideoReader::VideoReader(const std::string& videoPath) {
     cap.open(videoPath);

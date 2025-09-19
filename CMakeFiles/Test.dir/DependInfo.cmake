@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/moyamryia/NJU_RM/main.cpp" "CMakeFiles/Test.dir/main.cpp.o" "gcc" "CMakeFiles/Test.dir/main.cpp.o.d"
-  "/home/moyamryia/NJU_RM/src/VideoProcessor.cpp" "CMakeFiles/Test.dir/src/VideoProcessor.cpp.o" "gcc" "CMakeFiles/Test.dir/src/VideoProcessor.cpp.o.d"
-  "/home/moyamryia/NJU_RM/src/VideoReader.cpp" "CMakeFiles/Test.dir/src/VideoReader.cpp.o" "gcc" "CMakeFiles/Test.dir/src/VideoReader.cpp.o.d"
+  "/home/moyamryia/NJU_RM/src/main.cpp" "CMakeFiles/Test.dir/src/main.cpp.o" "gcc" "CMakeFiles/Test.dir/src/main.cpp.o.d"
+  "/home/moyamryia/NJU_RM/src/video_processor.cpp" "CMakeFiles/Test.dir/src/video_processor.cpp.o" "gcc" "CMakeFiles/Test.dir/src/video_processor.cpp.o.d"
+  "/home/moyamryia/NJU_RM/tools/video_reader.cpp" "CMakeFiles/Test.dir/tools/video_reader.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/video_reader.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

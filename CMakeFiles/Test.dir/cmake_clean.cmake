@@ -1,10 +1,10 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Test.dir/main.cpp.o"
-  "CMakeFiles/Test.dir/main.cpp.o.d"
-  "CMakeFiles/Test.dir/src/VideoProcessor.cpp.o"
-  "CMakeFiles/Test.dir/src/VideoProcessor.cpp.o.d"
-  "CMakeFiles/Test.dir/src/VideoReader.cpp.o"
-  "CMakeFiles/Test.dir/src/VideoReader.cpp.o.d"
+  "CMakeFiles/Test.dir/src/main.cpp.o"
+  "CMakeFiles/Test.dir/src/main.cpp.o.d"
+  "CMakeFiles/Test.dir/src/video_processor.cpp.o"
+  "CMakeFiles/Test.dir/src/video_processor.cpp.o.d"
+  "CMakeFiles/Test.dir/tools/video_reader.cpp.o"
+  "CMakeFiles/Test.dir/tools/video_reader.cpp.o.d"
   "Test"
   "Test.pdb"
 )

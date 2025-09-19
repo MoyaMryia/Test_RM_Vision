@@ -69,60 +69,60 @@ include CMakeFiles/Test.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Test.dir/flags.make
 
-CMakeFiles/Test.dir/main.cpp.o: CMakeFiles/Test.dir/flags.make
-CMakeFiles/Test.dir/main.cpp.o: main.cpp
-CMakeFiles/Test.dir/main.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Test.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/main.cpp.o -MF CMakeFiles/Test.dir/main.cpp.o.d -o CMakeFiles/Test.dir/main.cpp.o -c /home/moyamryia/NJU_RM/main.cpp
+CMakeFiles/Test.dir/src/main.cpp.o: CMakeFiles/Test.dir/flags.make
+CMakeFiles/Test.dir/src/main.cpp.o: src/main.cpp
+CMakeFiles/Test.dir/src/main.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Test.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/main.cpp.o -MF CMakeFiles/Test.dir/src/main.cpp.o.d -o CMakeFiles/Test.dir/src/main.cpp.o -c /home/moyamryia/NJU_RM/src/main.cpp
 
-CMakeFiles/Test.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/main.cpp > CMakeFiles/Test.dir/main.cpp.i
+CMakeFiles/Test.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/src/main.cpp > CMakeFiles/Test.dir/src/main.cpp.i
 
-CMakeFiles/Test.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/main.cpp -o CMakeFiles/Test.dir/main.cpp.s
+CMakeFiles/Test.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/src/main.cpp -o CMakeFiles/Test.dir/src/main.cpp.s
 
-CMakeFiles/Test.dir/src/VideoReader.cpp.o: CMakeFiles/Test.dir/flags.make
-CMakeFiles/Test.dir/src/VideoReader.cpp.o: src/VideoReader.cpp
-CMakeFiles/Test.dir/src/VideoReader.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Test.dir/src/VideoReader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/VideoReader.cpp.o -MF CMakeFiles/Test.dir/src/VideoReader.cpp.o.d -o CMakeFiles/Test.dir/src/VideoReader.cpp.o -c /home/moyamryia/NJU_RM/src/VideoReader.cpp
+CMakeFiles/Test.dir/tools/video_reader.cpp.o: CMakeFiles/Test.dir/flags.make
+CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp
+CMakeFiles/Test.dir/tools/video_reader.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Test.dir/tools/video_reader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/tools/video_reader.cpp.o -MF CMakeFiles/Test.dir/tools/video_reader.cpp.o.d -o CMakeFiles/Test.dir/tools/video_reader.cpp.o -c /home/moyamryia/NJU_RM/tools/video_reader.cpp
 
-CMakeFiles/Test.dir/src/VideoReader.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/src/VideoReader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/src/VideoReader.cpp > CMakeFiles/Test.dir/src/VideoReader.cpp.i
+CMakeFiles/Test.dir/tools/video_reader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/tools/video_reader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/tools/video_reader.cpp > CMakeFiles/Test.dir/tools/video_reader.cpp.i
 
-CMakeFiles/Test.dir/src/VideoReader.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/VideoReader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/src/VideoReader.cpp -o CMakeFiles/Test.dir/src/VideoReader.cpp.s
+CMakeFiles/Test.dir/tools/video_reader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/tools/video_reader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/tools/video_reader.cpp -o CMakeFiles/Test.dir/tools/video_reader.cpp.s
 
-CMakeFiles/Test.dir/src/VideoProcessor.cpp.o: CMakeFiles/Test.dir/flags.make
-CMakeFiles/Test.dir/src/VideoProcessor.cpp.o: src/VideoProcessor.cpp
-CMakeFiles/Test.dir/src/VideoProcessor.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Test.dir/src/VideoProcessor.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/VideoProcessor.cpp.o -MF CMakeFiles/Test.dir/src/VideoProcessor.cpp.o.d -o CMakeFiles/Test.dir/src/VideoProcessor.cpp.o -c /home/moyamryia/NJU_RM/src/VideoProcessor.cpp
+CMakeFiles/Test.dir/src/video_processor.cpp.o: CMakeFiles/Test.dir/flags.make
+CMakeFiles/Test.dir/src/video_processor.cpp.o: src/video_processor.cpp
+CMakeFiles/Test.dir/src/video_processor.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Test.dir/src/video_processor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/video_processor.cpp.o -MF CMakeFiles/Test.dir/src/video_processor.cpp.o.d -o CMakeFiles/Test.dir/src/video_processor.cpp.o -c /home/moyamryia/NJU_RM/src/video_processor.cpp
 
-CMakeFiles/Test.dir/src/VideoProcessor.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/src/VideoProcessor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/src/VideoProcessor.cpp > CMakeFiles/Test.dir/src/VideoProcessor.cpp.i
+CMakeFiles/Test.dir/src/video_processor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/src/video_processor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/src/video_processor.cpp > CMakeFiles/Test.dir/src/video_processor.cpp.i
 
-CMakeFiles/Test.dir/src/VideoProcessor.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/VideoProcessor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/src/VideoProcessor.cpp -o CMakeFiles/Test.dir/src/VideoProcessor.cpp.s
+CMakeFiles/Test.dir/src/video_processor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/video_processor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/src/video_processor.cpp -o CMakeFiles/Test.dir/src/video_processor.cpp.s
 
 # Object files for target Test
 Test_OBJECTS = \
-"CMakeFiles/Test.dir/main.cpp.o" \
-"CMakeFiles/Test.dir/src/VideoReader.cpp.o" \
-"CMakeFiles/Test.dir/src/VideoProcessor.cpp.o"
+"CMakeFiles/Test.dir/src/main.cpp.o" \
+"CMakeFiles/Test.dir/tools/video_reader.cpp.o" \
+"CMakeFiles/Test.dir/src/video_processor.cpp.o"
 
 # External object files for target Test
 Test_EXTERNAL_OBJECTS =
 
-Test: CMakeFiles/Test.dir/main.cpp.o
-Test: CMakeFiles/Test.dir/src/VideoReader.cpp.o
-Test: CMakeFiles/Test.dir/src/VideoProcessor.cpp.o
+Test: CMakeFiles/Test.dir/src/main.cpp.o
+Test: CMakeFiles/Test.dir/tools/video_reader.cpp.o
+Test: CMakeFiles/Test.dir/src/video_processor.cpp.o
 Test: CMakeFiles/Test.dir/build.make
 Test: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.6.0
 Test: /usr/lib/x86_64-linux-gnu/libopencv_alphamat.so.4.6.0

@@ -1,8 +1,6 @@
-cmake_minimum_required(VERSION 3.11)
-
-project(NJU_RM)
-include_directories( ${OpenCV_INCLUDE_DIRS} /include ./tasks ./tools)
+cmake_minimum_required(VERSION 2.8)
+project( Test )
 find_package( OpenCV REQUIRED )
-target_link_libraries( NJU_RM ${OpenCV_LIBS} )
-
-#add_executable(Output src/decision_maker.cpp detector.cpp pnp_solver.cpp ros2_manager.cpp tracker.cpp)
+include_directories( ${OpenCV_INCLUDE_DIRS} include/)
+add_executable( Test main.cpp src/VideoReader.cpp src/VideoProcessor.cpp )
+target_link_libraries( Test PRIVATE ${OpenCV_LIBS} )

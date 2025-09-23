@@ -44,7 +44,7 @@
 ## 结构体设计
 ```
 
-* **`Armor`**
+//Armor
   struct Armor 
   {
       cv::Rect Box;                    // 方形位置，使用cv::Rect来表示装甲板的矩形框
@@ -58,7 +58,7 @@
       float yaw;                       // pnp解算出的偏航角
       cv::Point3f p_camera;            // pnp解算出的三维位置信息，包含(x, y, z)
   };
-* **`LightBar`**
+//LightBar
   struct LightBar 
   {
       cv::Point2f center;              // 灯条的中心点
@@ -66,7 +66,7 @@
       cv::Point2f bottom;              // 灯条下方的点
       cv::Point2f top2bottom;          // 灯条从上到下的方向向量
   };
-* **`Robot`**
+//Robot
   struct Robot 
   {
       Armor armor;                     // 机器人所包含的Armor类

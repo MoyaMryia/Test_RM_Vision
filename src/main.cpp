@@ -1,5 +1,6 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
+#include "../include/detect.hpp"
 #include "../include/video_reader.hpp"
 #include "../include/video_processor.hpp"
 //#include "video_capture.hpp"
@@ -24,6 +25,8 @@ int main(int argc, char** argv) {
     }
     cv::Mat frame;
     cv::Mat processedFrame;
+    //DetectorCNN Dect;
+    //Dect.YoloDetector("models");
     while (true) {
         if (!reader.readFrame(frame)) {
             std::cout << "End of video stream or error occurred." << std::endl;

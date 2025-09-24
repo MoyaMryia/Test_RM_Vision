@@ -4,7 +4,8 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
-void DetectorCNN::YoloDetector(const std::string& model_path, float conf_threshold, float nms_threshold) { 
+void DetectorCNN::YoloDetector(const std::string& model_path, float conf_threshold, float nms_threshold){
+    //: confidence_threshold(conf_threshold), nms_threshold(nms_threshold), num_classes(80) { 
     net = cv::dnn::readNetFromONNX(model_path);
     if (net.empty()) {
         std::cerr << "Error: Could not load the ONNX model." << std::endl;

@@ -350,5 +350,8 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
  /usr/include/opencv4/opencv2/video/background_segm.hpp \
+ /home/moyamryia/NJU_RM/src/../include/detect.hpp \
+ /home/moyamryia/NJU_RM/src/../include/structures.hpp \
+ /home/moyamryia/NJU_RM/src/../include/armor.hpp \
  /home/moyamryia/NJU_RM/src/../include/video_reader.hpp \
  /home/moyamryia/NJU_RM/src/../include/video_processor.hpp

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/moyamryia/NJU_RM/src/detect.cpp" "CMakeFiles/Test.dir/src/detect.cpp.o" "gcc" "CMakeFiles/Test.dir/src/detect.cpp.o.d"
   "/home/moyamryia/NJU_RM/src/main.cpp" "CMakeFiles/Test.dir/src/main.cpp.o" "gcc" "CMakeFiles/Test.dir/src/main.cpp.o.d"
   "/home/moyamryia/NJU_RM/tools/video_processor.cpp" "CMakeFiles/Test.dir/tools/video_processor.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/video_processor.cpp.o.d"
   "/home/moyamryia/NJU_RM/tools/video_reader.cpp" "CMakeFiles/Test.dir/tools/video_reader.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/video_reader.cpp.o.d"

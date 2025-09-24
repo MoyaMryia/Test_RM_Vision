@@ -15,9 +15,9 @@ public:
 
 private:
     cv::dnn::Net net;
-    float confidence_threshold;
-    float nms_threshold;
-    int num_classes; // You can make this configurable if needed
+    const float confidence_threshold = 0.5;
+    const float nms_threshold = 0.5;
+    const int num_classes = 9; // You can make this configurable if needed
 
     // Internal method to process model outputs
     std::vector<Armor> processOutput(const cv::Mat& frame, const std::vector<cv::Mat>& outputs);

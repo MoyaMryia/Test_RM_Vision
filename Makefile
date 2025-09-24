@@ -129,6 +129,30 @@ Test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
 .PHONY : Test/fast
 
+src/detect.o: src/detect.cpp.o
+.PHONY : src/detect.o
+
+# target to build an object file
+src/detect.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/detect.cpp.o
+.PHONY : src/detect.cpp.o
+
+src/detect.i: src/detect.cpp.i
+.PHONY : src/detect.i
+
+# target to preprocess a source file
+src/detect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/detect.cpp.i
+.PHONY : src/detect.cpp.i
+
+src/detect.s: src/detect.cpp.s
+.PHONY : src/detect.s
+
+# target to generate assembly for a file
+src/detect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/detect.cpp.s
+.PHONY : src/detect.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -210,6 +234,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Test"
+	@echo "... src/detect.o"
+	@echo "... src/detect.i"
+	@echo "... src/detect.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

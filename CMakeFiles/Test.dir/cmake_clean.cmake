@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Test.dir/src/main.cpp.o"
   "CMakeFiles/Test.dir/src/main.cpp.o.d"
-  "CMakeFiles/Test.dir/src/video_processor.cpp.o"
-  "CMakeFiles/Test.dir/src/video_processor.cpp.o.d"
+  "CMakeFiles/Test.dir/tools/video_processor.cpp.o"
+  "CMakeFiles/Test.dir/tools/video_processor.cpp.o.d"
   "CMakeFiles/Test.dir/tools/video_reader.cpp.o"
   "CMakeFiles/Test.dir/tools/video_reader.cpp.o.d"
   "Test"

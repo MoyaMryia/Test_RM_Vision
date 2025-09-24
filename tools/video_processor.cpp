@@ -1,6 +1,6 @@
 #include "../include/video_processor.hpp"
 
-void DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness) {
+void VideoProcessor::DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness) {
     cv::Point2f vertices[4];
     rotatedRect.points(vertices); // 获取四个顶点
     // 绘制轮廓
@@ -22,7 +22,10 @@ cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
         rotaterects.emplace_back(rotaterect);
     }  
     cv::Mat processedFrame=inputFrame.clone();
+    //processedFrame = binary_image;
+    
     //cv::drawContours(processedFrame, contours, -1 ,cv::Scalar(0,0,255),2);
+    
     for(const auto & rectan : rotaterects){
         DrawRotatedRect(processedFrame,rectan,cv::Scalar(0,255,0),2);
     }

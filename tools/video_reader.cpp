@@ -2,6 +2,7 @@
 
 VideoReader::VideoReader(const std::string& videoPath) {
     cap.open(videoPath);
+    //cap.open(0);
 }
 
 VideoReader::~VideoReader() {

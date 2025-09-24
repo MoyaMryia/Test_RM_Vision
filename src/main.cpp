@@ -7,20 +7,17 @@
 //done
 //Step2 处理YOLO 
 //stucked, FUCK.
-//anyway I need a small function which can print square.
-//anyway.
-//anyway.
 
 //Step3 OPENCV confirm 装甲
 //Step4 预测
 int main(int argc, char** argv) {
+    
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <video_file_path>" << std::endl;
         return -1;
-    }
-
+    } 
+    //std::cout<<1;
     VideoReader reader(argv[1]);
-
     if (!reader.isOpened()) {
         std::cerr << "Error: Could not open the video file." << std::endl;
         return -1;
@@ -32,8 +29,13 @@ int main(int argc, char** argv) {
             std::cout << "End of video stream or error occurred." << std::endl;
             break;
         }
+        
         processedFrame = VideoProcessor::processFrame(frame);
-        cv::imshow("Original Video", frame);
+        //cv::imshow("Original Video", frame);
+        
+        
+        
+        
         cv::imshow("Processed Video", processedFrame);
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27) {
             break;

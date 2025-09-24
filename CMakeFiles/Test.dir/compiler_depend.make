@@ -417,7 +417,7 @@ CMakeFiles/Test.dir/src/main.cpp.o: src/main.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
-CMakeFiles/Test.dir/src/video_processor.cpp.o: src/video_processor.cpp \
+CMakeFiles/Test.dir/tools/video_processor.cpp.o: tools/video_processor.cpp \
   include/video_processor.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -1250,6 +1250,8 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
 
 tools/video_reader.cpp:
 
+tools/video_processor.cpp:
+
 /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h:
@@ -1617,8 +1619,6 @@ tools/video_reader.cpp:
 /usr/include/opencv4/opencv2/core/types.hpp:
 
 /usr/include/opencv4/opencv2/flann/flann_base.hpp:
-
-src/video_processor.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 

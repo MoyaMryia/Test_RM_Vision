@@ -3,7 +3,7 @@
 void DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness) {
     cv::Point2f vertices[4];
     rotatedRect.points(vertices); // 获取四个顶点
-// 绘制轮廓
+    // 绘制轮廓
     for (int i = 0; i < 4; i++) {
         line(image, vertices[i], vertices[(i + 1) % 4], color, thickness);
     }

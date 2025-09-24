@@ -5,4 +5,5 @@
 class VideoProcessor {
 public:
     static cv::Mat processFrame(const cv::Mat& inputFrame);
+    static void DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness);
 };

@@ -28,8 +28,7 @@ bool VideoProcessor::chk_vaild(cv::RotatedRect &rotrect){
     return 1;
 }
 
-
-cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
+std::vector<cv::RotatedRect> VideoProcessor::findRect(const cv::Mat& inputFrame){
     cv::Mat gray_img;
     cv::cvtColor(inputFrame,gray_img, cv::COLOR_BGR2GRAY);
     cv::Mat binary_image;
@@ -43,13 +42,17 @@ cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
             rotaterects.emplace_back(rotaterect);
         
     }  
-    cv::Mat processedFrame=inputFrame.clone();
-    //processedFrame = binary_image;
-    
+    return rotaterects;
     //cv::drawContours(processedFrame, contours, -1 ,cv::Scalar(0,0,255),2);
-    
+}
+
+
+cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
+    cv::Mat processedFrame = inputFrame.clone();
+    std::vector<cv::RotatedRect> rotaterects = findRect(inputFrame); 
     for(const auto & rectan : rotaterects){
         DrawRotatedRect(processedFrame,rectan,cv::Scalar(0,255,0),2);
     }
+    return processedFrame;
     return processedFrame;
 }

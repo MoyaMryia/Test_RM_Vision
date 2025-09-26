@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/moyamryia/NJU_RM/src/detect.cpp" "CMakeFiles/Test.dir/src/detect.cpp.o" "gcc" "CMakeFiles/Test.dir/src/detect.cpp.o.d"
   "/home/moyamryia/NJU_RM/src/main.cpp" "CMakeFiles/Test.dir/src/main.cpp.o" "gcc" "CMakeFiles/Test.dir/src/main.cpp.o.d"
   "/home/moyamryia/NJU_RM/src/video_processor.cpp" "CMakeFiles/Test.dir/src/video_processor.cpp.o" "gcc" "CMakeFiles/Test.dir/src/video_processor.cpp.o.d"
+  "/home/moyamryia/NJU_RM/tools/detect_num.cpp" "CMakeFiles/Test.dir/tools/detect_num.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/detect_num.cpp.o.d"
   "/home/moyamryia/NJU_RM/tools/video_reader.cpp" "CMakeFiles/Test.dir/tools/video_reader.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/video_reader.cpp.o.d"
   )
 

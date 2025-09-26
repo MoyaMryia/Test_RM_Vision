@@ -201,6 +201,30 @@ src/video_processor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/video_processor.cpp.s
 .PHONY : src/video_processor.cpp.s
 
+tools/detect_num.o: tools/detect_num.cpp.o
+.PHONY : tools/detect_num.o
+
+# target to build an object file
+tools/detect_num.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/detect_num.cpp.o
+.PHONY : tools/detect_num.cpp.o
+
+tools/detect_num.i: tools/detect_num.cpp.i
+.PHONY : tools/detect_num.i
+
+# target to preprocess a source file
+tools/detect_num.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/detect_num.cpp.i
+.PHONY : tools/detect_num.cpp.i
+
+tools/detect_num.s: tools/detect_num.cpp.s
+.PHONY : tools/detect_num.s
+
+# target to generate assembly for a file
+tools/detect_num.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/detect_num.cpp.s
+.PHONY : tools/detect_num.cpp.s
+
 tools/video_reader.o: tools/video_reader.cpp.o
 .PHONY : tools/video_reader.o
 
@@ -243,6 +267,9 @@ help:
 	@echo "... src/video_processor.o"
 	@echo "... src/video_processor.i"
 	@echo "... src/video_processor.s"
+	@echo "... tools/detect_num.o"
+	@echo "... tools/detect_num.i"
+	@echo "... tools/detect_num.s"
 	@echo "... tools/video_reader.o"
 	@echo "... tools/video_reader.i"
 	@echo "... tools/video_reader.s"

@@ -69,11 +69,12 @@ cv::RotatedRect VideoProcessor::GetArmorRect(cv::Mat &image, const Lightbar_Pair
     contour_points.push_back(cp);
     contour_points.push_back(dp);
     cv::RotatedRect rRect = cv::minAreaRect(contour_points);
-    
+    /*
     cv::circle(image, ap, 5, cv::Scalar(0, 255, 0), -1);
     cv::circle(image, bp, 5, cv::Scalar(0, 255, 0), -1);
     cv::circle(image, cp, 5, cv::Scalar(0, 255, 0), -1);
     cv::circle(image, dp, 5, cv::Scalar(0, 255, 0), -1);
+    */
     //DrawRotatedRect(image,rRect,color,thickness);
     //cropRotatedRect(image,rRect);
     return rRect;

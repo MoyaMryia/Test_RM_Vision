@@ -32,6 +32,7 @@ int main(int argc, char** argv) {
     cv::Mat processedFrame_chopped_out;
     //DetectorCNN Dect;
     //Dect.YoloDetector("models");
+    //frame = cv::imread("assets/000001.jpg");
     bool ds = 0;
     while (true) {
         
@@ -50,7 +51,7 @@ int main(int argc, char** argv) {
         }
         if(ds) break;
     }
-    //cv::destroyAllWindows();
+    cv::destroyAllWindows();
     //cv::waitKey(0);
     return 0;
 }

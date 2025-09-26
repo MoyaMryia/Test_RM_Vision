@@ -176,12 +176,12 @@ cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
     cv::Mat processedFrame = inputFrame.clone();
     std::vector<cv::RotatedRect> rotaterects = findRect(inputFrame); 
     //int stk = 0;
-    /*
-    for(const auto & rectan : rotaterects){
+    
+    //for(const auto & rectan : rotaterects){
         //std::cout<<rectan.center.x<<" "<<rectan.center.y<<std::endl;
-        //DrawRotatedRect(processedFrame,rectan,cv::Scalar(stk*50,255,stk*50),2);
+        //DrawRotatedRect(processedFrame,rectan,cv::Scalar(0,255,0),2);
         //stk++;
-    }*/
+    //}
     
     std::vector<Lightbar_Pair> lightbars = findPairs(rotaterects,inputFrame);
 

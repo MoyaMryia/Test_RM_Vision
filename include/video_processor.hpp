@@ -11,5 +11,6 @@ private:
     static std::vector<cv::RotatedRect> findRect(const cv::Mat& inputFrame);
     static std::vector<Lightbar_Pair> findArmor(std::vector<cv::RotatedRect> inputRects);
     static void DrawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness);
+    static void DrawArmorRect(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness);
     static std::vector<Lightbar_Pair> findPairs(std::vector<cv::RotatedRect> inputRects,const cv::Mat& inputFrame);
 };

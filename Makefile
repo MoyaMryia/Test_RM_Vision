@@ -177,29 +177,29 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-tools/video_processor.o: tools/video_processor.cpp.o
-.PHONY : tools/video_processor.o
+src/video_processor.o: src/video_processor.cpp.o
+.PHONY : src/video_processor.o
 
 # target to build an object file
-tools/video_processor.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_processor.cpp.o
-.PHONY : tools/video_processor.cpp.o
+src/video_processor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/video_processor.cpp.o
+.PHONY : src/video_processor.cpp.o
 
-tools/video_processor.i: tools/video_processor.cpp.i
-.PHONY : tools/video_processor.i
+src/video_processor.i: src/video_processor.cpp.i
+.PHONY : src/video_processor.i
 
 # target to preprocess a source file
-tools/video_processor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_processor.cpp.i
-.PHONY : tools/video_processor.cpp.i
+src/video_processor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/video_processor.cpp.i
+.PHONY : src/video_processor.cpp.i
 
-tools/video_processor.s: tools/video_processor.cpp.s
-.PHONY : tools/video_processor.s
+src/video_processor.s: src/video_processor.cpp.s
+.PHONY : src/video_processor.s
 
 # target to generate assembly for a file
-tools/video_processor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_processor.cpp.s
-.PHONY : tools/video_processor.cpp.s
+src/video_processor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/video_processor.cpp.s
+.PHONY : src/video_processor.cpp.s
 
 tools/video_reader.o: tools/video_reader.cpp.o
 .PHONY : tools/video_reader.o
@@ -240,9 +240,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... tools/video_processor.o"
-	@echo "... tools/video_processor.i"
-	@echo "... tools/video_processor.s"
+	@echo "... src/video_processor.o"
+	@echo "... src/video_processor.i"
+	@echo "... src/video_processor.s"
 	@echo "... tools/video_reader.o"
 	@echo "... tools/video_reader.i"
 	@echo "... tools/video_reader.s"

@@ -419,6 +419,9 @@ CMakeFiles/Test.dir/src/detect.cpp.o: src/detect.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
 CMakeFiles/Test.dir/src/main.cpp.o: src/main.cpp \
+  include/armor.hpp \
+  include/detect.hpp \
+  include/structures.hpp \
   include/video_processor.hpp \
   include/video_reader.hpp \
   /usr/include/alloca.h \

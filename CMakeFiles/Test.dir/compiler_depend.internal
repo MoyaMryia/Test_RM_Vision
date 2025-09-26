@@ -421,6 +421,9 @@ CMakeFiles/Test.dir/src/detect.cpp.o
 
 CMakeFiles/Test.dir/src/main.cpp.o
  /home/moyamryia/NJU_RM/src/main.cpp
+ /home/moyamryia/NJU_RM/include/armor.hpp
+ /home/moyamryia/NJU_RM/include/detect.hpp
+ /home/moyamryia/NJU_RM/include/structures.hpp
  /home/moyamryia/NJU_RM/include/video_processor.hpp
  /home/moyamryia/NJU_RM/include/video_reader.hpp
  /usr/include/alloca.h

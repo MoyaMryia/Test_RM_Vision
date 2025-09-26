@@ -29,7 +29,6 @@ int main(int argc, char** argv) {
     //Dect.YoloDetector("models");
     while (true) {
         if (!reader.readFrame(frame)) {
-            std::cout << "End of video stream or error occurred." << std::endl;
             break;
         }
         

@@ -9,6 +9,26 @@ void VideoProcessor::DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rota
     }
 }
 
+bool VideoProcessor::chk_vaild(cv::RotatedRect &rotrect){
+    double ang = rotrect.angle;
+    double wid = rotrect.size.width;
+    double hei = rotrect.size.height;
+    if (hei <= 7 && wid <= 7) return 0; // too small
+    if (hei >=100 || wid >= 100) return 0; //too big
+    if(ang <= 0) ang = -ang;
+    if(ang > 90) ang = 180 - ang;
+    if(ang > 0 && ang <= 45) {
+        ang = 90 - ang;
+        double t = wid;
+        wid = hei;
+        hei = wid;
+    }
+    double rat = wid/hei;
+    if(rat < 3.0 || rat > 15.0) return 0;
+    return 1;
+}
+
+
 cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
     cv::Mat gray_img;
     cv::cvtColor(inputFrame,gray_img, cv::COLOR_BGR2GRAY);
@@ -19,7 +39,9 @@ cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
     std::vector<cv::RotatedRect> rotaterects;
     for(const auto & contour : contours){
         auto rotaterect = cv::minAreaRect(contour);
-        rotaterects.emplace_back(rotaterect);
+        if(chk_vaild(rotaterect))
+            rotaterects.emplace_back(rotaterect);
+        
     }  
     cv::Mat processedFrame=inputFrame.clone();
     //processedFrame = binary_image;

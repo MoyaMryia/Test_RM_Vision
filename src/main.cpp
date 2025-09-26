@@ -25,6 +25,7 @@ int main(int argc, char** argv) {
     }
     cv::Mat frame;
     cv::Mat processedFrame;
+    cv::Mat processedFrame_chopped;
     //DetectorCNN Dect;
     //Dect.YoloDetector("models");
     while (true) {
@@ -33,11 +34,8 @@ int main(int argc, char** argv) {
         }
         
         processedFrame = VideoProcessor::processFrame(frame);
-        //cv::imshow("Original Video", frame);
-        
-        
-        
-        
+        processedFrame_chopped = VideoProcessor::processFrame_chopeed(frame);
+        cv::imshow("Chopped Video", processedFrame_chopped);
         cv::imshow("Processed Video", processedFrame);
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27) {
             break;

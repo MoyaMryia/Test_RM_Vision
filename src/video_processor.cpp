@@ -17,7 +17,32 @@ void VideoProcessor::DrawLightbars(cv::Mat &image, const Lightbar_Pair &inputPai
 }
 //包装一下
 
-void VideoProcessor::DrawArmorRect(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness){
+cv::Mat VideoProcessor::cropRotatedRect(cv::Mat& frame, const cv::RotatedRect& rRect) {
+    float width = rRect.size.width;
+    float height = rRect.size.height;
+    float angle = rRect.angle;
+    cv::Size2f rectSize(width, height);
+    if (angle < -45.f) {
+        angle += 90.0;
+        std::swap(rectSize.width, rectSize.height);
+    } else if (angle > 45.f) {
+        angle -= 90.0;
+        std::swap(rectSize.width, rectSize.height);
+    }
+    cv::Mat M = cv::getRotationMatrix2D(rRect.center, angle, 1.0);
+    cv::Mat rotatedFrame;
+    cv::warpAffine(frame, rotatedFrame, M, frame.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT);
+    cv::Rect bbox = rRect.boundingRect();
+    cv::Point2f cropStart = bbox.tl();
+    cv::Rect2f targetRect(0, 0, rectSize.width, rectSize.height);
+    cv::Mat croppedImage;
+    cv::getRectSubPix(rotatedFrame, rectSize, rRect.center, croppedImage);
+    frame = croppedImage.clone();
+    return croppedImage;
+    
+}
+
+cv::RotatedRect VideoProcessor::GetArmorRect(cv::Mat &image, const Lightbar_Pair &inputPairs){
     std::vector<cv::Point2f> contour_points;
     cv::RotatedRect a_ret = inputPairs.left_LightBar;
     cv::RotatedRect b_ret = inputPairs.right_LightBar;
@@ -44,11 +69,14 @@ void VideoProcessor::DrawArmorRect(cv::Mat &image, const Lightbar_Pair &inputPai
     contour_points.push_back(cp);
     contour_points.push_back(dp);
     cv::RotatedRect rRect = cv::minAreaRect(contour_points);
+    
     cv::circle(image, ap, 5, cv::Scalar(0, 255, 0), -1);
     cv::circle(image, bp, 5, cv::Scalar(0, 255, 0), -1);
     cv::circle(image, cp, 5, cv::Scalar(0, 255, 0), -1);
     cv::circle(image, dp, 5, cv::Scalar(0, 255, 0), -1);
-    DrawRotatedRect(image,rRect,color,thickness);
+    //DrawRotatedRect(image,rRect,color,thickness);
+    //cropRotatedRect(image,rRect);
+    return rRect;
 }
 
 bool VideoProcessor::chk_vaild(cv::RotatedRect &rotrect){
@@ -122,7 +150,7 @@ std::vector<Lightbar_Pair> VideoProcessor::findPairs(std::vector<cv::RotatedRect
                     std::cout<<"Reality:"<<disx<<" "<<disy<<std::endl;
                     std::cout<<std::endl;
                     */
-                    if(((disx < cmpx * 2.500000)&&(disx > cmpx * -2.500000))&&((disy < cmpy * 0.7500)&&(disy > cmpy * -0.7500))){
+                    if(((disx < cmpx * 3.000000)&&(disx > cmpx * -3.000000))&&((disy < cmpy * 0.7500)&&(disy > cmpy * -0.7500))){
                         Lightbar_Pair adds;
                         adds.left_LightBar = (*a);
                         adds.right_LightBar = (*b);
@@ -158,7 +186,33 @@ cv::Mat VideoProcessor::processFrame(const cv::Mat& inputFrame) {
 
     for(const auto & ligpar : lightbars){
         DrawLightbars(processedFrame,ligpar,cv::Scalar(0,255,0),2);
-        DrawArmorRect(processedFrame,ligpar,cv::Scalar(255,255,0),2);
+        cv::RotatedRect armor_re = GetArmorRect(processedFrame,ligpar);
+        DrawRotatedRect(processedFrame,armor_re,cv::Scalar(255,255,0),2);
+    }
+    //std::cout<<std::endl<<lightbars.size()<<std::endl;
+    return processedFrame;
+}
+
+cv::Mat VideoProcessor::processFrame_chopeed(const cv::Mat& inputFrame) {
+    cv::Mat processedFrame = inputFrame.clone();
+    std::vector<cv::RotatedRect> rotaterects = findRect(inputFrame); 
+    //int stk = 0;
+    /*
+    for(const auto & rectan : rotaterects){
+        //std::cout<<rectan.center.x<<" "<<rectan.center.y<<std::endl;
+        //DrawRotatedRect(processedFrame,rectan,cv::Scalar(stk*50,255,stk*50),2);
+        //stk++;
+    }*/
+    std::vector<Lightbar_Pair> lightbars = findPairs(rotaterects,inputFrame);
+    for(const auto & ligpar : lightbars){
+        //DrawLightbars(processedFrame,ligpar,cv::Scalar(0,255,0),2);
+        cv::RotatedRect armor_re = GetArmorRect(processedFrame,ligpar);
+        //DrawRotatedRect(processedFrame,armor_re,cv::Scalar(255,255,0),2);
+        cropRotatedRect(processedFrame,armor_re);
+    }
+    cv::Mat blank_frame(30, 30, CV_8UC3, cv::Scalar(0, 0, 0));
+    if(processedFrame.rows == inputFrame.rows){
+       return blank_frame; 
     }
     //std::cout<<std::endl<<lightbars.size()<<std::endl;
     return processedFrame;

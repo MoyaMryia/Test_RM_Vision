@@ -838,6 +838,8 @@ CMakeFiles/Test.dir/src/main.cpp.o: src/main.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
 CMakeFiles/Test.dir/tools/video_processor.cpp.o: tools/video_processor.cpp \
+  include/armor.hpp \
+  include/structures.hpp \
   include/video_processor.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \

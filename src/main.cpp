@@ -27,9 +27,9 @@ int main(int argc, char** argv) {
     cv::Mat processedFrame;
     //DetectorCNN Dect;
     //Dect.YoloDetector("models");
-    //while (true) {
+    while (true) {
         if (!reader.readFrame(frame)) {
-        //    break;
+            break;
         }
         
         processedFrame = VideoProcessor::processFrame(frame);
@@ -40,10 +40,10 @@ int main(int argc, char** argv) {
         
         cv::imshow("Processed Video", processedFrame);
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27) {
-        //    break;
+            break;
         }
-    //}
-    //cv::destroyAllWindows();
-    cv::waitKey(0);
+    }
+    cv::destroyAllWindows();
+    //cv::waitKey(0);
     return 0;
 }

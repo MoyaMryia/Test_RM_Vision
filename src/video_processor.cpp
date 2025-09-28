@@ -1,7 +1,7 @@
 #include "../include/video_processor.hpp"
 #include "../include/armor.hpp"
 #include <vector>
-
+#include "../include/detect_num.hpp"
 void VideoProcessor::DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness) {
     cv::Point2f vertices[4];
     rotatedRect.points(vertices); // 获取四个顶点
@@ -15,7 +15,6 @@ void VideoProcessor::DrawLightbars(cv::Mat &image, const Lightbar_Pair &inputPai
     DrawRotatedRect(image,inputPairs.left_LightBar,color,thickness);
     DrawRotatedRect(image,inputPairs.right_LightBar,color,thickness);
 }
-//包装一下
 
 cv::Mat VideoProcessor::cropRotatedRect(cv::Mat& frame, const cv::RotatedRect& rRect) {
     float width = rRect.size.width;

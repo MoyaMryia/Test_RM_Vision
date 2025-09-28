@@ -4,10 +4,12 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
-void DetectorCNN::YoloDetector(const std::string& model_path, float conf_threshold, float nms_threshold){
-    //: confidence_threshold(conf_threshold), nms_threshold(nms_threshold), num_classes(80) { 
+void DetectorCNN::YoloDetector(const std::string &model_path, float conf_threshold, float nms_threshold)
+{
+    //: confidence_threshold(conf_threshold), nms_threshold(nms_threshold), num_classes(80) {
     net = cv::dnn::readNetFromONNX(model_path);
-    if (net.empty()) {
+    if (net.empty())
+    {
         std::cerr << "Error: Could not load the ONNX model." << std::endl;
         // Handle error, e.g., throw an exception or exit
     }
@@ -16,7 +18,8 @@ void DetectorCNN::YoloDetector(const std::string& model_path, float conf_thresho
     net.setPreferableTarget(cv::dnn::DNN_TARGET_CPU); // Or DNN_TARGET_CUDA
 }
 
-std::vector<Armor> DetectorCNN::runInference(cv::Mat& frame) {
+std::vector<Armor> DetectorCNN::runInference(cv::Mat &frame)
+{
     // Prepare the frame for the model
     cv::Mat blob;
     cv::dnn::blobFromImage(frame, blob, 1.0 / 255.0, cv::Size(640, 640), cv::Scalar(), true, false);
@@ -31,21 +34,24 @@ std::vector<Armor> DetectorCNN::runInference(cv::Mat& frame) {
     return processOutput(frame, outputs);
 }
 
-std::vector<Armor> DetectorCNN::processOutput(const cv::Mat& frame, const std::vector<cv::Mat>& outputs) {
+std::vector<Armor> DetectorCNN::processOutput(const cv::Mat &frame, const std::vector<cv::Mat> &outputs)
+{
     std::vector<Armor> detections;
     std::vector<cv::Rect> boxes;
     std::vector<float> confidences;
 
     cv::Mat output_data = outputs[0].reshape(1, outputs[0].size[2]);
 
-    for (int i = 0; i < output_data.rows; ++i) {
+    for (int i = 0; i < output_data.rows; ++i)
+    {
         cv::Mat row = output_data.row(i);
         cv::Mat scores = row.colRange(4, 4 + num_classes);
         cv::Point class_id;
         double confidence;
         cv::minMaxLoc(scores, 0, &confidence, 0, &class_id);
 
-        if (confidence > confidence_threshold) {
+        if (confidence > confidence_threshold)
+        {
             float x_center = row.at<float>(0);
             float y_center = row.at<float>(1);
             float width = row.at<float>(2);
@@ -67,7 +73,8 @@ std::vector<Armor> DetectorCNN::processOutput(const cv::Mat& frame, const std::v
     cv::dnn::NMSBoxes(boxes, confidences, confidence_threshold, nms_threshold, indices);
 
     std::vector<Armor> final_detections;
-    for (int idx : indices) {
+    for (int idx : indices)
+    {
         final_detections.push_back(detections[idx]);
     }
 

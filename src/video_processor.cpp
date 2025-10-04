@@ -123,9 +123,24 @@ std::vector<cv::RotatedRect> VideoProcessor::findRect(const cv::Mat &inputFrame)
     cv::threshold(gray_img, binary_image, 120, 255, cv::THRESH_BINARY);
     std::vector<std::vector<cv::Point>> contours;
     cv::findContours(binary_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+    std::vector<std::vector<cv::Point>> filteredContours;
+    double minAreaThreshold = 50; // 设定最小面积阈值（根据你的图像调整）
+    for (const auto& contour : contours) {
+    // 1. 计算轮廓面积
+        double area = cv::contourArea(contour);
+
+        // 2. 过滤：如果面积大于阈值，则保留
+        if (area > minAreaThreshold) {
+            filteredContours.push_back(contour);
+        }
+    }
     std::vector<cv::RotatedRect> rotaterects;
+<<<<<<< HEAD
     for (const auto &contour : contours)
     {
+=======
+    for(const auto & contour : filteredContours){
+>>>>>>> cc5d4d2 (Add Models)
         auto rotaterect = cv::minAreaRect(contour);
         if (chk_vaild(rotaterect))
             rotaterects.emplace_back(rotaterect);

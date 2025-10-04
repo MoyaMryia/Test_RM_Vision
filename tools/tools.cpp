@@ -1,7 +1,8 @@
-#include "../include/detect_num.hpp"
+#include "../include/tools.hpp"
 #include <opencv2/opencv.hpp>
 
-cv::Mat detectNum::enhanceContrast(const cv::Mat &inputFrame)
+
+cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 {
     // 1. 检查输入图像是否为空
     if (inputFrame.empty())
@@ -55,7 +56,7 @@ cv::Mat detectNum::enhanceContrast(const cv::Mat &inputFrame)
     return outputFrame;
 }
 
-cv::Mat detectNum::adjustBrightness(const cv::Mat &inputFrame, int beta)
+cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, int beta)
 {
     // 1. 检查输入图像
     if (inputFrame.empty())
@@ -82,7 +83,24 @@ cv::Mat detectNum::adjustBrightness(const cv::Mat &inputFrame, int beta)
     return outputFrame;
 }
 
-void detectNum::grayandbinary(cv::Mat &inputFrame)
+void tools::DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
+{
+    cv::Point2f vertices[4];
+    rotatedRect.points(vertices); // 获取四个顶点
+    // 绘制轮廓
+    for (int i = 0; i < 4; i++)
+    {
+        line(image, vertices[i], vertices[(i + 1) % 4], color, thickness);
+    }
+}
+
+void tools::DrawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness)
+{
+    tools::DrawRotatedRect(image, inputPairs.left_LightBar, color, thickness);
+    tools::DrawRotatedRect(image, inputPairs.right_LightBar, color, thickness);
+}
+
+std::vector<std::vector<cv::Point>> tools::binaryimages(cv::Mat &inputFrame)
 {
     cv::Mat gray_img;
     cv::cvtColor(inputFrame, gray_img, cv::COLOR_BGR2GRAY);
@@ -109,15 +127,18 @@ void detectNum::grayandbinary(cv::Mat &inputFrame)
             filteredContours.push_back(contour);
         }
     }
-    cv::drawContours(inputFrame, filteredContours, -1, cv::Scalar(0, 0, 255), 2);
+    //cv::drawContours(inputFrame, filteredContours, -1, cv::Scalar(0, 0, 255), 2);
+    return filteredContours;
 }
 
-cv::Mat detectNum::Mainfunction(const cv::Mat &inputFrame)
+
+
+cv::Mat tools::Mainfunction(const cv::Mat &inputFrame)
 {
     cv::Mat outputframe = inputFrame.clone();
     outputframe = enhanceContrast(inputFrame);
     outputframe = enhanceContrast(outputframe);
     // outputframe = adjustBrightness(inputFrame,10);
-    grayandbinary(outputframe);
+    binaryimages(outputframe);
     return outputframe;
 }

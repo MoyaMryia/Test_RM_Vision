@@ -1,23 +1,10 @@
-#include "../include/video_processor.hpp"
+#include "../include/frameprocess.hpp"
 #include "../include/armor.hpp"
 #include <vector>
-#include "../include/detect_num.hpp"
-void VideoProcessor::DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
-{
-    cv::Point2f vertices[4];
-    rotatedRect.points(vertices); // 获取四个顶点
-    // 绘制轮廓
-    for (int i = 0; i < 4; i++)
-    {
-        line(image, vertices[i], vertices[(i + 1) % 4], color, thickness);
-    }
-}
+#include "../include/tools.hpp"
 
-void VideoProcessor::DrawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness)
-{
-    DrawRotatedRect(image, inputPairs.left_LightBar, color, thickness);
-    DrawRotatedRect(image, inputPairs.right_LightBar, color, thickness);
-}
+
+
 
 cv::Mat VideoProcessor::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect)
 {
@@ -47,6 +34,11 @@ cv::Mat VideoProcessor::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &r
     return croppedImage;
 }
 
+
+//Below function is old and shuldn't be used
+//use yolov8 to detect instead.
+//I am considering whether we need to have a OpenVino sample
+//Anyway
 cv::RotatedRect VideoProcessor::GetArmorRect(cv::Mat &image, const Lightbar_Pair &inputPairs)
 {
     std::vector<cv::Point2f> contour_points;
@@ -143,7 +135,6 @@ std::vector<cv::RotatedRect> VideoProcessor::findRect(const cv::Mat &inputFrame)
     return rotaterects;
     // cv::drawContours(processedFrame, contours, -1 ,cv::Scalar(0,0,255),2);
 }
-
 
 std::vector<Lightbar_Pair> VideoProcessor::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
 {

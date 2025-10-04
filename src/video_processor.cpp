@@ -135,12 +135,7 @@ std::vector<cv::RotatedRect> VideoProcessor::findRect(const cv::Mat &inputFrame)
         }
     }
     std::vector<cv::RotatedRect> rotaterects;
-<<<<<<< HEAD
-    for (const auto &contour : contours)
-    {
-=======
     for(const auto & contour : filteredContours){
->>>>>>> cc5d4d2 (Add Models)
         auto rotaterect = cv::minAreaRect(contour);
         if (chk_vaild(rotaterect))
             rotaterects.emplace_back(rotaterect);
@@ -148,6 +143,7 @@ std::vector<cv::RotatedRect> VideoProcessor::findRect(const cv::Mat &inputFrame)
     return rotaterects;
     // cv::drawContours(processedFrame, contours, -1 ,cv::Scalar(0,0,255),2);
 }
+
 
 std::vector<Lightbar_Pair> VideoProcessor::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
 {

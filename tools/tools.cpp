@@ -131,8 +131,6 @@ std::vector<std::vector<cv::Point>> tools::binaryimages(cv::Mat &inputFrame)
     return filteredContours;
 }
 
-
-
 cv::Mat tools::Mainfunction(const cv::Mat &inputFrame)
 {
     cv::Mat outputframe = inputFrame.clone();

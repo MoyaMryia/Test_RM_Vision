@@ -2,8 +2,8 @@
 #include <opencv2/opencv.hpp>
 #include "../include/detect.hpp"
 #include "../include/video_reader.hpp"
-#include "../include/video_processor.hpp"
-#include "../include/detect_num.hpp"
+#include "../include/frameprocess.hpp"
+#include "../include/tools.hpp"
 // #include "video_capture.hpp"
 // Step1 把assets/下面那个视频拉出来 使用opencv处理成图像然后挂事件
 // done
@@ -21,8 +21,6 @@ int main(int argc, char **argv)
         std::cerr << "Usage: " << argv[0] << " <video_file_path>" << std::endl;
         return -1;
     }
-    while (1)
-    {
         VideoReader reader(argv[1]);
         if (!reader.isOpened())
         {
@@ -44,7 +42,7 @@ int main(int argc, char **argv)
             }
             processedFrame = frameProcess::processFrame(frame);
             processedFrame_chopped = frameProcess::processFrame_chopeed(frame);
-            processedFrame_chopped_out = detectNum::Mainfunction(processedFrame_chopped);
+            processedFrame_chopped_out = tools::Mainfunction(processedFrame_chopped);
             cv::imshow("Chopped Video", processedFrame_chopped_out);
             cv::imshow("Processed Video", processedFrame);
             if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27)
@@ -53,9 +51,6 @@ int main(int argc, char **argv)
                 break;
             }
         }
-        if (ds)
-            break;
-    }
     cv::destroyAllWindows();
     return 0;
 }

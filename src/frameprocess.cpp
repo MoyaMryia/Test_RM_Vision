@@ -6,7 +6,7 @@
 
 
 
-cv::Mat VideoProcessor::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect)
+cv::Mat frameProcess::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect)
 {
     float width = rRect.size.width;
     float height = rRect.size.height;
@@ -39,7 +39,7 @@ cv::Mat VideoProcessor::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &r
 //use yolov8 to detect instead.
 //I am considering whether we need to have a OpenVino sample
 //Anyway
-cv::RotatedRect VideoProcessor::GetArmorRect(cv::Mat &image, const Lightbar_Pair &inputPairs)
+cv::RotatedRect frameProcess::GetArmorRect(cv::Mat &image, const Lightbar_Pair &inputPairs)
 {
     std::vector<cv::Point2f> contour_points;
     cv::RotatedRect a_ret = inputPairs.left_LightBar;
@@ -79,7 +79,7 @@ cv::RotatedRect VideoProcessor::GetArmorRect(cv::Mat &image, const Lightbar_Pair
     return rRect;
 }
 
-bool VideoProcessor::chk_vaild(cv::RotatedRect &rotrect)
+bool frameProcess::chk_vaild(cv::RotatedRect &rotrect)
 {
     double ang = rotrect.angle;
     double wid = rotrect.size.width;
@@ -107,7 +107,7 @@ bool VideoProcessor::chk_vaild(cv::RotatedRect &rotrect)
     return 1;
 }
 
-std::vector<cv::RotatedRect> VideoProcessor::findRect(const cv::Mat &inputFrame)
+std::vector<cv::RotatedRect> frameProcess::findRect(const cv::Mat &inputFrame)
 {
     cv::Mat gray_img;
     cv::cvtColor(inputFrame, gray_img, cv::COLOR_BGR2GRAY);
@@ -136,7 +136,7 @@ std::vector<cv::RotatedRect> VideoProcessor::findRect(const cv::Mat &inputFrame)
     // cv::drawContours(processedFrame, contours, -1 ,cv::Scalar(0,0,255),2);
 }
 
-std::vector<Lightbar_Pair> VideoProcessor::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
+std::vector<Lightbar_Pair> frameProcess::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
 {
     std::vector<cv::RotatedRect> exersiRects;
     for (const auto &rects : inputRects)
@@ -198,7 +198,7 @@ std::vector<Lightbar_Pair> VideoProcessor::findPairs(std::vector<cv::RotatedRect
     return out_light;
 }
 
-cv::Mat VideoProcessor::processFrame(const cv::Mat &inputFrame)
+cv::Mat frameProcess::processFrame(const cv::Mat &inputFrame)
 {
     cv::Mat processedFrame = inputFrame.clone();
     std::vector<cv::RotatedRect> rotaterects = findRect(inputFrame);
@@ -214,15 +214,15 @@ cv::Mat VideoProcessor::processFrame(const cv::Mat &inputFrame)
 
     for (const auto &ligpar : lightbars)
     {
-        DrawLightbars(processedFrame, ligpar, cv::Scalar(0, 255, 0), 2);
+        tools::DrawLightbars(processedFrame, ligpar, cv::Scalar(0, 255, 0), 2);
         cv::RotatedRect armor_re = GetArmorRect(processedFrame, ligpar);
-        DrawRotatedRect(processedFrame, armor_re, cv::Scalar(255, 255, 0), 2);
+        tools::DrawRotatedRect(processedFrame, armor_re, cv::Scalar(255, 255, 0), 2);
     }
     // std::cout<<std::endl<<lightbars.size()<<std::endl;
     return processedFrame;
 }
 
-cv::Mat VideoProcessor::processFrame_chopeed(const cv::Mat &inputFrame)
+cv::Mat frameProcess::processFrame_chopeed(const cv::Mat &inputFrame)
 {
     cv::Mat processedFrame = inputFrame.clone();
     std::vector<cv::RotatedRect> rotaterects = findRect(inputFrame);

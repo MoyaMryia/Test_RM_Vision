@@ -2,7 +2,7 @@
 
 #include <opencv2/opencv.hpp>
 #include "structures.hpp"
-class VideoProcessor
+class frameProcess
 {
 public:
     static cv::Mat processFrame(const cv::Mat &inputFrame);

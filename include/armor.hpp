@@ -24,4 +24,11 @@ struct Armor
     float yaw;            // pnp解算出的偏航角
     cv::Point3f p_camera; // pnp解算出的三维位置信息，包含(x, y, z)
 };
+struct Robot
+{
+  Armor armor; // 机器人所包含的Armor类
+  float omega;     // 机器人旋转的角速度
+  float vx;        // 机器人在水平方向的线速度
+  float vz;        // 机器人在垂直方向的线速度
+};
 #endif

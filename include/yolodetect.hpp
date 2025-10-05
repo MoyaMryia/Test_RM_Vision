@@ -107,8 +107,6 @@ private:
     Ort::SessionOptions session_options_;
     unique_ptr<Ort::Session> session_;
     Ort::AllocatorWithDefaultOptions allocator_;
-    
-    // --- 核心修复：存储为 std::string 以确保生命周期管理 ---
     std::string input_name_str_;
     std::string output_name_str_;
 };

@@ -4,7 +4,10 @@
 #include "../include/tools.hpp"
 
 
-
+//Below function is old and shouldn't be used
+//use yolov8 to detect instead.
+//I am considering whether we need to have a OpenVino sample
+//Anyway
 
 cv::Mat frameProcess::processFrame(const cv::Mat &inputFrame)
 {
@@ -58,10 +61,6 @@ cv::Mat frameProcess::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRe
     return croppedImage;
 }
 
-//Below function is old and shouldn't be used
-//use yolov8 to detect instead.
-//I am considering whether we need to have a OpenVino sample
-//Anyway
 cv::RotatedRect frameProcess::GetArmorRect(cv::Mat &image, const Lightbar_Pair &inputPairs)
 {
     std::vector<cv::Point2f> contour_points;

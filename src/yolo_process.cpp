@@ -44,4 +44,3 @@ void YOLOv8Detector::post_process_ort(Mat& frame, const vector<float>& output_da
         }
     }
 }
-

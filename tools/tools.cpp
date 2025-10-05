@@ -7,7 +7,7 @@ const std::vector<std::string> CLASS_NAMES = {
     "watcher_blue", "watcher_red", "watcher_unknown"
 };
 
-void tools::draw_detections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences) {
+void tools::drawDetections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences) {
     for (size_t i = 0; i < boxes.size(); ++i) {
         cv::rectangle(img, boxes[i], cv::Scalar(0, 255, 0), 2);
         std::string label = CLASS_NAMES[classIds[i]] + cv::format(": %.2f", confidences[i]);

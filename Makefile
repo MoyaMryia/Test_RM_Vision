@@ -201,6 +201,30 @@ src/main_old.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main_old.cpp.s
 .PHONY : src/main_old.cpp.s
 
+src/yolo_process.o: src/yolo_process.cpp.o
+.PHONY : src/yolo_process.o
+
+# target to build an object file
+src/yolo_process.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yolo_process.cpp.o
+.PHONY : src/yolo_process.cpp.o
+
+src/yolo_process.i: src/yolo_process.cpp.i
+.PHONY : src/yolo_process.i
+
+# target to preprocess a source file
+src/yolo_process.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yolo_process.cpp.i
+.PHONY : src/yolo_process.cpp.i
+
+src/yolo_process.s: src/yolo_process.cpp.s
+.PHONY : src/yolo_process.s
+
+# target to generate assembly for a file
+src/yolo_process.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yolo_process.cpp.s
+.PHONY : src/yolo_process.cpp.s
+
 tools/tools.o: tools/tools.cpp.o
 .PHONY : tools/tools.o
 
@@ -267,6 +291,9 @@ help:
 	@echo "... src/main_old.o"
 	@echo "... src/main_old.i"
 	@echo "... src/main_old.s"
+	@echo "... src/yolo_process.o"
+	@echo "... src/yolo_process.i"
+	@echo "... src/yolo_process.s"
 	@echo "... tools/tools.o"
 	@echo "... tools/tools.i"
 	@echo "... tools/tools.s"

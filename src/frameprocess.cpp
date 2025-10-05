@@ -6,6 +6,30 @@
 
 
 
+cv::Mat frameProcess::processFrame(const cv::Mat &inputFrame)
+{
+    cv::Mat processedFrame = inputFrame.clone();
+    std::vector<cv::RotatedRect> rotaterects = findRect(inputFrame);
+    // int stk = 0;
+
+    // for(const auto & rectan : rotaterects){
+    // std::cout<<rectan.center.x<<" "<<rectan.center.y<<std::endl;
+    // DrawRotatedRect(processedFrame,rectan,cv::Scalar(0,255,0),2);
+    // stk++;
+    //}
+
+    std::vector<Lightbar_Pair> lightbars = findPairs(rotaterects, inputFrame);
+
+    for (const auto &ligpar : lightbars)
+    {
+        tools::DrawLightbars(processedFrame, ligpar, cv::Scalar(0, 255, 0), 2);
+        cv::RotatedRect armor_re = GetArmorRect(processedFrame, ligpar);
+        tools::DrawRotatedRect(processedFrame, armor_re, cv::Scalar(255, 255, 0), 2);
+    }
+    // std::cout<<std::endl<<lightbars.size()<<std::endl;
+    return processedFrame;
+}
+
 cv::Mat frameProcess::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect)
 {
     float width = rRect.size.width;
@@ -34,8 +58,7 @@ cv::Mat frameProcess::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRe
     return croppedImage;
 }
 
-
-//Below function is old and shuldn't be used
+//Below function is old and shouldn't be used
 //use yolov8 to detect instead.
 //I am considering whether we need to have a OpenVino sample
 //Anyway
@@ -196,30 +219,6 @@ std::vector<Lightbar_Pair> frameProcess::findPairs(std::vector<cv::RotatedRect> 
         a++;
     }
     return out_light;
-}
-
-cv::Mat frameProcess::processFrame(const cv::Mat &inputFrame)
-{
-    cv::Mat processedFrame = inputFrame.clone();
-    std::vector<cv::RotatedRect> rotaterects = findRect(inputFrame);
-    // int stk = 0;
-
-    // for(const auto & rectan : rotaterects){
-    // std::cout<<rectan.center.x<<" "<<rectan.center.y<<std::endl;
-    // DrawRotatedRect(processedFrame,rectan,cv::Scalar(0,255,0),2);
-    // stk++;
-    //}
-
-    std::vector<Lightbar_Pair> lightbars = findPairs(rotaterects, inputFrame);
-
-    for (const auto &ligpar : lightbars)
-    {
-        tools::DrawLightbars(processedFrame, ligpar, cv::Scalar(0, 255, 0), 2);
-        cv::RotatedRect armor_re = GetArmorRect(processedFrame, ligpar);
-        tools::DrawRotatedRect(processedFrame, armor_re, cv::Scalar(255, 255, 0), 2);
-    }
-    // std::cout<<std::endl<<lightbars.size()<<std::endl;
-    return processedFrame;
 }
 
 cv::Mat frameProcess::processFrame_chopeed(const cv::Mat &inputFrame)

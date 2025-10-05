@@ -12,4 +12,5 @@ public:
     static cv::Mat adjustBrightness(const cv::Mat &inputFrame, int beta);
     static void DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness);
     static cv::Mat Mainfunction(const cv::Mat &inputFrame);
+    static void draw_detections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences);
 };

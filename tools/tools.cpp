@@ -1,6 +1,29 @@
 #include "../include/tools.hpp"
 #include <opencv2/opencv.hpp>
 
+const std::vector<std::string> CLASS_NAMES = {
+    "armor_blue", "armor_grey", "armor_red", 
+    "car_blue", "car_red", "car_unknown", 
+    "watcher_blue", "watcher_red", "watcher_unknown"
+};
+
+void tools::draw_detections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences) {
+    for (size_t i = 0; i < boxes.size(); ++i) {
+        cv::rectangle(img, boxes[i], cv::Scalar(0, 255, 0), 2);
+        std::string label = CLASS_NAMES[classIds[i]] + cv::format(": %.2f", confidences[i]);
+
+        int baseLine;
+        cv::Size label_size = cv::getTextSize(label, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+
+        int top = boxes[i].tl().y;
+        cv::rectangle(img, cv::Point(boxes[i].tl().x, top - label_size.height - baseLine),
+                  cv::Point(boxes[i].tl().x + label_size.width, top),
+                  cv::Scalar(0, 255, 0), cv::FILLED);
+
+        cv::putText(img, label, cv::Point(boxes[i].tl().x, top - baseLine),
+                cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1);
+    }
+}
 
 cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 {

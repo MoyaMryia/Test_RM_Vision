@@ -100,7 +100,6 @@ public:
         
         return vector<float>(raw_output, raw_output + total_elements);
     }
-    static void draw_detections(Mat& img, const vector<Rect>& boxes, const vector<int>& classIds, const vector<float>& confidences);
     static void post_process_ort(Mat& frame, const vector<float>& output_data, 
                       vector<Rect>& boxes, vector<int>& classIds, vector<float>& confidences);
 private:

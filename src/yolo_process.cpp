@@ -9,28 +9,7 @@
 #include "../include/yolodetect.hpp"
 using namespace cv;
 using namespace std;
-const vector<string> CLASS_NAMES = {
-    "armor_blue", "armor_grey", "armor_red", 
-    "car_blue", "car_red", "car_unknown", 
-    "watcher_blue", "watcher_red", "watcher_unknown"
-};
-void YOLOv8Detector::draw_detections(Mat& img, const vector<Rect>& boxes, const vector<int>& classIds, const vector<float>& confidences) {
-    for (size_t i = 0; i < boxes.size(); ++i) {
-        rectangle(img, boxes[i], Scalar(0, 255, 0), 2);
-        string label = CLASS_NAMES[classIds[i]] + format(": %.2f", confidences[i]);
 
-        int baseLine;
-        Size label_size = getTextSize(label, FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-
-        int top = boxes[i].tl().y;
-        rectangle(img, Point(boxes[i].tl().x, top - label_size.height - baseLine),
-                  Point(boxes[i].tl().x + label_size.width, top),
-                  Scalar(0, 255, 0), FILLED);
-
-        putText(img, label, Point(boxes[i].tl().x, top - baseLine),
-                FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 0), 1);
-    }
-}
 
 void YOLOv8Detector::post_process_ort(Mat& frame, const vector<float>& output_data, 
                       vector<Rect>& boxes, vector<int>& classIds, vector<float>& confidences) {

@@ -10,8 +10,6 @@
 #include "../include/video_reader.hpp"
 #include "../include/frameprocess.hpp"
 #include "../include/tools.hpp"
-// using namespace cv;
-// using namespace std;
 
 int main()
 {
@@ -44,7 +42,7 @@ int main()
         YOLOv8Detector::post_process_ort(frame, output_data, boxes, classIds, confidences);
 
         // 5. 绘制结果
-        YOLOv8Detector::draw_detections(frame, boxes, classIds, confidences);
+        tools::draw_detections(frame, boxes, classIds, confidences);
         //std::cout << "Final detected objects after confidence filter: " << boxes.size() << std::endl;
 
         // 6. 显示结果

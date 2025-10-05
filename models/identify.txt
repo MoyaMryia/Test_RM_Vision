@@ -1,0 +1,9 @@
+armor_blue
+armor_grey
+armor_red
+car_blue
+car_red
+car_unknown
+watcher_blue
+watcher_red
+watcher_unknown

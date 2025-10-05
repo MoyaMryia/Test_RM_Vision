@@ -14,13 +14,6 @@ struct Lightbar_Pair
 
 struct Armor
 {
-    int class_id;
-    float confidence;
-    cv::Rect box;
-};
-
-struct Armor_out
-{
     cv::Rect Box;     // 方形位置，使用cv::Rect来表示装甲板的矩形框
     float confidence; // ResNet识别的置信度
     cv::Scalar color; // 装甲板的颜色，使用cv::Scalar表示（BGR格式）

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include "../include/detect.hpp"
 #include "../include/video_reader.hpp"
 #include "../include/frameprocess.hpp"
 #include "../include/tools.hpp"
@@ -13,7 +12,7 @@
 // Step3 OPENCV confirm 装甲
 // Step4 预测
 
-int main(int argc, char **argv)
+int main_old(int argc, char **argv)
 {
 
     if (argc < 2)
@@ -30,8 +29,6 @@ int main(int argc, char **argv)
         cv::Mat processedFrame;
         cv::Mat processedFrame_chopped;
         cv::Mat processedFrame_chopped_out;
-        // DetectorCNN Dect;
-        // Dect.YoloDetector("models");
         bool ds = 0;
         while (true)
         {

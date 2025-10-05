@@ -1,108 +1,68 @@
-#include "yolodetect.hpp"
-#include <fstream>
 #include <iostream>
-
+#include <fstream>
+#include <vector>
+#include <string>
+#include <numeric>
+#include <memory> // for std::unique_ptr
+#include <opencv2/opencv.hpp> // 引入 OpenCV 用于图像处理和绘制
+#include <onnxruntime/onnxruntime_cxx_api.h> // 引入 ONNX Runtime
+#include "../include/yolodetect.hpp"
 using namespace cv;
-using namespace cv::dnn;
 using namespace std;
+const vector<string> CLASS_NAMES = {
+    "armor_blue", "armor_grey", "armor_red", 
+    "car_blue", "car_red", "car_unknown", 
+    "watcher_blue", "watcher_red", "watcher_unknown"
+};
+void YOLOv8Detector::draw_detections(Mat& img, const vector<Rect>& boxes, const vector<int>& classIds, const vector<float>& confidences) {
+    for (size_t i = 0; i < boxes.size(); ++i) {
+        rectangle(img, boxes[i], Scalar(0, 255, 0), 2);
+        string label = CLASS_NAMES[classIds[i]] + format(": %.2f", confidences[i]);
 
-// 构造函数实现（不变）
-YOLOv8::YOLOv8(const std::string& model_path, const std::string& class_list_path) {
-    // 1. 加载模型
-    try {
-        net = readNetFromONNX(model_path);
-        net.setPreferableBackend(DNN_BACKEND_OPENCV);
-        net.setPreferableTarget(DNN_TARGET_CPU); 
-    } catch (const cv::Exception& e) {
-        cerr << "Error loading ONNX model: " << e.what() << endl;
-        exit(EXIT_FAILURE);
+        int baseLine;
+        Size label_size = getTextSize(label, FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+
+        int top = boxes[i].tl().y;
+        rectangle(img, Point(boxes[i].tl().x, top - label_size.height - baseLine),
+                  Point(boxes[i].tl().x + label_size.width, top),
+                  Scalar(0, 255, 0), FILLED);
+
+        putText(img, label, Point(boxes[i].tl().x, top - baseLine),
+                FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 0, 0), 1);
     }
-    
-    // 2. 加载类别名称
-    load_class_list(class_list_path);
 }
 
-// 加载类别名称文件实现（不变）
-void YOLOv8::load_class_list(const std::string& class_list_path) {
-    // ... (不变)
-}
-
-// 推理函数实现
-vector<Detection> YOLOv8::infer(Mat& image) {
-    // 1. 预处理：创建4D blob
-    Mat blob;
-    // 使用新的 1280x1280 尺寸来创建 blob
-    blobFromImage(image, blob, 1.0/255.0, Size(INPUT_WIDTH, INPUT_HEIGHT), Scalar(), true, false); 
+void YOLOv8Detector::post_process_ort(Mat& frame, const vector<float>& output_data, 
+                      vector<Rect>& boxes, vector<int>& classIds, vector<float>& confidences) {
+    const int num_elements = 6; 
     
-    net.setInput(blob);
+    size_t total_elements = output_data.size();
+    if (total_elements % num_elements != 0) {
+        cerr << "Warning: Output size is not a multiple of " << num_elements << ". Total elements: " << total_elements << endl;
+        return;
+    }
+    int num_detections = total_elements / num_elements;
 
-    // 2. 前向传播（推理）
-    vector<Mat> outputs;
-    net.forward(outputs, net.getUnconnectedOutLayersNames());
-
-    // 3. 后处理
-    vector<Detection> detections;
-    post_process(image, outputs[0], detections);
-
-    return detections;
-}
-
-// 后处理函数实现
-void YOLOv8::post_process(Mat& frame, const Mat& output, vector<Detection>& detections) {
-    Mat data_T = output.reshape(1, output.size[1]);
-    Mat detection_data = data_T.t();
-
-    const int dimensions = detection_data.cols;
-    const int rows = detection_data.rows;
-    const int num_classes = dimensions - 4; 
-
-    vector<int> class_ids;
-    vector<float> confidences;
-    vector<Rect> boxes;
-
-    // 关键点：这里会使用 frame.cols (1280) 和 INPUT_WIDTH (1280)
-    float x_factor = (float)frame.cols / INPUT_WIDTH;
-    // 关键点：这里会使用 frame.rows (1020) 和 INPUT_HEIGHT (1280)
-    float y_factor = (float)frame.rows / INPUT_HEIGHT;
-    
-    // ... (后续的循环和 NMS 逻辑不变)
-    for (int i = 0; i < rows; ++i) {
-        float* row_ptr = detection_data.ptr<float>(i);
+    for (int i = 0; i < num_detections; ++i) {
+        size_t offset = i * num_elements;
         
-        Mat scores(1, num_classes, CV_32F, row_ptr + 4);
-        
-        Point class_id_point;
-        double max_confidence;
-        minMaxLoc(scores, 0, &max_confidence, 0, &class_id_point);
-        
-        if (max_confidence > SCORE_THRESHOLD) {
-            confidences.push_back((float)max_confidence);
-            class_ids.push_back(class_id_point.x);
-            
-            float cx = row_ptr[0];
-            float cy = row_ptr[1];
-            float w = row_ptr[2];
-            float h = row_ptr[3];
-            
-            // 转换为 (左上角x, 左上角y, 宽度, 高度)
-            int left = (int)((cx - 0.5f * w) * x_factor);
-            int top = (int)((cy - 0.5f * h) * y_factor);
-            int width = (int)(w * x_factor);
-            int height = (int)(h * y_factor);
-            
-            boxes.push_back(Rect(left, top, width, height));
+        float x1 = output_data[offset + 0];
+        float y1 = output_data[offset + 1];
+        float x2 = output_data[offset + 2];
+        float y2 = output_data[offset + 3];
+        float confidence = output_data[offset + 4];
+        int class_id = static_cast<int>(output_data[offset + 5]); 
+
+        if (confidence >= CONFIDENCE_THRESHOLD) {
+            int left = static_cast<int>(x1 * frame.cols / INPUT_WIDTH);
+            int top = static_cast<int>(y1 * frame.rows / INPUT_HEIGHT);
+            int right = static_cast<int>(x2 * frame.cols / INPUT_WIDTH);
+            int bottom = static_cast<int>(y2 * frame.rows / INPUT_HEIGHT);
+
+            boxes.emplace_back(left, top, right - left, bottom - top);
+            classIds.push_back(class_id);
+            confidences.push_back(confidence);
         }
     }
-
-    vector<int> indices;
-    NMSBoxes(boxes, confidences, SCORE_THRESHOLD, NMS_THRESHOLD, indices);
-
-    for (size_t i = 0; i < indices.size(); i++) {
-        int idx = indices[i];
-        Detection det;
-        det.class_id = class_ids[idx];
-        det.confidence = confidences[idx];
-        det.box = boxes[idx];
-        detections.push_back(det);
-    }
 }
+

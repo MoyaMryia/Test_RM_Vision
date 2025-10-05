@@ -1,74 +1,61 @@
 #include <iostream>
-#include <opencv2/opencv.hpp>
 #include <fstream>
+#include <vector>
+#include <string>
+#include <numeric>
+#include <memory>                            // for std::unique_ptr
+#include <opencv2/opencv.hpp>                // 引入 OpenCV 用于图像处理和绘制
+#include <onnxruntime/onnxruntime_cxx_api.h> // 引入 ONNX Runtime
+#include "../include/yolodetect.hpp"
 #include "../include/video_reader.hpp"
 #include "../include/frameprocess.hpp"
 #include "../include/tools.hpp"
-#include "../include/yolodetect.hpp"
+// using namespace cv;
+// using namespace std;
 
-void draw_detections(cv::Mat &frame, const std::vector<Detection> &detections, const std::vector<std::string> &class_list)
+int main()
 {
-    for (const auto &det : detections)
-    {
-        // 绘制矩形框
-        rectangle(frame, det.box, cv::Scalar(0, 255, 0), 2);
-
-        // 构建标签文本
-        std::string label = class_list[det.class_id] + cv::format(": %.2f", det.confidence);
-
-        // 绘制标签背景
-        int baseLine;
-        cv::Size label_size = getTextSize(label, cv::HersheyFonts::FONT_HERSHEY_SIMPLEX, 0.7, 1, &baseLine);
-        int top = cv::max(det.box.tl().y, label_size.height);
-        cv::rectangle(frame, cv::Point(det.box.tl().x, top - label_size.height),
-                      cv::Point(det.box.tl().x + label_size.width, top + baseLine),
-                      cv::Scalar(0, 255, 0), cv::LineTypes::FILLED);
-
-        // 绘制标签文本
-        cv::putText(frame, label, cv::Point(det.box.tl().x, top),
-                    cv::HersheyFonts::FONT_HERSHEY_SIMPLEX, 0.7, cv::Scalar(0, 0, 0), 1);
-    }
-}
-int main(int argc, char **argv)
-{
-
-    if (argc < 4)
+    // 1. 初始化和加载模型
+    YOLOv8Detector detector;
+    if (!detector.loadModel(MODEL_PATH))
     {
         return -1;
     }
-    VideoReader reader(argv[3]);
-    const std::string model_path = argv[1];
-    const std::string class_list_path = argv[2];
+    VideoReader reader(VIDEO_PATH);
     if (!reader.isOpened())
     {
         return -1;
     }
     cv::Mat frame;
-    YOLOv8 detector(model_path, class_list_path);
-    std::vector<std::string> class_list;
-    std::ifstream ifs(class_list_path);
-    std::string line;
-    while (getline(ifs, line))
-    {
-        class_list.push_back(line);
-    }
     while (true)
     {
         if (!reader.readFrame(frame))
         {
             break;
         }
-        std::vector<Detection> detections = detector.infer(frame);
-        // cv::imshow("Originate Video", frame);
-        // 5. 绘制检测结果
-        draw_detections(frame, detections, class_list);
-        cv::imshow("Originate Video", frame);
-        std::cout << "Found " << detections.size() << " objects." << std::endl;
+        // 3. 推理
+        std::vector<float> output_data = detector.preprocessAndInference(frame);
+        // std::cout << "Inference complete. Detected candidate boxes: " << output_data.size() / 6 << std::endl;
+
+        // 4. 后处理
+        std::vector<Rect> boxes;
+        std::vector<int> classIds;
+        std::vector<float> confidences;
+        YOLOv8Detector::post_process_ort(frame, output_data, boxes, classIds, confidences);
+
+        // 5. 绘制结果
+        YOLOv8Detector::draw_detections(frame, boxes, classIds, confidences);
+        //std::cout << "Final detected objects after confidence filter: " << boxes.size() << std::endl;
+
+        // 6. 显示结果
+        cv::namedWindow("YOLOv8 Detection (ONNX Runtime)", cv::WINDOW_NORMAL);
+        cv::imshow("YOLOv8 Detection (ONNX Runtime)", frame);
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27)
         {
             break;
         }
     }
     cv::destroyAllWindows();
+
     return 0;
 }

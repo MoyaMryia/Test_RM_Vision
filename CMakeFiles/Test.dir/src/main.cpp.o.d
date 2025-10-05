@@ -148,7 +148,35 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/c++/13/bits/locale_facets.tcc \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
- /usr/include/c++/13/bits/istream.tcc \
+ /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/fstream \
+ /usr/include/c++/13/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
+ /usr/include/c++/13/bits/fstream.tcc /usr/include/c++/13/vector \
+ /usr/include/c++/13/bits/stl_uninitialized.h \
+ /usr/include/c++/13/bits/stl_vector.h \
+ /usr/include/c++/13/bits/stl_bvector.h \
+ /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/numeric \
+ /usr/include/c++/13/bits/stl_numeric.h \
+ /usr/include/c++/13/pstl/glue_numeric_defs.h \
+ /usr/include/c++/13/pstl/execution_defs.h /usr/include/c++/13/memory \
+ /usr/include/c++/13/bits/stl_tempbuf.h \
+ /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/13/bits/align.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
+ /usr/include/c++/13/bits/unique_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr_base.h \
+ /usr/include/c++/13/bits/allocated_ptr.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/ext/concurrence.h \
+ /usr/include/c++/13/bits/shared_ptr_atomic.h \
+ /usr/include/c++/13/bits/atomic_base.h \
+ /usr/include/c++/13/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/13/backward/auto_ptr.h \
+ /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \
@@ -156,9 +184,6 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/opencv4/opencv2/core/version.hpp /usr/include/c++/13/limits \
  /usr/include/opencv4/opencv2/core/hal/interface.h \
  /usr/include/c++/13/cstdint \
- /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /usr/include/opencv4/opencv2/core/cv_cpu_dispatch.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/emmintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
@@ -179,9 +204,7 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/c++/13/bits/algorithmfwd.h \
  /usr/include/c++/13/bits/stl_heap.h \
  /usr/include/c++/13/bits/uniform_int_dist.h \
- /usr/include/c++/13/bits/stl_tempbuf.h \
  /usr/include/c++/13/pstl/glue_algorithm_defs.h \
- /usr/include/c++/13/pstl/execution_defs.h \
  /usr/include/opencv4/opencv2/core/cvstd.hpp /usr/include/c++/13/cstring \
  /usr/include/string.h /usr/include/strings.h /usr/include/c++/13/utility \
  /usr/include/c++/13/bits/stl_relops.h /usr/include/c++/13/cmath \
@@ -207,19 +230,6 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
  /usr/include/c++/13/tr1/riemann_zeta.tcc \
  /usr/include/opencv4/opencv2/core/cvstd_wrapper.hpp \
- /usr/include/c++/13/memory /usr/include/c++/13/bits/stl_uninitialized.h \
- /usr/include/c++/13/bits/stl_raw_storage_iter.h \
- /usr/include/c++/13/bits/align.h /usr/include/c++/13/bits/unique_ptr.h \
- /usr/include/c++/13/bits/shared_ptr.h \
- /usr/include/c++/13/bits/shared_ptr_base.h \
- /usr/include/c++/13/bits/allocated_ptr.h \
- /usr/include/c++/13/ext/aligned_buffer.h \
- /usr/include/c++/13/ext/concurrence.h \
- /usr/include/c++/13/bits/shared_ptr_atomic.h \
- /usr/include/c++/13/bits/atomic_base.h \
- /usr/include/c++/13/bits/atomic_lockfree_defines.h \
- /usr/include/c++/13/backward/auto_ptr.h \
- /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/opencv4/opencv2/core/neon_utils.hpp \
  /usr/include/opencv4/opencv2/core/vsx_utils.hpp /usr/include/assert.h \
  /usr/include/opencv4/opencv2/core/check.hpp \
@@ -229,9 +239,6 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/opencv4/opencv2/core/fast_math.hpp \
  /usr/include/opencv4/opencv2/core/types.hpp /usr/include/c++/13/cfloat \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h \
- /usr/include/c++/13/vector /usr/include/c++/13/bits/stl_vector.h \
- /usr/include/c++/13/bits/stl_bvector.h \
- /usr/include/c++/13/bits/vector.tcc \
  /usr/include/opencv4/opencv2/core/mat.hpp \
  /usr/include/opencv4/opencv2/core/bufferpool.hpp \
  /usr/include/opencv4/opencv2/core/mat.inl.hpp \
@@ -304,8 +311,7 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/c++/13/bits/locale_facets_nonio.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/time_members.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h \
- /usr/include/libintl.h /usr/include/c++/13/bits/codecvt.h \
- /usr/include/c++/13/bits/locale_facets_nonio.tcc \
+ /usr/include/libintl.h /usr/include/c++/13/bits/locale_facets_nonio.tcc \
  /usr/include/c++/13/bits/locale_conv.h \
  /usr/include/c++/13/bits/quoted_string.h /usr/include/c++/13/math.h \
  /usr/include/opencv4/opencv2/flann/autotuned_index.h \
@@ -350,14 +356,18 @@ CMakeFiles/Test.dir/src/main.cpp.o: /home/moyamryia/NJU_RM/src/main.cpp \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
  /usr/include/opencv4/opencv2/video/background_segm.hpp \
- /usr/include/c++/13/fstream \
- /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
- /usr/include/c++/13/bits/fstream.tcc \
+ /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
+ /usr/local/include/onnxruntime/onnxruntime_c_api.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
+ /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
+ /usr/local/include/onnxruntime/onnxruntime_float16.h \
+ /usr/include/c++/13/variant \
+ /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
+ /usr/include/c++/13/iterator /usr/include/c++/13/bits/stream_iterator.h \
+ /home/moyamryia/NJU_RM/src/../include/yolodetect.hpp \
  /home/moyamryia/NJU_RM/src/../include/video_reader.hpp \
  /home/moyamryia/NJU_RM/src/../include/frameprocess.hpp \
  /home/moyamryia/NJU_RM/src/../include/structures.hpp \
  /home/moyamryia/NJU_RM/src/../include/armor.hpp \
  /home/moyamryia/NJU_RM/src/../include/tools.hpp \
- /home/moyamryia/NJU_RM/include/../include/armor.hpp \
- /home/moyamryia/NJU_RM/src/../include/yolodetect.hpp
+ /home/moyamryia/NJU_RM/include/../include/armor.hpp

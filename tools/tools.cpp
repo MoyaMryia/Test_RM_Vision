@@ -7,24 +7,6 @@ const std::vector<std::string> CLASS_NAMES = {
     "watcher_blue", "watcher_red", "watcher_unknown"
 };
 
-void tools::drawDetections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences) {
-    for (size_t i = 0; i < boxes.size(); ++i) {
-        cv::rectangle(img, boxes[i], cv::Scalar(0, 255, 0), 2);
-        std::string label = CLASS_NAMES[classIds[i]] + cv::format(": %.2f", confidences[i]);
-
-        int baseLine;
-        cv::Size label_size = cv::getTextSize(label, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
-
-        int top = boxes[i].tl().y;
-        cv::rectangle(img, cv::Point(boxes[i].tl().x, top - label_size.height - baseLine),
-                  cv::Point(boxes[i].tl().x + label_size.width, top),
-                  cv::Scalar(0, 255, 0), cv::FILLED);
-
-        cv::putText(img, label, cv::Point(boxes[i].tl().x, top - baseLine),
-                cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1);
-    }
-}
-
 cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 {
     // 1. 检查输入图像是否为空
@@ -106,7 +88,14 @@ cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, int beta)
     return outputFrame;
 }
 
-void tools::DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
+std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame){
+    std::vector<cv::Mat> outputFrame;
+
+
+    return outputFrame;
+}
+
+void tools::drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
 {
     cv::Point2f vertices[4];
     rotatedRect.points(vertices); // 获取四个顶点
@@ -117,13 +106,13 @@ void tools::DrawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, 
     }
 }
 
-void tools::DrawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness)
+void tools::drawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness)
 {
-    tools::DrawRotatedRect(image, inputPairs.left_LightBar, color, thickness);
-    tools::DrawRotatedRect(image, inputPairs.right_LightBar, color, thickness);
+    tools::drawRotatedRect(image, inputPairs.left_LightBar, color, thickness);
+    tools::drawRotatedRect(image, inputPairs.right_LightBar, color, thickness);
 }
 
-std::vector<std::vector<cv::Point>> tools::binaryimages(cv::Mat &inputFrame)
+std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame)
 {
     cv::Mat gray_img;
     cv::cvtColor(inputFrame, gray_img, cv::COLOR_BGR2GRAY);
@@ -154,7 +143,27 @@ std::vector<std::vector<cv::Point>> tools::binaryimages(cv::Mat &inputFrame)
     return filteredContours;
 }
 
-cv::Mat tools::Mainfunction(const cv::Mat &inputFrame)
+//Test Functions Don't Use in FINAL.
+
+void tools::drawDetections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences) {
+    for (size_t i = 0; i < boxes.size(); ++i) {
+        cv::rectangle(img, boxes[i], cv::Scalar(0, 255, 0), 2);
+        std::string label = CLASS_NAMES[classIds[i]] + cv::format(": %.2f", confidences[i]);
+
+        int baseLine;
+        cv::Size label_size = cv::getTextSize(label, cv::FONT_HERSHEY_SIMPLEX, 0.5, 1, &baseLine);
+
+        int top = boxes[i].tl().y;
+        cv::rectangle(img, cv::Point(boxes[i].tl().x, top - label_size.height - baseLine),
+                  cv::Point(boxes[i].tl().x + label_size.width, top),
+                  cv::Scalar(0, 255, 0), cv::FILLED);
+
+        cv::putText(img, label, cv::Point(boxes[i].tl().x, top - baseLine),
+                cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1);
+    }
+}
+
+cv::Mat tools::mainFunction(const cv::Mat &inputFrame)
 {
     cv::Mat outputframe = inputFrame.clone();
     outputframe = enhanceContrast(inputFrame);

@@ -129,30 +129,6 @@ Test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
 .PHONY : Test/fast
 
-src/frameprocess.o: src/frameprocess.cpp.o
-.PHONY : src/frameprocess.o
-
-# target to build an object file
-src/frameprocess.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/frameprocess.cpp.o
-.PHONY : src/frameprocess.cpp.o
-
-src/frameprocess.i: src/frameprocess.cpp.i
-.PHONY : src/frameprocess.i
-
-# target to preprocess a source file
-src/frameprocess.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/frameprocess.cpp.i
-.PHONY : src/frameprocess.cpp.i
-
-src/frameprocess.s: src/frameprocess.cpp.s
-.PHONY : src/frameprocess.s
-
-# target to generate assembly for a file
-src/frameprocess.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/frameprocess.cpp.s
-.PHONY : src/frameprocess.cpp.s
-
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -176,30 +152,6 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
-
-src/main_old.o: src/main_old.cpp.o
-.PHONY : src/main_old.o
-
-# target to build an object file
-src/main_old.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main_old.cpp.o
-.PHONY : src/main_old.cpp.o
-
-src/main_old.i: src/main_old.cpp.i
-.PHONY : src/main_old.i
-
-# target to preprocess a source file
-src/main_old.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main_old.cpp.i
-.PHONY : src/main_old.cpp.i
-
-src/main_old.s: src/main_old.cpp.s
-.PHONY : src/main_old.s
-
-# target to generate assembly for a file
-src/main_old.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main_old.cpp.s
-.PHONY : src/main_old.cpp.s
 
 src/yolo_process.o: src/yolo_process.cpp.o
 .PHONY : src/yolo_process.o
@@ -282,15 +234,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Test"
-	@echo "... src/frameprocess.o"
-	@echo "... src/frameprocess.i"
-	@echo "... src/frameprocess.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/main_old.o"
-	@echo "... src/main_old.i"
-	@echo "... src/main_old.s"
 	@echo "... src/yolo_process.o"
 	@echo "... src/yolo_process.i"
 	@echo "... src/yolo_process.s"

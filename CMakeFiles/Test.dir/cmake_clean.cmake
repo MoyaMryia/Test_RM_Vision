@@ -1,10 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Test.dir/src/frameprocess.cpp.o"
-  "CMakeFiles/Test.dir/src/frameprocess.cpp.o.d"
   "CMakeFiles/Test.dir/src/main.cpp.o"
   "CMakeFiles/Test.dir/src/main.cpp.o.d"
-  "CMakeFiles/Test.dir/src/main_old.cpp.o"
-  "CMakeFiles/Test.dir/src/main_old.cpp.o.d"
   "CMakeFiles/Test.dir/src/yolo_process.cpp.o"
   "CMakeFiles/Test.dir/src/yolo_process.cpp.o.d"
   "CMakeFiles/Test.dir/tools/tools.cpp.o"

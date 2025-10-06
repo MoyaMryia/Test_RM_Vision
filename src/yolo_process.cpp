@@ -11,13 +11,14 @@ using namespace cv;
 using namespace std;
 
 
+
+
 void YOLOv8Detector::post_process_ort(Mat& frame, const vector<float>& output_data, 
                       vector<Rect>& boxes, vector<int>& classIds, vector<float>& confidences) {
     const int num_elements = 6; 
     
     size_t total_elements = output_data.size();
     if (total_elements % num_elements != 0) {
-        cerr << "Warning: Output size is not a multiple of " << num_elements << ". Total elements: " << total_elements << endl;
         return;
     }
     int num_detections = total_elements / num_elements;

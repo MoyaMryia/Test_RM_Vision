@@ -177,6 +177,30 @@ src/yolo_process.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yolo_process.cpp.s
 .PHONY : src/yolo_process.cpp.s
 
+tools/afterDetections.o: tools/afterDetections.cpp.o
+.PHONY : tools/afterDetections.o
+
+# target to build an object file
+tools/afterDetections.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.o
+.PHONY : tools/afterDetections.cpp.o
+
+tools/afterDetections.i: tools/afterDetections.cpp.i
+.PHONY : tools/afterDetections.i
+
+# target to preprocess a source file
+tools/afterDetections.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.i
+.PHONY : tools/afterDetections.cpp.i
+
+tools/afterDetections.s: tools/afterDetections.cpp.s
+.PHONY : tools/afterDetections.s
+
+# target to generate assembly for a file
+tools/afterDetections.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.s
+.PHONY : tools/afterDetections.cpp.s
+
 tools/tools.o: tools/tools.cpp.o
 .PHONY : tools/tools.o
 
@@ -201,29 +225,29 @@ tools/tools.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/tools.cpp.s
 .PHONY : tools/tools.cpp.s
 
-tools/video_reader.o: tools/video_reader.cpp.o
-.PHONY : tools/video_reader.o
+tools/videoReader.o: tools/videoReader.cpp.o
+.PHONY : tools/videoReader.o
 
 # target to build an object file
-tools/video_reader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_reader.cpp.o
-.PHONY : tools/video_reader.cpp.o
+tools/videoReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/videoReader.cpp.o
+.PHONY : tools/videoReader.cpp.o
 
-tools/video_reader.i: tools/video_reader.cpp.i
-.PHONY : tools/video_reader.i
+tools/videoReader.i: tools/videoReader.cpp.i
+.PHONY : tools/videoReader.i
 
 # target to preprocess a source file
-tools/video_reader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_reader.cpp.i
-.PHONY : tools/video_reader.cpp.i
+tools/videoReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/videoReader.cpp.i
+.PHONY : tools/videoReader.cpp.i
 
-tools/video_reader.s: tools/video_reader.cpp.s
-.PHONY : tools/video_reader.s
+tools/videoReader.s: tools/videoReader.cpp.s
+.PHONY : tools/videoReader.s
 
 # target to generate assembly for a file
-tools/video_reader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/video_reader.cpp.s
-.PHONY : tools/video_reader.cpp.s
+tools/videoReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/videoReader.cpp.s
+.PHONY : tools/videoReader.cpp.s
 
 # Help Target
 help:
@@ -240,12 +264,15 @@ help:
 	@echo "... src/yolo_process.o"
 	@echo "... src/yolo_process.i"
 	@echo "... src/yolo_process.s"
+	@echo "... tools/afterDetections.o"
+	@echo "... tools/afterDetections.i"
+	@echo "... tools/afterDetections.s"
 	@echo "... tools/tools.o"
 	@echo "... tools/tools.i"
 	@echo "... tools/tools.s"
-	@echo "... tools/video_reader.o"
-	@echo "... tools/video_reader.i"
-	@echo "... tools/video_reader.s"
+	@echo "... tools/videoReader.o"
+	@echo "... tools/videoReader.i"
+	@echo "... tools/videoReader.s"
 .PHONY : help
 
 

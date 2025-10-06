@@ -169,6 +169,6 @@ cv::Mat tools::mainFunction(const cv::Mat &inputFrame)
     outputframe = enhanceContrast(inputFrame);
     outputframe = enhanceContrast(outputframe);
     // outputframe = adjustBrightness(inputFrame,10);
-    binaryimages(outputframe);
+    getContours(outputframe);
     return outputframe;
 }

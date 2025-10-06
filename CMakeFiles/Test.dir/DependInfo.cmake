@@ -10,8 +10,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/moyamryia/NJU_RM/src/main.cpp" "CMakeFiles/Test.dir/src/main.cpp.o" "gcc" "CMakeFiles/Test.dir/src/main.cpp.o.d"
   "/home/moyamryia/NJU_RM/src/yolo_process.cpp" "CMakeFiles/Test.dir/src/yolo_process.cpp.o" "gcc" "CMakeFiles/Test.dir/src/yolo_process.cpp.o.d"
+  "/home/moyamryia/NJU_RM/tools/afterDetections.cpp" "CMakeFiles/Test.dir/tools/afterDetections.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/afterDetections.cpp.o.d"
   "/home/moyamryia/NJU_RM/tools/tools.cpp" "CMakeFiles/Test.dir/tools/tools.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/tools.cpp.o.d"
-  "/home/moyamryia/NJU_RM/tools/video_reader.cpp" "CMakeFiles/Test.dir/tools/video_reader.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/video_reader.cpp.o.d"
+  "/home/moyamryia/NJU_RM/tools/videoReader.cpp" "CMakeFiles/Test.dir/tools/videoReader.cpp.o" "gcc" "CMakeFiles/Test.dir/tools/videoReader.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

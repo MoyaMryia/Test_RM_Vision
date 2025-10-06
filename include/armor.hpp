@@ -2,6 +2,7 @@
 // but I don't have any GPUs
 // fuck.
 #include <opencv2/opencv.hpp>
+#include <vector>
 #ifndef ARMOR_HPP
 
 #define ARMOR_HPP
@@ -19,16 +20,17 @@ struct Armor
     cv::Scalar color; // 装甲板的颜色，使用cv::Scalar表示（BGR格式）
     int detect_id;    // 自动分配的装甲板ID
     int car_num;      // 根据ResNet识别结果得到的装甲板数字
-    Lightbar_Pair Lightbar;
+    Lightbar_Pair Lightbars;
     float priority;       // 评分系统给出的打击评分
     float yaw;            // pnp解算出的偏航角
     cv::Point3f p_camera; // pnp解算出的三维位置信息，包含(x, y, z)
 };
 struct Robot
 {
-  Armor armor; // 机器人所包含的Armor类
+  std::vector<Armor> armor; // 机器人所包含的Armor类
   float omega;     // 机器人旋转的角速度
   float vx;        // 机器人在水平方向的线速度
   float vz;        // 机器人在垂直方向的线速度
+  int carorwatcher; //是机器人还是哨兵
 };
 #endif

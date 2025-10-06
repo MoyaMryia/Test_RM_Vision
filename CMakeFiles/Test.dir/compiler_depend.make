@@ -3,12 +3,10 @@
 
 CMakeFiles/Test.dir/src/main.cpp.o: src/main.cpp \
   include/armor.hpp \
-  include/armor.hpp \
   include/frameprocess.hpp \
-  include/structures.hpp \
-  include/tools.hpp \
-  include/video_reader.hpp \
+  include/videoReader.hpp \
   include/yolodetect.hpp \
+  include/tools.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -869,8 +867,12 @@ CMakeFiles/Test.dir/src/yolo_process.cpp.o: src/yolo_process.cpp \
   /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
   /usr/local/include/onnxruntime/onnxruntime_float16.h
 
-CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
+CMakeFiles/Test.dir/tools/afterDetections.cpp.o: tools/afterDetections.cpp \
   include/armor.hpp \
+  include/frameprocess.hpp \
+  include/videoReader.hpp \
+  include/yolodetect.hpp \
+  include/pnp_solver.hpp \
   include/tools.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -906,6 +908,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
+  /usr/include/c++/13/bits/fstream.tcc \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
@@ -961,6 +964,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/c++/13/bits/stl_map.h \
   /usr/include/c++/13/bits/stl_multimap.h \
   /usr/include/c++/13/bits/stl_multiset.h \
+  /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
   /usr/include/c++/13/bits/stl_queue.h \
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
@@ -970,6 +974,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/c++/13/bits/stl_tree.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
+  /usr/include/c++/13/bits/stream_iterator.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
@@ -1010,6 +1015,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/fstream \
   /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/iomanip \
@@ -1017,6 +1023,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/iterator \
   /usr/include/c++/13/limits \
   /usr/include/c++/13/list \
   /usr/include/c++/13/locale \
@@ -1025,10 +1032,12 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/c++/13/memory \
   /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
+  /usr/include/c++/13/numeric \
   /usr/include/c++/13/ostream \
   /usr/include/c++/13/pstl/execution_defs.h \
   /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/glue_memory_defs.h \
+  /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/queue \
   /usr/include/c++/13/ratio \
@@ -1057,6 +1066,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
   /usr/include/c++/13/utility \
+  /usr/include/c++/13/variant \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -1256,8 +1266,10 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
@@ -1280,13 +1292,23 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/mm_malloc.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/mmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
+  /usr/local/include/onnxruntime/onnxruntime_c_api.h \
+  /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
+  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
+  /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
+  /usr/local/include/onnxruntime/onnxruntime_float16.h
 
-CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
-  include/video_reader.hpp \
+CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
+  include/armor.hpp \
+  include/frameprocess.hpp \
+  include/videoReader.hpp \
+  include/yolodetect.hpp \
+  include/tools.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -1321,6 +1343,7 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/c++/13/bits/exception.h \
   /usr/include/c++/13/bits/exception_defines.h \
   /usr/include/c++/13/bits/exception_ptr.h \
+  /usr/include/c++/13/bits/fstream.tcc \
   /usr/include/c++/13/bits/functexcept.h \
   /usr/include/c++/13/bits/functional_hash.h \
   /usr/include/c++/13/bits/hash_bytes.h \
@@ -1376,6 +1399,7 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/c++/13/bits/stl_map.h \
   /usr/include/c++/13/bits/stl_multimap.h \
   /usr/include/c++/13/bits/stl_multiset.h \
+  /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
   /usr/include/c++/13/bits/stl_queue.h \
   /usr/include/c++/13/bits/stl_raw_storage_iter.h \
@@ -1385,6 +1409,7 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/c++/13/bits/stl_tree.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
   /usr/include/c++/13/bits/stl_vector.h \
+  /usr/include/c++/13/bits/stream_iterator.h \
   /usr/include/c++/13/bits/streambuf.tcc \
   /usr/include/c++/13/bits/streambuf_iterator.h \
   /usr/include/c++/13/bits/string_view.tcc \
@@ -1425,6 +1450,7 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/c++/13/ext/numeric_traits.h \
   /usr/include/c++/13/ext/string_conversions.h \
   /usr/include/c++/13/ext/type_traits.h \
+  /usr/include/c++/13/fstream \
   /usr/include/c++/13/functional \
   /usr/include/c++/13/initializer_list \
   /usr/include/c++/13/iomanip \
@@ -1432,6 +1458,7 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/c++/13/iosfwd \
   /usr/include/c++/13/iostream \
   /usr/include/c++/13/istream \
+  /usr/include/c++/13/iterator \
   /usr/include/c++/13/limits \
   /usr/include/c++/13/list \
   /usr/include/c++/13/locale \
@@ -1440,10 +1467,12 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/c++/13/memory \
   /usr/include/c++/13/mutex \
   /usr/include/c++/13/new \
+  /usr/include/c++/13/numeric \
   /usr/include/c++/13/ostream \
   /usr/include/c++/13/pstl/execution_defs.h \
   /usr/include/c++/13/pstl/glue_algorithm_defs.h \
   /usr/include/c++/13/pstl/glue_memory_defs.h \
+  /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/c++/13/queue \
   /usr/include/c++/13/ratio \
@@ -1472,6 +1501,7 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/c++/13/typeinfo \
   /usr/include/c++/13/unordered_map \
   /usr/include/c++/13/utility \
+  /usr/include/c++/13/variant \
   /usr/include/c++/13/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -1671,8 +1701,10 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++allocator.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h \
@@ -1695,15 +1727,21 @@ CMakeFiles/Test.dir/tools/video_reader.cpp.o: tools/video_reader.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/mm_malloc.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/mmintrin.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
+  /usr/local/include/onnxruntime/onnxruntime_c_api.h \
+  /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
+  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
+  /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
+  /usr/local/include/onnxruntime/onnxruntime_float16.h
 
-
-tools/video_reader.cpp:
 
 tools/tools.cpp:
+
+include/pnp_solver.hpp:
 
 src/yolo_process.cpp:
 
@@ -1925,10 +1963,6 @@ src/yolo_process.cpp:
 
 /usr/include/opencv4/opencv2/flann/defines.h:
 
-/usr/include/opencv4/opencv2/imgproc.hpp:
-
-/usr/include/opencv4/opencv2/flann/config.h:
-
 /usr/include/c++/13/cmath:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
@@ -1987,6 +2021,10 @@ src/yolo_process.cpp:
 
 /usr/include/c++/13/bits/stl_iterator_base_types.h:
 
+/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
+
+/usr/include/asm-generic/errno.h:
+
 /usr/include/c++/13/bits/functexcept.h:
 
 /usr/include/c++/13/bits/std_mutex.h:
@@ -2009,9 +2047,9 @@ src/yolo_process.cpp:
 
 /usr/include/c++/13/bits/uses_allocator.h:
 
-/usr/include/c++/13/bits/postypes.h:
-
 /usr/include/c++/13/bits/stl_multiset.h:
+
+/usr/include/c++/13/bits/postypes.h:
 
 /usr/include/c++/13/cstdint:
 
@@ -2020,10 +2058,6 @@ src/yolo_process.cpp:
 /usr/include/c++/13/bits/sstream.tcc:
 
 /usr/include/c++/13/cwctype:
-
-/usr/include/c++/13/bits/stl_list.h:
-
-/usr/include/c++/13/bits/erase_if.h:
 
 /usr/include/c++/13/bits/stringfwd.h:
 
@@ -2036,6 +2070,10 @@ src/yolo_process.cpp:
 /usr/include/c++/13/bits/requires_hosted.h:
 
 /usr/include/c++/13/bits/locale_facets.tcc:
+
+/usr/include/c++/13/compare:
+
+/usr/include/c++/13/system_error:
 
 /usr/include/c++/13/bits/ptr_traits.h:
 
@@ -2059,6 +2097,12 @@ src/yolo_process.cpp:
 
 /usr/include/c++/13/bits/memoryfwd.h:
 
+/usr/include/opencv4/opencv2/calib3d.hpp:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/opencv4/opencv2/core/types.hpp:
+
 /usr/include/c++/13/bits/stl_queue.h:
 
 /usr/include/c++/13/bits/atomic_lockfree_defines.h:
@@ -2073,12 +2117,6 @@ src/yolo_process.cpp:
 
 /usr/include/c++/13/bits/concept_check.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
-
-/usr/include/asm-generic/errno.h:
-
-include/structures.hpp:
-
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/c++/13/bits/algorithmfwd.h:
@@ -2089,13 +2127,15 @@ include/structures.hpp:
 
 /usr/include/opencv4/opencv2/core/matx.hpp:
 
-src/main.cpp:
-
-/usr/include/c++/13/bits/predefined_ops.h:
-
 /usr/include/c++/13/iosfwd:
 
-include/video_reader.hpp:
+/usr/include/wchar.h:
+
+/usr/include/c++/13/bits/shared_ptr_base.h:
+
+/usr/local/include/onnxruntime/onnxruntime_cxx_inline.h:
+
+/usr/include/c++/13/bits/basic_ios.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
@@ -2119,43 +2159,27 @@ include/video_reader.hpp:
 
 /usr/include/c++/13/algorithm:
 
-/usr/include/opencv4/opencv2/flann.hpp:
+/usr/include/opencv4/opencv2/flann/general.h:
+
+/usr/include/c++/13/bits/exception_ptr.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/c++/13/bits/stl_multimap.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
+
+/usr/include/c++/13/bits/std_function.h:
+
+/usr/include/c++/13/bits/char_traits.h:
+
+/usr/include/c++/13/bits/hashtable_policy.h:
 
 /usr/local/include/onnxruntime/onnxruntime_float16.h:
 
 /usr/include/c++/13/bits/basic_string.h:
 
 /usr/include/c++/13/tr1/poly_laguerre.tcc:
-
-/usr/include/opencv4/opencv2/stitching/detail/exposure_compensate.hpp:
-
-include/armor.hpp:
-
-/usr/include/libintl.h:
-
-/usr/include/c++/13/bits/invoke.h:
-
-/usr/include/c++/13/bits/specfun.h:
-
-/usr/include/c++/13/bits/streambuf.tcc:
-
-/usr/include/stdint.h:
-
-/usr/include/opencv4/opencv2/photo.hpp:
-
-/usr/include/endian.h:
-
-/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
-
-include/tools.hpp:
-
-/usr/include/wchar.h:
-
-/usr/include/c++/13/bits/shared_ptr_base.h:
-
-/usr/local/include/onnxruntime/onnxruntime_cxx_inline.h:
-
-/usr/include/c++/13/bits/basic_ios.h:
 
 /usr/include/c++/13/math.h:
 
@@ -2201,7 +2225,39 @@ include/yolodetect.hpp:
 
 /usr/include/c++/13/utility:
 
+/usr/include/c++/13/bits/invoke.h:
+
+/usr/include/c++/13/bits/specfun.h:
+
+/usr/include/c++/13/bits/streambuf.tcc:
+
+/usr/include/stdint.h:
+
+/usr/include/opencv4/opencv2/photo.hpp:
+
+/usr/include/endian.h:
+
+/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
+
+include/tools.hpp:
+
 /usr/include/alloca.h:
+
+/usr/include/c++/13/bits/stl_list.h:
+
+/usr/include/c++/13/bits/erase_if.h:
+
+include/videoReader.hpp:
+
+/usr/include/c++/13/bits/localefwd.h:
+
+/usr/local/include/onnxruntime/onnxruntime_c_api.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/c++/13/bits/locale_classes.h:
+
+tools/afterDetections.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
 
@@ -2213,12 +2269,6 @@ include/yolodetect.hpp:
 
 /usr/include/asm-generic/errno-base.h:
 
-/usr/include/opencv4/opencv2/core/optim.hpp:
-
-/usr/include/c++/13/backward/auto_ptr.h:
-
-/usr/include/assert.h:
-
 /usr/include/c++/13/bits/stl_vector.h:
 
 /usr/include/c++/13/bits/stl_tempbuf.h:
@@ -2229,27 +2279,19 @@ include/yolodetect.hpp:
 
 /usr/include/opencv4/opencv2/flann/any.h:
 
-/usr/include/opencv4/opencv2/calib3d.hpp:
+/usr/include/opencv4/opencv2/stitching/detail/exposure_compensate.hpp:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+/usr/include/libintl.h:
 
-/usr/include/opencv4/opencv2/core/types.hpp:
+include/armor.hpp:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
+/usr/include/opencv4/opencv2/flann.hpp:
 
-/usr/include/c++/13/bits/std_function.h:
+/usr/include/assert.h:
 
-/usr/include/c++/13/bits/char_traits.h:
+/usr/include/opencv4/opencv2/core/optim.hpp:
 
-/usr/include/c++/13/bits/hashtable_policy.h:
-
-/usr/include/opencv4/opencv2/flann/general.h:
-
-/usr/include/c++/13/bits/exception_ptr.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
-
-/usr/include/c++/13/bits/stl_multimap.h:
+/usr/include/c++/13/backward/auto_ptr.h:
 
 /usr/include/opencv4/opencv2/core/traits.hpp:
 
@@ -2275,7 +2317,9 @@ include/frameprocess.hpp:
 
 /usr/include/c++/13/istream:
 
-/usr/include/c++/13/bits/localefwd.h:
+/usr/include/c++/13/bits/predefined_ops.h:
+
+src/main.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
@@ -2297,21 +2341,11 @@ include/frameprocess.hpp:
 
 /usr/include/errno.h:
 
-/usr/local/include/onnxruntime/onnxruntime_c_api.h:
-
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
-/usr/include/c++/13/bits/locale_classes.h:
-
 /usr/include/c++/13/bits/uniform_int_dist.h:
 
 /usr/include/c++/13/bits/locale_classes.tcc:
 
 /usr/include/c++/13/bits/locale_facets_nonio.h:
-
-/usr/include/c++/13/system_error:
-
-/usr/include/c++/13/compare:
 
 /usr/include/c++/13/complex:
 
@@ -2576,3 +2610,7 @@ include/frameprocess.hpp:
 /usr/include/opencv4/opencv2/features2d.hpp:
 
 /usr/include/opencv4/opencv2/flann/composite_index.h:
+
+/usr/include/opencv4/opencv2/imgproc.hpp:
+
+/usr/include/opencv4/opencv2/flann/config.h:

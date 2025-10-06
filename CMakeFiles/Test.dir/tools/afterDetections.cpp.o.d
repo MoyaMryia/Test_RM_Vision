@@ -1,5 +1,7 @@
-CMakeFiles/Test.dir/tools/tools.cpp.o: \
- /home/moyamryia/NJU_RM/tools/tools.cpp /usr/include/stdc-predef.h \
+CMakeFiles/Test.dir/tools/afterDetections.cpp.o: \
+ /home/moyamryia/NJU_RM/tools/afterDetections.cpp \
+ /usr/include/stdc-predef.h \
+ /home/moyamryia/NJU_RM/tools/../include/pnp_solver.hpp \
  /home/moyamryia/NJU_RM/tools/../include/tools.hpp \
  /home/moyamryia/NJU_RM/include/../include/armor.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \

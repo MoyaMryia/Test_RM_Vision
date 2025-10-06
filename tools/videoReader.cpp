@@ -1,4 +1,4 @@
-#include "../include/video_reader.hpp"
+#include "../include/videoReader.hpp"
 
 VideoReader::VideoReader(const std::string &videoPath)
 {

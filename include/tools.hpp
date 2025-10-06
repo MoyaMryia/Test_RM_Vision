@@ -10,7 +10,6 @@
 #include <onnxruntime/onnxruntime_cxx_api.h> // 引入 ONNX Runtime
 #include "../include/yolodetect.hpp"
 #include "../include/videoReader.hpp"
-#include "../include/frameprocess.hpp"
 class tools
 {
 public:
@@ -21,5 +20,6 @@ public:
     static void drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness);
     static cv::Mat mainFunction(const cv::Mat &inputFrame);
     static std::vector<cv::Mat> chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame);
-    static void drawDetections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences);
+    static void drawDetections(cv::Mat &img, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences);
+    static void classifyArmors(int &total, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences, std::vector<Robot> &cars, std::vector<Robot> &watchers, std::vector<Armor> &armors);
 };

@@ -83,19 +83,19 @@ CMakeFiles/Test.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/src/main.cpp -o CMakeFiles/Test.dir/src/main.cpp.s
 
-CMakeFiles/Test.dir/src/yolo_process.cpp.o: CMakeFiles/Test.dir/flags.make
-CMakeFiles/Test.dir/src/yolo_process.cpp.o: src/yolo_process.cpp
-CMakeFiles/Test.dir/src/yolo_process.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Test.dir/src/yolo_process.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/yolo_process.cpp.o -MF CMakeFiles/Test.dir/src/yolo_process.cpp.o.d -o CMakeFiles/Test.dir/src/yolo_process.cpp.o -c /home/moyamryia/NJU_RM/src/yolo_process.cpp
+CMakeFiles/Test.dir/src/yoloProcess.cpp.o: CMakeFiles/Test.dir/flags.make
+CMakeFiles/Test.dir/src/yoloProcess.cpp.o: src/yoloProcess.cpp
+CMakeFiles/Test.dir/src/yoloProcess.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Test.dir/src/yoloProcess.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/src/yoloProcess.cpp.o -MF CMakeFiles/Test.dir/src/yoloProcess.cpp.o.d -o CMakeFiles/Test.dir/src/yoloProcess.cpp.o -c /home/moyamryia/NJU_RM/src/yoloProcess.cpp
 
-CMakeFiles/Test.dir/src/yolo_process.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/src/yolo_process.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/src/yolo_process.cpp > CMakeFiles/Test.dir/src/yolo_process.cpp.i
+CMakeFiles/Test.dir/src/yoloProcess.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/src/yoloProcess.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/src/yoloProcess.cpp > CMakeFiles/Test.dir/src/yoloProcess.cpp.i
 
-CMakeFiles/Test.dir/src/yolo_process.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/yolo_process.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/src/yolo_process.cpp -o CMakeFiles/Test.dir/src/yolo_process.cpp.s
+CMakeFiles/Test.dir/src/yoloProcess.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/src/yoloProcess.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/src/yoloProcess.cpp -o CMakeFiles/Test.dir/src/yoloProcess.cpp.s
 
 CMakeFiles/Test.dir/tools/afterDetections.cpp.o: CMakeFiles/Test.dir/flags.make
 CMakeFiles/Test.dir/tools/afterDetections.cpp.o: tools/afterDetections.cpp
@@ -111,10 +111,24 @@ CMakeFiles/Test.dir/tools/afterDetections.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/tools/afterDetections.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/tools/afterDetections.cpp -o CMakeFiles/Test.dir/tools/afterDetections.cpp.s
 
+CMakeFiles/Test.dir/tools/robotCalculations.cpp.o: CMakeFiles/Test.dir/flags.make
+CMakeFiles/Test.dir/tools/robotCalculations.cpp.o: tools/robotCalculations.cpp
+CMakeFiles/Test.dir/tools/robotCalculations.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Test.dir/tools/robotCalculations.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/tools/robotCalculations.cpp.o -MF CMakeFiles/Test.dir/tools/robotCalculations.cpp.o.d -o CMakeFiles/Test.dir/tools/robotCalculations.cpp.o -c /home/moyamryia/NJU_RM/tools/robotCalculations.cpp
+
+CMakeFiles/Test.dir/tools/robotCalculations.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Test.dir/tools/robotCalculations.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/moyamryia/NJU_RM/tools/robotCalculations.cpp > CMakeFiles/Test.dir/tools/robotCalculations.cpp.i
+
+CMakeFiles/Test.dir/tools/robotCalculations.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Test.dir/tools/robotCalculations.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/moyamryia/NJU_RM/tools/robotCalculations.cpp -o CMakeFiles/Test.dir/tools/robotCalculations.cpp.s
+
 CMakeFiles/Test.dir/tools/tools.cpp.o: CMakeFiles/Test.dir/flags.make
 CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp
 CMakeFiles/Test.dir/tools/tools.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Test.dir/tools/tools.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Test.dir/tools/tools.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/tools/tools.cpp.o -MF CMakeFiles/Test.dir/tools/tools.cpp.o.d -o CMakeFiles/Test.dir/tools/tools.cpp.o -c /home/moyamryia/NJU_RM/tools/tools.cpp
 
 CMakeFiles/Test.dir/tools/tools.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.s: cmake_force
 CMakeFiles/Test.dir/tools/videoReader.cpp.o: CMakeFiles/Test.dir/flags.make
 CMakeFiles/Test.dir/tools/videoReader.cpp.o: tools/videoReader.cpp
 CMakeFiles/Test.dir/tools/videoReader.cpp.o: CMakeFiles/Test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Test.dir/tools/videoReader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Test.dir/tools/videoReader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Test.dir/tools/videoReader.cpp.o -MF CMakeFiles/Test.dir/tools/videoReader.cpp.o.d -o CMakeFiles/Test.dir/tools/videoReader.cpp.o -c /home/moyamryia/NJU_RM/tools/videoReader.cpp
 
 CMakeFiles/Test.dir/tools/videoReader.cpp.i: cmake_force
@@ -142,8 +156,9 @@ CMakeFiles/Test.dir/tools/videoReader.cpp.s: cmake_force
 # Object files for target Test
 Test_OBJECTS = \
 "CMakeFiles/Test.dir/src/main.cpp.o" \
-"CMakeFiles/Test.dir/src/yolo_process.cpp.o" \
+"CMakeFiles/Test.dir/src/yoloProcess.cpp.o" \
 "CMakeFiles/Test.dir/tools/afterDetections.cpp.o" \
+"CMakeFiles/Test.dir/tools/robotCalculations.cpp.o" \
 "CMakeFiles/Test.dir/tools/tools.cpp.o" \
 "CMakeFiles/Test.dir/tools/videoReader.cpp.o"
 
@@ -151,8 +166,9 @@ Test_OBJECTS = \
 Test_EXTERNAL_OBJECTS =
 
 Test: CMakeFiles/Test.dir/src/main.cpp.o
-Test: CMakeFiles/Test.dir/src/yolo_process.cpp.o
+Test: CMakeFiles/Test.dir/src/yoloProcess.cpp.o
 Test: CMakeFiles/Test.dir/tools/afterDetections.cpp.o
+Test: CMakeFiles/Test.dir/tools/robotCalculations.cpp.o
 Test: CMakeFiles/Test.dir/tools/tools.cpp.o
 Test: CMakeFiles/Test.dir/tools/videoReader.cpp.o
 Test: CMakeFiles/Test.dir/build.make
@@ -213,7 +229,7 @@ Test: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.6.0
 Test: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.6.0
 Test: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.6.0
 Test: CMakeFiles/Test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/moyamryia/NJU_RM/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable Test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

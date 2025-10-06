@@ -153,29 +153,29 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/yolo_process.o: src/yolo_process.cpp.o
-.PHONY : src/yolo_process.o
+src/yoloProcess.o: src/yoloProcess.cpp.o
+.PHONY : src/yoloProcess.o
 
 # target to build an object file
-src/yolo_process.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yolo_process.cpp.o
-.PHONY : src/yolo_process.cpp.o
+src/yoloProcess.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yoloProcess.cpp.o
+.PHONY : src/yoloProcess.cpp.o
 
-src/yolo_process.i: src/yolo_process.cpp.i
-.PHONY : src/yolo_process.i
+src/yoloProcess.i: src/yoloProcess.cpp.i
+.PHONY : src/yoloProcess.i
 
 # target to preprocess a source file
-src/yolo_process.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yolo_process.cpp.i
-.PHONY : src/yolo_process.cpp.i
+src/yoloProcess.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yoloProcess.cpp.i
+.PHONY : src/yoloProcess.cpp.i
 
-src/yolo_process.s: src/yolo_process.cpp.s
-.PHONY : src/yolo_process.s
+src/yoloProcess.s: src/yoloProcess.cpp.s
+.PHONY : src/yoloProcess.s
 
 # target to generate assembly for a file
-src/yolo_process.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yolo_process.cpp.s
-.PHONY : src/yolo_process.cpp.s
+src/yoloProcess.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yoloProcess.cpp.s
+.PHONY : src/yoloProcess.cpp.s
 
 tools/afterDetections.o: tools/afterDetections.cpp.o
 .PHONY : tools/afterDetections.o
@@ -200,6 +200,30 @@ tools/afterDetections.s: tools/afterDetections.cpp.s
 tools/afterDetections.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.s
 .PHONY : tools/afterDetections.cpp.s
+
+tools/robotCalculations.o: tools/robotCalculations.cpp.o
+.PHONY : tools/robotCalculations.o
+
+# target to build an object file
+tools/robotCalculations.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/robotCalculations.cpp.o
+.PHONY : tools/robotCalculations.cpp.o
+
+tools/robotCalculations.i: tools/robotCalculations.cpp.i
+.PHONY : tools/robotCalculations.i
+
+# target to preprocess a source file
+tools/robotCalculations.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/robotCalculations.cpp.i
+.PHONY : tools/robotCalculations.cpp.i
+
+tools/robotCalculations.s: tools/robotCalculations.cpp.s
+.PHONY : tools/robotCalculations.s
+
+# target to generate assembly for a file
+tools/robotCalculations.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/robotCalculations.cpp.s
+.PHONY : tools/robotCalculations.cpp.s
 
 tools/tools.o: tools/tools.cpp.o
 .PHONY : tools/tools.o
@@ -261,12 +285,15 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/yolo_process.o"
-	@echo "... src/yolo_process.i"
-	@echo "... src/yolo_process.s"
+	@echo "... src/yoloProcess.o"
+	@echo "... src/yoloProcess.i"
+	@echo "... src/yoloProcess.s"
 	@echo "... tools/afterDetections.o"
 	@echo "... tools/afterDetections.i"
 	@echo "... tools/afterDetections.s"
+	@echo "... tools/robotCalculations.o"
+	@echo "... tools/robotCalculations.i"
+	@echo "... tools/robotCalculations.s"
 	@echo "... tools/tools.o"
 	@echo "... tools/tools.i"
 	@echo "... tools/tools.s"

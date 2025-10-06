@@ -1,11 +1,23 @@
 #include "../include/tools.hpp"
 #include <opencv2/opencv.hpp>
-
+float maxx(float a, float b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+float minn(float a, float b)
+{
+    if (a < b)
+        return a;
+    else
+        return b;
+}
 const std::vector<std::string> CLASS_NAMES = {
-    "armor_blue", "armor_grey", "armor_red", 
-    "car_blue", "car_red", "car_unknown", 
-    "watcher_blue", "watcher_red", "watcher_unknown"
-};
+    "armor_blue", "armor_grey", "armor_red",
+    "car_blue", "car_red", "car_unknown",
+    "watcher_blue", "watcher_red", "watcher_unknown"};
 
 cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 {
@@ -88,9 +100,9 @@ cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, int beta)
     return outputFrame;
 }
 
-std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame){
+std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame)
+{
     std::vector<cv::Mat> outputFrame;
-
 
     return outputFrame;
 }
@@ -139,14 +151,55 @@ std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame)
             filteredContours.push_back(contour);
         }
     }
-    //cv::drawContours(inputFrame, filteredContours, -1, cv::Scalar(0, 0, 255), 2);
+    // cv::drawContours(inputFrame, filteredContours, -1, cv::Scalar(0, 0, 255), 2);
     return filteredContours;
 }
 
-//Test Functions Don't Use in FINAL.
+void tools::classifyArmors(int &total, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences, std::vector<Robot> &cars, std::vector<Robot> &watchers, std::vector<Armor> &armors)
+{
+    for (size_t i = 0; i < boxes.size(); ++i)
+    {
+        if (classIds[i] < 3)
+        {
+            // 这里先筛选所有装甲
+            Armor t;
+            t.Box = boxes[i];
+            t.confidence = confidences[i];
+            t.color = cv::Scalar(maxx(255, classIds[i] * 255), 255 * ((classIds[i]) % 2), minn(255, classIds[i] * 255)); // Actually, this is trickey!
+            t.detect_id = total;
+            total++;
+            armors.push_back(t);
+        }
+        else
+        {
+            Robot t;
+            t.robotrect = boxes[i];
+            t.confidence = confidences[i];
+            if (classIds[i] < 6)
+            {
+                int k = classIds[i] - 3;
+                // blue 0 red 1 white 2;
+                t.color = cv::Scalar(maxx(255, std::abs(k - 1) * 255), maxx(0, 255 * (k - 1)), min(255, 255 * k));
+                t.carorwatcher = 1;
+                cars.push_back(t);
+            }
+            else
+            {
+                int k = classIds[i] - 6;
+                // blue 0 red 1 white 2;
+                t.color = cv::Scalar(maxx(255, std::abs(k - 1) * 255), maxx(0, 255 * (k - 1)), min(255, 255 * k));
+                t.carorwatcher = 0;
+                watchers.push_back(t);
+            }
+        }
+    }
+}
+// Test Functions Don't Use in FINAL.
 
-void tools::drawDetections(cv::Mat& img, const std::vector<cv::Rect>& boxes, const std::vector<int>& classIds, const std::vector<float>& confidences) {
-    for (size_t i = 0; i < boxes.size(); ++i) {
+void tools::drawDetections(cv::Mat &img, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences)
+{
+    for (size_t i = 0; i < boxes.size(); ++i)
+    {
         cv::rectangle(img, boxes[i], cv::Scalar(0, 255, 0), 2);
         std::string label = CLASS_NAMES[classIds[i]] + cv::format(": %.2f", confidences[i]);
 
@@ -155,11 +208,11 @@ void tools::drawDetections(cv::Mat& img, const std::vector<cv::Rect>& boxes, con
 
         int top = boxes[i].tl().y;
         cv::rectangle(img, cv::Point(boxes[i].tl().x, top - label_size.height - baseLine),
-                  cv::Point(boxes[i].tl().x + label_size.width, top),
-                  cv::Scalar(0, 255, 0), cv::FILLED);
+                      cv::Point(boxes[i].tl().x + label_size.width, top),
+                      cv::Scalar(0, 255, 0), cv::FILLED);
 
         cv::putText(img, label, cv::Point(boxes[i].tl().x, top - baseLine),
-                cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1);
+                    cv::FONT_HERSHEY_SIMPLEX, 0.5, cv::Scalar(0, 0, 0), 1);
     }
 }
 

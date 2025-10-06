@@ -368,5 +368,4 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: \
  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
  /usr/include/c++/13/iterator /usr/include/c++/13/bits/stream_iterator.h \
  /home/moyamryia/NJU_RM/tools/../include/../include/yolodetect.hpp \
- /home/moyamryia/NJU_RM/tools/../include/../include/videoReader.hpp \
- /home/moyamryia/NJU_RM/tools/../include/../include/frameprocess.hpp
+ /home/moyamryia/NJU_RM/tools/../include/../include/videoReader.hpp

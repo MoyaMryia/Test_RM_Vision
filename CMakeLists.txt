@@ -9,49 +9,60 @@
 
 #source venv_yolov8/bin/activate
 cmake_minimum_required(VERSION 3.12)
-project(Test)
+project(Test CXX)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-# 查找必要的包
 find_package(OpenCV REQUIRED)
-find_package(OpenVINO QUIET)
+set(ONNXRUNTIME_REL_PATH "onnxruntime") 
 
-# 设置ONNX Runtime路径（根据您的安装路径修改）
-set(ONNXRUNTIME_ROOT "onnxruntime/" CACHE PATH "ONNX Runtime root directory")
+# 使用 CMAKE_SOURCE_DIR 构造 ONNX Runtime 库的绝对路径
+set(ONNXRUNTIME_ROOT ${CMAKE_SOURCE_DIR}/${ONNXRUNTIME_REL_PATH})
 
-# 查找ONNX Runtime
+# 检查路径是否存在（可选，但推荐）
+if(NOT IS_DIRECTORY ${ONNXRUNTIME_ROOT})
+    message(FATAL_ERROR "ONNX Runtime root directory not found at: ${ONNXRUNTIME_ROOT}")
+endif()
+
+# 3. 查找共享库文件 (libonnxruntime.so)
+find_library(ONNXRUNTIME_LIBRARY
+    NAMES onnxruntime 
+    HINTS 
+        ${ONNXRUNTIME_ROOT}
+        ${ONNXRUNTIME_ROOT}/lib
+    REQUIRED
+)
+
+# 4. 查找头文件 (onnxruntime_cxx_api.h)
 find_path(ONNXRUNTIME_INCLUDE_DIR
     NAMES onnxruntime_cxx_api.h
-    PATHS ${ONNXRUNTIME_ROOT}/include
-    /usr/include/onnxruntime
-    /usr/local/include/onnxruntime
+    HINTS 
+        ${ONNXRUNTIME_ROOT}
+        ${ONNXRUNTIME_ROOT}/include
+    REQUIRED
 )
 
-find_library(ONNXRUNTIME_LIBRARY
-    NAMES onnxruntime
-    PATHS ${ONNXRUNTIME_ROOT}/lib
-    /usr/lib
-    /usr/local/lib
+# 检查是否找到
+if(NOT ONNXRUNTIME_LIBRARY)
+    message(FATAL_ERROR "ONNX Runtime library (libonnxruntime.so) not found in ${ONNXRUNTIME_ROOT}.")
+endif()
+
+include_directories(
+    ${OpenCV_INCLUDE_DIRS} 
+    ${ONNXRUNTIME_INCLUDE_DIR}
+    include/
 )
 
-# 包含目录
-include_directories(${ONNXRUNTIME_INCLUDE_DIR} ${OpenCV_INCLUDE_DIRS} include/)
 
-# 添加可执行文件
 file(GLOB SOURCES_TOOLS "tools/*.cpp")
 file(GLOB SOURCES_SRC "src/*.cpp")
-#add_executable(yolov8_inference main.cpp)
-add_executable( Test ${SOURCES_SRC} ${SOURCES_TOOLS} )
+add_executable(Test ${SOURCES_SRC} ${SOURCES_TOOLS})
 
-# 链接库
+
 target_link_libraries(Test 
-    ${OpenCV_LIBS} 
-    ${ONNXRUNTIME_LIBRARY}
-)
-
-# 设置属性
-set_target_properties(Test PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED ON
+    PRIVATE 
+        ${OpenCV_LIBS} 
+        ${ONNXRUNTIME_LIBRARY}
 )

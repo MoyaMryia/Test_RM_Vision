@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/moyamryia/NJU_RM/onnxruntime/include -I/home/moyamryia/NJU_RM/include -isystem /usr/include/opencv4
 
-CXX_FLAGS = -std=gnu++17
+CXX_FLAGS = -std=gnu++17 -fPIE
 

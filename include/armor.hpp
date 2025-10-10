@@ -1,6 +1,3 @@
-// Later init OpenCV
-// but I don't have any GPUs
-// fuck.
 #pragma once
 #include <opencv2/opencv.hpp>
 #include <vector>

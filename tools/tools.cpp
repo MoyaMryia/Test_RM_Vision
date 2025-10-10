@@ -19,9 +19,10 @@ const std::vector<std::string> CLASS_NAMES = {
     "car_blue", "car_red", "car_unknown",
     "watcher_blue", "watcher_red", "watcher_unknown"};
 
+
+//测试筛选的时候使用的 现在我估计用处不大
 cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 {
-    // 1. 检查输入图像是否为空
     if (inputFrame.empty())
     {
         std::cerr << "Error: Input frame is empty." << std::endl;
@@ -30,7 +31,6 @@ cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 
     cv::Mat outputFrame;
 
-    // 2. 处理彩色图像 (3 通道)
     if (inputFrame.channels() == 3)
     {
         // 对于彩色图像，直接对 RGB 通道进行均衡化可能会导致颜色失真。
@@ -62,10 +62,8 @@ cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
         // 对于灰度图像，直接应用直方图均衡化
         cv::equalizeHist(inputFrame, outputFrame);
     }
-    // 4. 处理其他情况 (例如 4 通道，虽然不常见)
     else
     {
-        // 如果输入不是 1 或 3 通道，则返回原图并警告
         std::cerr << "Warning: Unsupported number of channels. Returning original image." << std::endl;
         outputFrame = inputFrame.clone();
     }
@@ -75,7 +73,7 @@ cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 
 cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, int beta)
 {
-    // 1. 检查输入图像
+
     if (inputFrame.empty())
     {
         std::cerr << "Error: Input frame is empty." << std::endl;
@@ -83,18 +81,11 @@ cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, int beta)
     }
 
     cv::Mat outputFrame;
-
-    // 2. 定义对比度 (alpha) 乘数
-    // 保持 alpha 为 1.0，只调整亮度 (beta)
+    // 保持 alpha 为 1.0，只调整亮度
     double alpha = 1.0;
 
-    // 3. 使用 cv::Mat::convertTo 进行线性变换
     // outputFrame = alpha * inputFrame + beta
-    // 这种方法适用于所有通道 (BGR 或 Gray)
-
-    // 注意：
-    // - inputFrame.depth() 指定了目标图像的数据类型深度 (例如 CV_8U)。
-    // - 我们直接在原图的深度上操作，避免了不必要的类型转换，但需要确保 beta 是整数。
+    //确保 beta 是整数。
     inputFrame.convertTo(outputFrame, -1, alpha, (double)beta);
 
     return outputFrame;
@@ -114,8 +105,7 @@ std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, con
 void tools::drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
 {
     cv::Point2f vertices[4];
-    rotatedRect.points(vertices); // 获取四个顶点
-    // 绘制轮廓
+    rotatedRect.points(vertices);
     for (int i = 0; i < 4; i++)
     {
         line(image, vertices[i], vertices[(i + 1) % 4], color, thickness);
@@ -142,14 +132,11 @@ std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame)
     std::vector<std::vector<cv::Point>> contours;
     cv::findContours(binary_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
     std::vector<std::vector<cv::Point>> filteredContours;
-    double minAreaThreshold = 200.0; // 设定最小面积阈值（根据你的图像调整）
+    double minAreaThreshold = 200.0; 
 
     for (const auto &contour : contours)
     {
-        // 1. 计算轮廓面积
         double area = cv::contourArea(contour);
-
-        // 2. 过滤：如果面积大于阈值，则保留
         if (area > minAreaThreshold)
         {
             filteredContours.push_back(contour);
@@ -159,17 +146,18 @@ std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame)
     return filteredContours;
 }
 
-void tools::classifyArmors(int &total, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences, std::vector<Robot> &cars, std::vector<Robot> &watchers, std::vector<Armor> &armors)
+void tools::classifyArmors(long long &total, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences, std::vector<Robot> &cars, std::vector<Robot> &watchers, std::vector<Armor> &armors)
 {
     for (size_t i = 0; i < boxes.size(); ++i)
     {
         if (classIds[i] < 3)
         {
             // 这里先筛选所有装甲
+            //blue 0 white 1 red 2
             Armor t;
             t.Box = boxes[i];
             t.confidence = confidences[i];
-            t.color = cv::Scalar(maxx(255, classIds[i] * 255), 255 * ((classIds[i]) % 2), minn(255, classIds[i] * 255)); // Actually, this is trickey!
+            t.color = cv::Scalar(255*minn(1,(classIds[i]+1)%3), 255 * ((classIds[i]) % 2), minn(255, classIds[i] * 255)); // Actually, this is trickey!
             t.detect_id = total;
             total++;
             armors.push_back(t);

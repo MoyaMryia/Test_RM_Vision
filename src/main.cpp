@@ -14,11 +14,12 @@ int main()
     }
     cv::Mat frame;
     long long total = 1;
-    while (true)
-    {
+    //while (true)
+    //{
         if (!reader.readFrame(frame))
         {
-            break;
+            return 0;
+            //break;
         }
         std::vector<float> output_data = detector.preprocessAndInference(frame);
         // output_data的格式如下：
@@ -33,7 +34,7 @@ int main()
         std::vector<Robot> cars;
         std::vector<Robot> watchers;
         std::vector<cv::Mat> outputFrames;
-        outputFrames = tools::chopFrame(armors, frame);
+        //outputFrames = tools::chopFrame(armors, frame); 
         // There should be something that can be treated;
         // A. afterDetections::mainCalculations
         // B. create a std::vector<Robot> and take the armors into it;
@@ -42,14 +43,16 @@ int main()
         //
 
         // Treated Done.
+        //cv::Mat test = *(outputFrames.begin());
         tools::drawDetections(frame, boxes, classIds, confidences);
         cv::namedWindow("YOLOv8 Detection (ONNX Runtime)", cv::WINDOW_NORMAL);
         cv::imshow("YOLOv8 Detection (ONNX Runtime)", frame);
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27)
         {
-            break;
+        //    break;
         }
-    }
-    cv::destroyAllWindows();
+    //}
+    //cv::destroyAllWindows();
+    cv::waitKey(0);
     return 0;
 }

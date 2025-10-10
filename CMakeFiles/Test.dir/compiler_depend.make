@@ -5,6 +5,11 @@ CMakeFiles/Test.dir/src/main.cpp.o: src/main.cpp \
   include/armor.hpp \
   include/videoReader.hpp \
   include/yolodetect.hpp \
+  onnxruntime/include/onnxruntime_c_api.h \
+  onnxruntime/include/onnxruntime_cxx_api.h \
+  onnxruntime/include/onnxruntime_cxx_inline.h \
+  onnxruntime/include/onnxruntime_ep_c_api.h \
+  onnxruntime/include/onnxruntime_float16.h \
   include/tools.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -428,14 +433,17 @@ CMakeFiles/Test.dir/src/main.cpp.o: src/main.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
-  /usr/local/include/onnxruntime/onnxruntime_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
-  /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_float16.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
 CMakeFiles/Test.dir/src/yoloProcess.cpp.o: src/yoloProcess.cpp \
+  include/armor.hpp \
+  include/videoReader.hpp \
+  onnxruntime/include/onnxruntime_c_api.h \
+  onnxruntime/include/onnxruntime_cxx_api.h \
+  onnxruntime/include/onnxruntime_cxx_inline.h \
+  onnxruntime/include/onnxruntime_ep_c_api.h \
+  onnxruntime/include/onnxruntime_float16.h \
+  include/tools.hpp \
   include/yolodetect.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -859,17 +867,17 @@ CMakeFiles/Test.dir/src/yoloProcess.cpp.o: src/yoloProcess.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
-  /usr/local/include/onnxruntime/onnxruntime_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
-  /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_float16.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
 CMakeFiles/Test.dir/tools/afterDetections.cpp.o: tools/afterDetections.cpp \
   include/armor.hpp \
   include/videoReader.hpp \
   include/yolodetect.hpp \
+  onnxruntime/include/onnxruntime_c_api.h \
+  onnxruntime/include/onnxruntime_cxx_api.h \
+  onnxruntime/include/onnxruntime_cxx_inline.h \
+  onnxruntime/include/onnxruntime_ep_c_api.h \
+  onnxruntime/include/onnxruntime_float16.h \
   include/pnp_solver.hpp \
   include/tools.hpp \
   /usr/include/alloca.h \
@@ -1294,17 +1302,17 @@ CMakeFiles/Test.dir/tools/afterDetections.cpp.o: tools/afterDetections.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
-  /usr/local/include/onnxruntime/onnxruntime_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
-  /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_float16.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
 CMakeFiles/Test.dir/tools/robotCalculations.cpp.o: tools/robotCalculations.cpp \
   include/armor.hpp \
   include/videoReader.hpp \
   include/yolodetect.hpp \
+  onnxruntime/include/onnxruntime_c_api.h \
+  onnxruntime/include/onnxruntime_cxx_api.h \
+  onnxruntime/include/onnxruntime_cxx_inline.h \
+  onnxruntime/include/onnxruntime_ep_c_api.h \
+  onnxruntime/include/onnxruntime_float16.h \
   include/robotCalculations.hpp \
   include/tools.hpp \
   /usr/include/alloca.h \
@@ -1729,17 +1737,17 @@ CMakeFiles/Test.dir/tools/robotCalculations.cpp.o: tools/robotCalculations.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
-  /usr/local/include/onnxruntime/onnxruntime_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
-  /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_float16.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
 CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   include/armor.hpp \
   include/videoReader.hpp \
   include/yolodetect.hpp \
+  onnxruntime/include/onnxruntime_c_api.h \
+  onnxruntime/include/onnxruntime_cxx_api.h \
+  onnxruntime/include/onnxruntime_cxx_inline.h \
+  onnxruntime/include/onnxruntime_ep_c_api.h \
+  onnxruntime/include/onnxruntime_float16.h \
   include/tools.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -2163,12 +2171,7 @@ CMakeFiles/Test.dir/tools/tools.cpp.o: tools/tools.cpp \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
-  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h \
-  /usr/local/include/onnxruntime/onnxruntime_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h \
-  /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h \
-  /usr/local/include/onnxruntime/onnxruntime_float16.h
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
 
 CMakeFiles/Test.dir/tools/videoReader.cpp.o: tools/videoReader.cpp \
   include/videoReader.hpp \
@@ -2662,8 +2665,6 @@ include/robotCalculations.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
 
-/usr/local/include/onnxruntime/onnxruntime_ep_c_api.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
@@ -2812,7 +2813,15 @@ src/yoloProcess.cpp:
 
 /usr/include/opencv4/opencv2/flann/dist.h:
 
-/usr/include/c++/13/cmath:
+/usr/include/opencv4/opencv2/flann/defines.h:
+
+/usr/include/opencv4/opencv2/imgproc.hpp:
+
+/usr/include/opencv4/opencv2/flann/config.h:
+
+/usr/include/opencv4/opencv2/flann/composite_index.h:
+
+/usr/include/opencv4/opencv2/flann/any.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
@@ -2864,12 +2873,6 @@ src/yoloProcess.cpp:
 
 /usr/include/c++/13/debug/assertions.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h:
-
-/usr/include/stdio.h:
-
-/usr/include/c++/13/bits/stl_iterator_base_types.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h:
 
 /usr/include/asm-generic/errno.h:
@@ -2896,9 +2899,9 @@ src/yoloProcess.cpp:
 
 /usr/include/c++/13/bits/uses_allocator.h:
 
-/usr/include/c++/13/bits/stl_multiset.h:
-
 /usr/include/c++/13/bits/postypes.h:
+
+/usr/include/c++/13/bits/stl_multiset.h:
 
 /usr/include/c++/13/cstdint:
 
@@ -2918,23 +2921,7 @@ src/yoloProcess.cpp:
 
 /usr/include/c++/13/bits/requires_hosted.h:
 
-/usr/include/c++/13/bits/locale_facets.tcc:
-
-/usr/include/c++/13/compare:
-
-/usr/include/c++/13/system_error:
-
-/usr/include/c++/13/complex:
-
-/usr/include/opencv4/opencv2/core/async.hpp:
-
-/usr/include/opencv4/opencv2/dnn/version.hpp:
-
 /usr/include/c++/13/bits/ptr_traits.h:
-
-/usr/include/c++/13/bits/std_abs.h:
-
-/usr/include/c++/13/bits/parse_numbers.h:
 
 /usr/include/c++/13/bits/stl_set.h:
 
@@ -2950,47 +2937,23 @@ src/yoloProcess.cpp:
 
 /usr/include/c++/13/bits/move.h:
 
-/usr/include/opencv4/opencv2/calib3d.hpp:
+/usr/include/c++/13/bits/memoryfwd.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+/usr/include/c++/13/bits/locale_facets_nonio.tcc:
 
-/usr/include/opencv4/opencv2/core/types.hpp:
-
-/usr/include/opencv4/opencv2/flann/general.h:
-
-/usr/include/c++/13/bits/exception_ptr.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
-
-/usr/include/c++/13/bits/stl_multimap.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
-
-/usr/include/c++/13/bits/std_function.h:
-
-/usr/include/c++/13/bits/char_traits.h:
-
-/usr/include/c++/13/bits/hashtable_policy.h:
-
-/usr/local/include/onnxruntime/onnxruntime_float16.h:
-
-/usr/include/c++/13/bits/basic_string.h:
-
-/usr/include/c++/13/tr1/poly_laguerre.tcc:
+/usr/include/c++/13/bits/locale_facets_nonio.h:
 
 /usr/include/c++/13/bits/stl_queue.h:
 
 /usr/include/c++/13/bits/atomic_lockfree_defines.h:
 
-/usr/include/c++/13/bits/stl_vector.h:
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h:
 
-/usr/include/c++/13/bits/stl_tempbuf.h:
+/usr/include/stdio.h:
 
-/usr/include/c++/13/bits/stl_tree.h:
+/usr/include/c++/13/bits/stl_iterator_base_types.h:
 
-/usr/include/c++/13/bits/codecvt.h:
-
-/usr/include/opencv4/opencv2/flann/any.h:
+onnxruntime/include/onnxruntime_float16.h:
 
 /usr/include/c++/13/backward/binders.h:
 
@@ -3012,43 +2975,23 @@ src/yoloProcess.cpp:
 
 /usr/include/opencv4/opencv2/core/matx.hpp:
 
-/usr/include/c++/13/iosfwd:
-
 /usr/include/wchar.h:
 
 /usr/include/c++/13/bits/shared_ptr_base.h:
 
-/usr/local/include/onnxruntime/onnxruntime_cxx_inline.h:
-
 /usr/include/c++/13/bits/basic_ios.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
-
-/usr/include/c++/13/bits/hashtable.h:
-
-/usr/include/c++/13/bits/refwrap.h:
-
-/usr/include/c++/13/bits/fstream.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
-
-/usr/include/c++/13/bits/stream_iterator.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
-
-/usr/include/c++/13/bits/enable_special_members.h:
-
-/usr/include/c++/13/bits/stl_raw_storage_iter.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/mmintrin.h:
-
-/usr/include/c++/13/algorithm:
 
 /usr/include/c++/13/math.h:
 
 /usr/include/c++/13/bits/unique_lock.h:
 
 /usr/include/c++/13/mutex:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/usr/include/opencv4/opencv2/flann/autotuned_index.h:
+
+/usr/include/c++/13/bits/charconv.h:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
@@ -3070,29 +3013,67 @@ src/yoloProcess.cpp:
 
 /usr/include/c++/13/bits/basic_string.tcc:
 
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/c++/13/bits/enable_special_members.h:
+
+/usr/include/x86_64-linux-gnu/bits/uio_lim.h:
+
+/usr/include/c++/13/bits/stream_iterator.h:
+
+/usr/include/c++/13/bits/stl_raw_storage_iter.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/mmintrin.h:
+
+/usr/include/c++/13/algorithm:
+
+/usr/include/c++/13/bits/stl_vector.h:
+
+/usr/include/c++/13/bits/stl_tempbuf.h:
+
+/usr/include/c++/13/bits/stl_tree.h:
+
+/usr/include/c++/13/bits/codecvt.h:
+
+/usr/include/assert.h:
+
+/usr/include/opencv4/opencv2/core/optim.hpp:
+
+/usr/include/c++/13/backward/auto_ptr.h:
+
+/usr/include/opencv4/opencv2/flann.hpp:
+
 include/yolodetect.hpp:
-
-/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
-
-/usr/include/opencv4/opencv2/flann/saving.h:
-
-/usr/include/c++/13/map:
-
-/usr/include/c++/13/string_view:
 
 /usr/include/features-time64.h:
 
-/usr/include/c++/13/bits/locale_facets_nonio.tcc:
+/usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
-/usr/include/c++/13/bits/stl_heap.h:
+/usr/include/c++/13/bits/hashtable.h:
 
 /usr/include/c++/13/utility:
 
-/usr/include/c++/13/bits/invoke.h:
+/usr/include/c++/13/bits/stl_heap.h:
 
-/usr/include/c++/13/bits/specfun.h:
+/usr/include/c++/13/bits/std_abs.h:
 
-/usr/include/c++/13/bits/streambuf.tcc:
+/usr/include/c++/13/bits/parse_numbers.h:
+
+onnxruntime/include/onnxruntime_c_api.h:
+
+/usr/include/opencv4/opencv2/calib3d.hpp:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/opencv4/opencv2/core/types.hpp:
+
+/usr/include/c++/13/iosfwd:
+
+onnxruntime/include/onnxruntime_cxx_api.h:
+
+/usr/include/opencv4/opencv2/core/cvstd.hpp:
+
+/usr/include/c++/13/iostream:
 
 /usr/include/stdint.h:
 
@@ -3104,8 +3085,6 @@ include/yolodetect.hpp:
 
 include/tools.hpp:
 
-/usr/include/alloca.h:
-
 /usr/include/c++/13/bits/stl_list.h:
 
 /usr/include/c++/13/bits/erase_if.h:
@@ -3116,11 +3095,37 @@ include/videoReader.hpp:
 
 tools/robotCalculations.cpp:
 
-/usr/local/include/onnxruntime/onnxruntime_c_api.h:
-
 /usr/include/x86_64-linux-gnu/bits/timesize.h:
 
 /usr/include/c++/13/bits/locale_classes.h:
+
+/usr/include/c++/13/bits/locale_facets.tcc:
+
+onnxruntime/include/onnxruntime_ep_c_api.h:
+
+/usr/include/opencv4/opencv2/flann/random.h:
+
+/usr/include/c++/13/bits/ios_base.h:
+
+/usr/include/c++/13/iterator:
+
+/usr/include/c++/13/bits/streambuf.tcc:
+
+/usr/include/c++/13/bits/specfun.h:
+
+/usr/include/c++/13/bits/basic_string.h:
+
+/usr/include/c++/13/tr1/poly_laguerre.tcc:
+
+/usr/include/opencv4/opencv2/stitching/detail/exposure_compensate.hpp:
+
+include/armor.hpp:
+
+/usr/include/libintl.h:
+
+/usr/include/c++/13/bits/invoke.h:
+
+/usr/include/c++/13/array:
 
 tools/afterDetections.cpp:
 
@@ -3128,25 +3133,39 @@ tools/afterDetections.cpp:
 
 /usr/include/opencv4/opencv2/core/utility.hpp:
 
-/usr/include/c++/13/array:
-
 /usr/include/c++/13/bits/stl_iterator_base_funcs.h:
 
 /usr/include/asm-generic/errno-base.h:
 
-/usr/include/opencv4/opencv2/stitching/detail/exposure_compensate.hpp:
+/usr/include/alloca.h:
 
-/usr/include/libintl.h:
+/usr/include/c++/13/bits/refwrap.h:
 
-include/armor.hpp:
+/usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 
-/usr/include/opencv4/opencv2/flann.hpp:
+/usr/include/opencv4/opencv2/flann/saving.h:
 
-/usr/include/assert.h:
+/usr/include/c++/13/string_view:
 
-/usr/include/opencv4/opencv2/core/optim.hpp:
+/usr/include/c++/13/map:
 
-/usr/include/c++/13/backward/auto_ptr.h:
+/usr/include/c++/13/bits/fstream.tcc:
+
+/usr/include/opencv4/opencv2/flann/general.h:
+
+/usr/include/c++/13/bits/exception_ptr.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
+
+/usr/include/c++/13/bits/stl_multimap.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_inline.h:
+
+/usr/include/c++/13/bits/std_function.h:
+
+/usr/include/c++/13/bits/char_traits.h:
+
+/usr/include/c++/13/bits/hashtable_policy.h:
 
 /usr/include/opencv4/opencv2/core/traits.hpp:
 
@@ -3166,7 +3185,17 @@ include/armor.hpp:
 
 /usr/include/c++/13/bits/cxxabi_forced.h:
 
-/usr/include/c++/13/climits:
+/usr/include/c++/13/bits/exception.h:
+
+/usr/include/c++/13/bits/memory_resource.h:
+
+/usr/include/c++/13/streambuf:
+
+/usr/include/c++/13/bits/cxxabi_init_exception.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h:
+
+/usr/include/c++/13/typeinfo:
 
 /usr/include/c++/13/bits/predefined_ops.h:
 
@@ -3176,18 +3205,6 @@ src/main.cpp:
 
 /usr/include/math.h:
 
-/usr/include/c++/13/bits/cxxabi_init_exception.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h:
-
-/usr/include/c++/13/typeinfo:
-
-/usr/include/c++/13/bits/exception.h:
-
-/usr/include/c++/13/bits/memory_resource.h:
-
-/usr/include/c++/13/streambuf:
-
 /usr/include/c++/13/bits/functional_hash.h:
 
 /usr/include/errno.h:
@@ -3196,9 +3213,19 @@ src/main.cpp:
 
 /usr/include/c++/13/bits/locale_classes.tcc:
 
-/usr/include/c++/13/bits/locale_facets_nonio.h:
+/usr/include/c++/13/climits:
 
-/usr/include/c++/13/bits/memoryfwd.h:
+/usr/include/c++/13/cmath:
+
+/usr/include/c++/13/system_error:
+
+/usr/include/c++/13/compare:
+
+/usr/include/c++/13/complex:
+
+/usr/include/opencv4/opencv2/core/async.hpp:
+
+/usr/include/opencv4/opencv2/dnn/version.hpp:
 
 /usr/include/c++/13/cstring:
 
@@ -3238,17 +3265,7 @@ src/main.cpp:
 
 /usr/include/c++/13/ios:
 
-/usr/include/opencv4/opencv2/core/cvstd.hpp:
-
-/usr/include/c++/13/iostream:
-
 /usr/include/c++/13/istream:
-
-/usr/include/opencv4/opencv2/flann/random.h:
-
-/usr/include/c++/13/bits/ios_base.h:
-
-/usr/include/c++/13/iterator:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
@@ -3263,6 +3280,8 @@ src/main.cpp:
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/c++/13/bits/chrono.h:
+
+onnxruntime/include/onnxruntime_cxx_inline.h:
 
 /usr/include/opencv4/opencv2/dnn/utils/inference_engine.hpp:
 
@@ -3318,17 +3337,9 @@ src/main.cpp:
 
 /usr/include/opencv4/opencv2/core/cvstd_wrapper.hpp:
 
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
-
-/usr/include/c++/13/bits/charconv.h:
-
-/usr/include/opencv4/opencv2/flann/autotuned_index.h:
-
 /usr/include/opencv4/opencv2/flann/heap.h:
 
 /usr/include/c++/13/tr1/exp_integral.tcc:
-
-/usr/local/include/onnxruntime/onnxruntime_cxx_api.h:
 
 /usr/include/c++/13/tr1/bessel_function.tcc:
 
@@ -3354,9 +3365,9 @@ src/main.cpp:
 
 /usr/include/c++/13/tr1/special_function_util.h:
 
-/usr/include/c++/13/bits/list.tcc:
-
 /usr/include/c++/13/cfloat:
+
+/usr/include/c++/13/bits/list.tcc:
 
 /usr/include/c++/13/bits/nested_exception.h:
 
@@ -3457,11 +3468,3 @@ src/main.cpp:
 /usr/include/opencv4/opencv2/dnn/layer.hpp:
 
 /usr/include/opencv4/opencv2/features2d.hpp:
-
-/usr/include/opencv4/opencv2/flann/composite_index.h:
-
-/usr/include/opencv4/opencv2/imgproc.hpp:
-
-/usr/include/opencv4/opencv2/flann/config.h:
-
-/usr/include/opencv4/opencv2/flann/defines.h:

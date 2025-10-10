@@ -6,6 +6,11 @@ CMakeFiles/Test.dir/src/main.cpp.o
  /home/moyamryia/NJU_RM/include/armor.hpp
  /home/moyamryia/NJU_RM/include/videoReader.hpp
  /home/moyamryia/NJU_RM/include/yolodetect.hpp
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_inline.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_ep_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_float16.h
  /home/moyamryia/NJU_RM/include/tools.hpp
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
@@ -430,14 +435,17 @@ CMakeFiles/Test.dir/src/main.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
- /usr/local/include/onnxruntime/onnxruntime_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h
- /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_float16.h
 
 CMakeFiles/Test.dir/src/yoloProcess.cpp.o
  /home/moyamryia/NJU_RM/src/yoloProcess.cpp
+ /home/moyamryia/NJU_RM/include/armor.hpp
+ /home/moyamryia/NJU_RM/include/videoReader.hpp
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_inline.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_ep_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_float16.h
+ /home/moyamryia/NJU_RM/include/tools.hpp
  /home/moyamryia/NJU_RM/include/yolodetect.hpp
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
@@ -862,17 +870,17 @@ CMakeFiles/Test.dir/src/yoloProcess.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
- /usr/local/include/onnxruntime/onnxruntime_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h
- /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_float16.h
 
 CMakeFiles/Test.dir/tools/afterDetections.cpp.o
  /home/moyamryia/NJU_RM/tools/afterDetections.cpp
  /home/moyamryia/NJU_RM/include/armor.hpp
  /home/moyamryia/NJU_RM/include/videoReader.hpp
  /home/moyamryia/NJU_RM/include/yolodetect.hpp
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_inline.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_ep_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_float16.h
  /home/moyamryia/NJU_RM/include/pnp_solver.hpp
  /home/moyamryia/NJU_RM/include/tools.hpp
  /usr/include/alloca.h
@@ -1298,17 +1306,17 @@ CMakeFiles/Test.dir/tools/afterDetections.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
- /usr/local/include/onnxruntime/onnxruntime_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h
- /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_float16.h
 
 CMakeFiles/Test.dir/tools/robotCalculations.cpp.o
  /home/moyamryia/NJU_RM/tools/robotCalculations.cpp
  /home/moyamryia/NJU_RM/include/armor.hpp
  /home/moyamryia/NJU_RM/include/videoReader.hpp
  /home/moyamryia/NJU_RM/include/yolodetect.hpp
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_inline.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_ep_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_float16.h
  /home/moyamryia/NJU_RM/include/robotCalculations.hpp
  /home/moyamryia/NJU_RM/include/tools.hpp
  /usr/include/alloca.h
@@ -1734,17 +1742,17 @@ CMakeFiles/Test.dir/tools/robotCalculations.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
- /usr/local/include/onnxruntime/onnxruntime_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h
- /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_float16.h
 
 CMakeFiles/Test.dir/tools/tools.cpp.o
  /home/moyamryia/NJU_RM/tools/tools.cpp
  /home/moyamryia/NJU_RM/include/armor.hpp
  /home/moyamryia/NJU_RM/include/videoReader.hpp
  /home/moyamryia/NJU_RM/include/yolodetect.hpp
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_cxx_inline.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_ep_c_api.h
+ /home/moyamryia/NJU_RM/onnxruntime/include/onnxruntime_float16.h
  /home/moyamryia/NJU_RM/include/tools.hpp
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
@@ -2169,11 +2177,6 @@ CMakeFiles/Test.dir/tools/tools.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h
  /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
- /usr/local/include/onnxruntime/onnxruntime_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_api.h
- /usr/local/include/onnxruntime/onnxruntime_cxx_inline.h
- /usr/local/include/onnxruntime/onnxruntime_ep_c_api.h
- /usr/local/include/onnxruntime/onnxruntime_float16.h
 
 CMakeFiles/Test.dir/tools/videoReader.cpp.o
  /home/moyamryia/NJU_RM/tools/videoReader.cpp

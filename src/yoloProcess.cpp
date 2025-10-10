@@ -5,7 +5,6 @@
 #include <numeric>
 #include <memory>                            // for std::unique_ptr
 #include <opencv2/opencv.hpp>                // 引入 OpenCV 用于图像处理和绘制
-#include <onnxruntime/onnxruntime_cxx_api.h> // 引入 ONNX Runtime
 #include "../include/yolodetect.hpp"
 using namespace cv;
 using namespace std;

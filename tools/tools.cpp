@@ -103,7 +103,11 @@ cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, int beta)
 std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame)
 {
     std::vector<cv::Mat> outputFrame;
-    
+    for(const auto &armor : inputArmors){
+        cv::Rect choppingRect = armor.Box;
+        outputFrame.push_back(inputFrame(choppingRect));
+    }
+
     return outputFrame;
 }
 

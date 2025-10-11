@@ -102,6 +102,34 @@ std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, con
     return outputFrame;
 }
 
+cv::Mat tools::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect)
+{
+    float width = rRect.size.width;
+    float height = rRect.size.height;
+    float angle = rRect.angle;
+    cv::Size2f rectSize(width, height);
+    if (angle < -45.f)
+    {
+        angle += 90.0;
+        std::swap(rectSize.width, rectSize.height);
+    }
+    else if (angle > 45.f)
+    {
+        angle -= 90.0;
+        std::swap(rectSize.width, rectSize.height);
+    }
+    cv::Mat M = cv::getRotationMatrix2D(rRect.center, angle, 1.0);
+    cv::Mat rotatedFrame;
+    cv::warpAffine(frame, rotatedFrame, M, frame.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT);
+    cv::Rect bbox = rRect.boundingRect();
+    cv::Point2f cropStart = bbox.tl();
+    cv::Rect2f targetRect(0, 0, rectSize.width, rectSize.height);
+    cv::Mat croppedImage;
+    cv::getRectSubPix(rotatedFrame, rectSize, rRect.center, croppedImage);
+    frame = croppedImage.clone();
+    return croppedImage;
+}
+
 void tools::drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
 {
     cv::Point2f vertices[4];
@@ -118,7 +146,7 @@ void tools::drawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const
     tools::drawRotatedRect(image, inputPairs.right_LightBar, color, thickness);
 }
 
-std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame)
+std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame,double minAreaThreshold)
 {
     cv::Mat gray_img;
     cv::cvtColor(inputFrame, gray_img, cv::COLOR_BGR2GRAY);
@@ -131,8 +159,7 @@ std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame)
 
     std::vector<std::vector<cv::Point>> contours;
     cv::findContours(binary_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
-    std::vector<std::vector<cv::Point>> filteredContours;
-    double minAreaThreshold = 200.0; 
+    std::vector<std::vector<cv::Point>> filteredContours; 
 
     for (const auto &contour : contours)
     {
@@ -214,6 +241,6 @@ cv::Mat tools::mainFunction(const cv::Mat &inputFrame)
     outputframe = enhanceContrast(inputFrame);
     outputframe = enhanceContrast(outputframe);
     // outputframe = adjustBrightness(inputFrame,10);
-    getContours(outputframe);
+    getContours(outputframe,15.0);
     return outputframe;
 }

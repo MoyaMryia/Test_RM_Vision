@@ -5,10 +5,9 @@
 
 #define ARMOR_HPP
 
-struct Lightbar_Pair
-{
-  cv::RotatedRect left_LightBar;  // 左方灯条，类型为LightBar
-  cv::RotatedRect right_LightBar; // 右方灯条，类型为LightBar
+struct Lightbar_Pair{
+  cv::RotatedRect left_LightBar;
+  cv::RotatedRect right_LightBar;
 };
 
 struct Armor

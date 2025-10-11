@@ -21,6 +21,7 @@ int main()
             // return 0;
             break;
         }
+        frame = tools::adjustBrightness(tools::enhanceContrast(frame),5);
         std::vector<float> output_data = detector.preprocessAndInference(frame);
         // output_data的格式如下：
         // [x1, y1, x2, y2, confidence, class_id],[x1, y1, x2, y2, confidence, class_id],[x1, y1, x2, y2, confidence, class_id] ...

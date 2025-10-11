@@ -217,8 +217,22 @@ void tools::classifyArmors(long long &total, const std::vector<cv::Rect> &boxes,
 
 void tools::drawDetections(cv::Mat &img, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences)
 {
+    
     for (size_t i = 0; i < boxes.size(); ++i)
     {
+        /*
+        bool errorPoint = 1;
+        for(size_t j = 0 ; j < boxes.size() ; ++j){
+            if(j != i){
+                auto sizeMin = (boxes[i].size().area()>boxes[j].size().area()?boxes[j].size().area():boxes[i].size().area());
+                if((abs((classIds[i]-classIds[j])<3)&&((boxes[i] & boxes[j]).size().area() > sizeMin * 0.3))){
+                    errorPoint == 0;
+                    //std::cout<<"Something Was wrong!"<<std::endl;
+                }
+            }
+        }
+        if(errorPoint == 0) continue;
+*/
         cv::rectangle(img, boxes[i], cv::Scalar(0, 255, 0), 2);
         std::string label = CLASS_NAMES[classIds[i]] + cv::format(": %.2f", confidences[i]);
 

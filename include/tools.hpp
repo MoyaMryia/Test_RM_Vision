@@ -20,7 +20,7 @@ public:
     static void drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness);
     static cv::Mat mainFunction(const cv::Mat &inputFrame);
     static std::vector<cv::Mat> chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame);
-    static cv::Mat cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect)
+    static cv::Mat cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect);
     static void drawDetections(cv::Mat &img, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences);
     static void classifyArmors(long long &total, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences, std::vector<Robot> &cars, std::vector<Robot> &watchers, std::vector<Armor> &armors);
 };

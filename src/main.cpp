@@ -50,15 +50,23 @@ int main()
             {
                 cv::Mat frame_try;
                 frame_try = frame_try2;//tools::enhanceContrast(tools::adjustBrightness(frame_try2,15));
-                std::vector<std::vector<cv::Point>> contours = tools::getContours(frame_try,15);
+                std::vector<std::vector<cv::Point>> contours = tools::getContours(frame_try,0);
+                //Obviously an Armor only consist 2
                 cv::Mat frame_out = frame_try.clone();
                 std::vector<cv::RotatedRect> rotaterects;
                 for (const auto &contour : contours)
                 {
                     auto rotaterect = cv::minAreaRect(contour);
                     rotaterects.emplace_back(rotaterect);
-                    tools::drawRotatedRect(frame_out,rotaterect,cv::Scalar(0,255,0),2);
+                    
                 }
+                std::sort(rotaterects.begin(), rotaterects.end(), 
+                    [](const cv::RotatedRect& a, const cv::RotatedRect& b) {
+                        return a.size.area() > b.size.area();
+                    });
+                tools::drawRotatedRect(frame_out,rotaterects[0],cv::Scalar(0,255,0),1);
+                tools::drawRotatedRect(frame_out,rotaterects[1],cv::Scalar(0,255,0),1);
+                //tools::drawRotatedRect(frame_out,rotaterect,cv::Scalar(0,255,0),2);
                 //cv::drawContours(frame_out, contours, -1 ,cv::Scalar(0,255,0),2);
                 outputFrames.push_back(frame_out);
             }

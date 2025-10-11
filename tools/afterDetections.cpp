@@ -7,9 +7,7 @@ std::vector<Armor> afterDetections::detectNumbers(const std::vector<Armor> input
     std::vector<cv::Mat> computeFrames;
     computeFrames = tools::chopFrame(inputArmors,inputFrame);
     //但是需要编辑frame
-    for(auto iter = computeFrames.begin(); iter!=computeFrames.end(); iter++){
-        *iter = tools::enhanceContrast(tools::adjustBrightness(*iter,15));
-    }
+    //*iter = tools::enhanceContrast(tools::adjustBrightness(*iter,15));
 
     return outputArmors;
 }
@@ -27,7 +25,10 @@ std::vector<Armor> afterDetections::getLightBar(const std::vector<Armor> inputAr
     std::vector<cv::Mat> computeFrames;
     computeFrames = tools::chopFrame(inputArmors,inputFrame);
     //这里需要拉低亮度对比度 只抓出来灯条 相机需要防止过曝 镜头要干净不然会翻车
-    
+    for(size_t i = 0; i < inputArmors.size(); ++i){
+        std::vector<cv::RotatedRect> Lightbars;
+        
+    }
     return outputArmors;
 }
 

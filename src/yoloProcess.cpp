@@ -38,7 +38,7 @@ void YOLOv8Detector::post_process_ort(Mat &frame, const vector<float> &output_da
             int top = static_cast<int>(y1 * frame.rows / INPUT_HEIGHT);
             int right = static_cast<int>(x2 * frame.cols / INPUT_WIDTH);
             int bottom = static_cast<int>(y2 * frame.rows / INPUT_HEIGHT);
-
+            //从头杀了你！
             if((((bottom - top) * (right - left) < 162500 ) || ((((bottom - top))*1.000/((right - left)*1.000)) < 1.1)) && ((bottom - top) * (right - left) < 600000 ) ){
                 boxes.emplace_back(left, top, right - left, bottom - top);
                 classIds.push_back(class_id);

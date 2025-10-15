@@ -46,7 +46,7 @@ cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 
         // 对亮度通道进行直方图均衡化
         // 示例：使用 CLAHE 代替基本的 equalizeHist
-        cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(2.0, cv::Size(8, 8));
+        cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(1.5, cv::Size(8, 8));
         // 2.0 是对比度限制，(8, 8) 是分块大小
         clahe->apply(channels[0], channels[0]); // 应用于亮度通道
 
@@ -71,7 +71,7 @@ cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
     return outputFrame;
 }
 
-cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, int beta)
+cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, double beta)
 {
 
     if (inputFrame.empty())
@@ -187,6 +187,7 @@ void tools::classifyArmors(long long &total, const std::vector<cv::Rect> &boxes,
             t.color = cv::Scalar(255*minn(1,(classIds[i]+1)%3), 255 * ((classIds[i]) % 2), minn(255, classIds[i] * 255)); // Actually, this is trickey!
             t.detect_id = total;
             total++;
+            t.classId = classIds[i];
             armors.push_back(t);
         }
         else

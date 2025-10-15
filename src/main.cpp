@@ -21,13 +21,14 @@ int main()
             // return 0;
             break;
         }
-        //notice that I have alread adjusted contrasts
-        //frame = tools::adjustBrightness(tools::enhanceContrast(frame),5);
+        // notice that I have alread adjusted contrasts
+        // Noticed?
+        // frame = tools::adjustBrightness(frame,20);
         std::vector<float> output_data = detector.preprocessAndInference(frame);
         // output_data的格式如下：
         // [x1, y1, x2, y2, confidence, class_id],[x1, y1, x2, y2, confidence, class_id],[x1, y1, x2, y2, confidence, class_id] ...
 
-        // 后处理 的 一些定义 
+        // 后处理 的 一些定义
         std::vector<Rect> boxes;
         std::vector<int> classIds;
         std::vector<float> confidences;
@@ -37,59 +38,40 @@ int main()
         std::vector<Robot> watchers;
         tools::classifyArmors(total, boxes, classIds, confidences, cars, watchers, armors);
         //
-        std::vector<cv::Mat> outputFrames_pre;
         std::vector<cv::Mat> outputFrames;
-        outputFrames_pre = tools::chopFrame(armors, frame);
+        outputFrames = tools::chopFrame(armors, frame);
 
         // 抠数字
         // contours里面包含一个抠出来的数字
         // RotateRect也有
         // 之后会转移到后处理函数里
-        
-        if (outputFrames_pre.size() > 0)
+
+        if (outputFrames.size() > 0)
         {
-            for (auto &frame_try2 : outputFrames_pre)
+            for (int i = 0; i < outputFrames.size(); ++i)
             {
-                cv::Mat frame_try;
-                frame_try = frame_try2;//tools::enhanceContrast(tools::adjustBrightness(frame_try2,15));
-                std::vector<std::vector<cv::Point>> contours = tools::getContours(frame_try,0);
-                //Obviously an Armor only consist 2
-                cv::Mat frame_out = frame_try.clone();
+                std::vector<cv::Mat> channels;
+                cv::split(outputFrames[i], channels);
+                cv::Mat binary;
+                cv::threshold(channels[classIds[i]], binary, 120, 255, cv::THRESH_BINARY);
+                std::vector<std::vector<cv::Point>> contours;
+                cv::findContours(binary, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
                 std::vector<cv::RotatedRect> rotaterects;
                 for (const auto &contour : contours)
                 {
                     auto rotaterect = cv::minAreaRect(contour);
                     rotaterects.emplace_back(rotaterect);
-                    
                 }
-                std::sort(rotaterects.begin(), rotaterects.end(), 
-                    [](const cv::RotatedRect& a, const cv::RotatedRect& b) {
-                        return a.size.area() > b.size.area();
-                    });
-                tools::drawRotatedRect(frame_out,rotaterects[0],cv::Scalar(0,255,0),1);
-                tools::drawRotatedRect(frame_out,rotaterects[1],cv::Scalar(0,255,0),1);
-                //tools::drawRotatedRect(frame_out,rotaterect,cv::Scalar(0,255,0),2);
-                //cv::drawContours(frame_out, contours, -1 ,cv::Scalar(0,255,0),2);
-                outputFrames.push_back(frame_out);
+                std::sort(rotaterects.begin(), rotaterects.end(),
+                          [](const cv::RotatedRect &a, const cv::RotatedRect &b)
+                          {
+                              return a.size.area() > b.size.area();
+                          });
+                if(rotaterects[0].center.x>rotaterects[1].center.x) swap(rotaterects[1],rotaterects[0]);
+                
+                armors[i].Lightbars.left_LightBar = rotaterects[0];
+                armors[i].Lightbars.right_LightBar = rotaterects[1];
             }
-        }
-        //类似的方法 写一个抠光条的
-
-
-
-        // There should be something that can be treated;
-        // A. afterDetections::mainCalculations
-        // B. create a std::vector<Robot> and take the armors into it;
-        // C. Kalman Calculations
-        // D. And finally, get a mark, done.
-
-        if (outputFrames.size() > 0)
-        {
-            // Below Are Test codes.
-            cv::Mat test = *(outputFrames.begin());
-            cv::Mat test2 = *(outputFrames_pre.begin());
-            cv::imshow("Chopped Colored", test);
-            //cv::imshow("Chopped", test2);
         }
         tools::drawDetections(frame, boxes, classIds, confidences);
         cv::imshow("YOLOv8 Detection (ONNX Runtime)", frame);
@@ -102,3 +84,31 @@ int main()
     // cv::waitKey(0);
     return 0;
 }
+/*
+            for (auto &frame_try_2 : outputFrames_pre)
+            {
+                std::vector<cv::Mat> channels;
+                cv::split(frame_try_2, channels);
+                cv::Mat blue = channels.at(0);
+                cv::Mat red = channels.at(2);
+                cv::threshold(channels.at(0), blue, 120, 255, cv::THRESH_BINARY);
+                cv::threshold(channels.at(2), red, 110, 255, cv::THRESH_BINARY);
+                std::vector<std::vector<cv::Point>> contours;
+                cv::findContours(red, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+                cv::Mat frame_try = frame_try_2.clone();
+                std::vector<cv::RotatedRect> rotaterects;
+                for (const auto &contour : contours)
+                {
+                    auto rotaterect = cv::minAreaRect(contour);
+                    rotaterects.emplace_back(rotaterect);
+                }
+                std::sort(rotaterects.begin(), rotaterects.end(),
+                          [](const cv::RotatedRect &a, const cv::RotatedRect &b)
+                          {
+                              return a.size.area() > b.size.area();
+                          });
+                tools::drawRotatedRect(frame_try, rotaterects[0], cv::Scalar(0, 255, 0), 1);
+                tools::drawRotatedRect(frame_try, rotaterects[1], cv::Scalar(0, 255, 0), 1);
+                cv::imshow("Chopped Colored", frame_try);
+            }
+*/

@@ -12,7 +12,7 @@
 using namespace cv;
 using namespace std;
 const string MODEL_PATH = "models/yolov8n_armor_1280_nms_73.onnx";
-const string VIDEO_PATH = "assets/circular1.avi";
+//const string VIDEO_PATH = "assets/circular1.avi";
 const int INPUT_WIDTH = 1280;
 const int INPUT_HEIGHT = 1280;
 const float CONFIDENCE_THRESHOLD = 0.30f;

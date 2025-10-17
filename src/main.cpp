@@ -1,13 +1,13 @@
 #include "../include/tools.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
     YOLOv8Detector detector;
     if (!detector.loadModel(MODEL_PATH))
     {
         return -1;
     }
-    VideoReader reader(VIDEO_PATH);
+    VideoReader reader(argv[1]);
     if (!reader.isOpened())
     {
         return -1;
@@ -40,12 +40,11 @@ int main()
         //
         std::vector<cv::Mat> outputFrames;
         outputFrames = tools::chopFrame(armors, frame);
-
         // 抠数字
         // contours里面包含一个抠出来的数字
         // RotateRect也有
         // 之后会转移到后处理函数里
-
+        /*
         if (outputFrames.size() > 0)
         {
             for (int i = 0; i < outputFrames.size(); ++i)
@@ -73,6 +72,7 @@ int main()
                 armors[i].Lightbars.right_LightBar = rotaterects[1];
             }
         }
+        */
         tools::drawDetections(frame, boxes, classIds, confidences);
         cv::imshow("YOLOv8 Detection (ONNX Runtime)", frame);
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27)

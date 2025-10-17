@@ -3,8 +3,8 @@
 #include <vector>
 #include <string>
 #include <numeric>
-#include <memory>                            // for std::unique_ptr
-#include <opencv2/opencv.hpp>                // 引入 OpenCV 用于图像处理和绘制
+#include <memory>             // for std::unique_ptr
+#include <opencv2/opencv.hpp> // 引入 OpenCV 用于图像处理和绘制
 #include "../include/yolodetect.hpp"
 using namespace cv;
 using namespace std;
@@ -38,8 +38,12 @@ void YOLOv8Detector::post_process_ort(Mat &frame, const vector<float> &output_da
             int top = static_cast<int>(y1 * frame.rows / INPUT_HEIGHT);
             int right = static_cast<int>(x2 * frame.cols / INPUT_WIDTH);
             int bottom = static_cast<int>(y2 * frame.rows / INPUT_HEIGHT);
-            //从头杀了你！
-            if((((bottom - top) * (right - left) < 162500 ) || ((((bottom - top))*1.000/((right - left)*1.000)) < 1.1)) && ((bottom - top) * (right - left) < 600000 ) ){
+            left = std::max(0, left);
+            top = std::max(0, top);
+            right = std::min(frame.cols, right);
+            bottom = std::min(frame.rows, bottom);
+            if ((right-left)>0 && (bottom-top)>0)
+            {
                 boxes.emplace_back(left, top, right - left, bottom - top);
                 classIds.push_back(class_id);
                 confidences.push_back(confidence);

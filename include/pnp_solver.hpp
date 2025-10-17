@@ -6,10 +6,10 @@
 class afterDetections
 {
 public:
-    static std::vector<Armor> detectNumbers(const std::vector<Armor> inputArmors, const cv::Mat inputFrame);
-    static std::vector<Armor> pnpCalculations(const std::vector<Armor> inputArmors, const cv::Mat inputFrame);
-    static std::vector<Armor> mainCalculations(const std::vector<Armor> inputArmors, const cv::Mat inputFrame);
-    static std::vector<Armor> getLightBar(const std::vector<Armor> inputArmors, const cv::Mat inputFrame);
+    static void detectNumbers(std::vector<Armor> &inputArmors, cv::Mat &inputFrame);
+    static void pnpCalculations(std::vector<Armor> &inputArmors, cv::Mat &inputFrame);
+    static void mainCalculations(std::vector<Armor> &inputArmors, cv::Mat &inputFrame);
+    static void getLightBar(std::vector<Armor> &inputArmors, cv::Mat &inputFrame);
 };
 
 #endif

@@ -61,7 +61,7 @@ cv::RotatedRect failbackFunc::getNormalizedRotatedRect_fortyfive(const cv::Rotat
     return normalizedRect;
 }
 
-cv::RotatedRect failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pair &inputPairs)
+std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pair &inputPairs)
 {
     std::vector<cv::Point2f> contour_points;
     cv::RotatedRect a_ret = getNormalizedRotatedRect_fortyfive(inputPairs.left_LightBar);
@@ -107,7 +107,7 @@ cv::RotatedRect failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pair &inputP
     cv::circle(image, bp, 10, cv::Scalar(255, 255, 0), -1);   // left down
     cv::circle(image, cp, 10, cv::Scalar(255, 255, 255), -1); // right up
     cv::circle(image, dp, 10, cv::Scalar(0, 255, 0), -1);     // right down
-    return rRect;
+    return contour_points;
 } /*  ap.x = a_ret.center.x + alen / 2.000000;
      bp.x = a_ret.center.x + alen / 2.000000;
      cp.x = b_ret.center.x - blen / 2.000000;

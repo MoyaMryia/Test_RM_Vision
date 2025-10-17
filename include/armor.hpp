@@ -18,6 +18,7 @@ struct Armor
   int detect_id;    // 自动分配的装甲板ID
   int car_num;      // 根据ResNet识别结果得到的装甲板数字
   Lightbar_Pair Lightbars;
+  std::vector<cv::Point2f> position;
   float priority;       // 评分系统给出的打击评分
   float yaw;            // pnp解算出的偏航角
   cv::Point3f p_camera; // pnp解算出的三维位置信息，包含(x, y, z)

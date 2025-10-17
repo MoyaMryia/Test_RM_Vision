@@ -69,7 +69,7 @@ int main(int argc, char **argv)
                         std::swap(rotaterects[0], rotaterects[1]);
                     armors[i].Lightbars.left_LightBar = rotaterects[0];
                     armors[i].Lightbars.right_LightBar = rotaterects[1];
-                    failbackFunc::GetArmorRect(outputFrames[i], armors[i].Lightbars);
+                    armors[i].position = failbackFunc::GetArmorRect(outputFrames[i], armors[i].Lightbars);
                     // tools::drawLightbars(outputFrames[i],armors[i].Lightbars,cv::Scalar(0,255,0),2);
                 }
                 cv::imshow("output" + std::to_string(i), binaryImage);

@@ -1,71 +1,12 @@
 #include "../include/failback.hpp"
 
-cv::RotatedRect failbackFunc::getNormalizedRotatedRect_fortyfive(const cv::RotatedRect &rect)
-{
-    // 复制原始矩形，在新对象上进行修改
-    cv::RotatedRect normalizedRect = rect;
 
-    float angle = normalizedRect.angle;
-    float width = normalizedRect.size.width;
-    float height = normalizedRect.size.height;
-
-    // ----------------------------------------------------------------------
-    // 步骤 1: 预标准化到 [-90, 90) 范围 (确保 width 暂为长边)
-    // ----------------------------------------------------------------------
-    if (width < height)
-    {
-        // 确保 width >= height
-        std::swap(width, height);
-        angle += 90.0f;
-    }
-
-    // 调整到 [-90, 90)
-    if (angle >= 90.0f)
-    {
-        angle -= 180.0f;
-    }
-    else if (angle < -90.0f)
-    {
-        angle += 180.0f;
-    }
-
-    // 此时 angle 在 [-90, 90)，width 是长边。
-
-    // ----------------------------------------------------------------------
-    // 步骤 2: 统一到 [-45, 45) 范围 (如果需要，交换 width/height)
-    // ----------------------------------------------------------------------
-
-    if (angle > 45.0f)
-    {
-        // 角度在 (45, 90) 范围。例如：60度。
-        // 新角度: 60 - 90 = -30度
-        angle -= 90.0f;
-        std::swap(width, height); // 交换 W/H，短边成为新的 width
-    }
-    else if (angle <= -45.0f)
-    {
-        // 角度在 [-90, -45] 范围。例如：-60度。
-        // 新角度: -60 + 90 = 30度
-        angle += 90.0f;
-        std::swap(width, height); // 交换 W/H，短边成为新的 width
-    }
-
-    // 此时，angle 在 [-45, 45) 范围。
-    // width 是旋转后更接近水平的边 (与 x 轴夹角绝对值 <= 45)。
-
-    // 3. 更新并返回新的 RotatedRect
-    normalizedRect.angle = angle;
-    normalizedRect.size.width = width;
-    normalizedRect.size.height = height;
-
-    return normalizedRect;
-}
 
 std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pair &inputPairs)
 {
     std::vector<cv::Point2f> contour_points;
-    cv::RotatedRect a_ret = getNormalizedRotatedRect_fortyfive(inputPairs.left_LightBar);
-    cv::RotatedRect b_ret = getNormalizedRotatedRect_fortyfive(inputPairs.right_LightBar);
+    cv::RotatedRect a_ret = tools::getNormalizedRotatedRect_fortyfive(inputPairs.left_LightBar);
+    cv::RotatedRect b_ret = tools::getNormalizedRotatedRect_fortyfive(inputPairs.right_LightBar);
     if (b_ret.center.x < a_ret.center.x)
     {
         cv::RotatedRect c_ret = a_ret;

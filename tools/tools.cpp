@@ -19,8 +19,7 @@ const std::vector<std::string> CLASS_NAMES = {
     "car_blue", "car_red", "car_unknown",
     "watcher_blue", "watcher_red", "watcher_unknown"};
 
-
-//测试筛选的时候使用的 现在我估计用处不大
+// 测试筛选的时候使用的 现在我估计用处不大
 cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
 {
     if (inputFrame.empty())
@@ -85,7 +84,7 @@ cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, double beta)
     double alpha = 1.0;
 
     // outputFrame = alpha * inputFrame + beta
-    //确保 beta 是整数。
+    // 确保 beta 是整数。
     inputFrame.convertTo(outputFrame, -1, alpha, (double)beta);
 
     return outputFrame;
@@ -94,7 +93,8 @@ cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, double beta)
 std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame)
 {
     std::vector<cv::Mat> outputFrame;
-    for(const auto &armor : inputArmors){
+    for (const auto &armor : inputArmors)
+    {
         cv::Rect choppingRect = armor.Box;
         outputFrame.push_back(inputFrame(choppingRect));
     }
@@ -146,7 +146,7 @@ void tools::drawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const
     tools::drawRotatedRect(image, inputPairs.right_LightBar, color, thickness);
 }
 
-std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame,double minAreaThreshold)
+std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame, double minAreaThreshold)
 {
     cv::Mat gray_img;
     cv::cvtColor(inputFrame, gray_img, cv::COLOR_BGR2GRAY);
@@ -159,7 +159,7 @@ std::vector<std::vector<cv::Point>> tools::getContours(cv::Mat &inputFrame,doubl
 
     std::vector<std::vector<cv::Point>> contours;
     cv::findContours(binary_image, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
-    std::vector<std::vector<cv::Point>> filteredContours; 
+    std::vector<std::vector<cv::Point>> filteredContours;
 
     for (const auto &contour : contours)
     {
@@ -180,11 +180,11 @@ void tools::classifyArmors(long long &total, const std::vector<cv::Rect> &boxes,
         if (classIds[i] < 3)
         {
             // 这里先筛选所有装甲
-            //blue 0 white 1 red 2
+            // blue 0 white 1 red 2
             Armor t;
             t.Box = boxes[i];
             t.confidence = confidences[i];
-            t.color = cv::Scalar(255*minn(1,(classIds[i]+1)%3), 255 * ((classIds[i]) % 2), minn(255, classIds[i] * 255)); // Actually, this is trickey!
+            t.color = cv::Scalar(255 * minn(1, (classIds[i] + 1) % 3), 255 * ((classIds[i]) % 2), minn(255, classIds[i] * 255)); // Actually, this is trickey!
             t.detect_id = total;
             total++;
             t.classId = classIds[i];
@@ -218,22 +218,9 @@ void tools::classifyArmors(long long &total, const std::vector<cv::Rect> &boxes,
 
 void tools::drawDetections(cv::Mat &img, const std::vector<cv::Rect> &boxes, const std::vector<int> &classIds, const std::vector<float> &confidences)
 {
-    
+
     for (size_t i = 0; i < boxes.size(); ++i)
     {
-        /*
-        bool errorPoint = 1;
-        for(size_t j = 0 ; j < boxes.size() ; ++j){
-            if(j != i){
-                auto sizeMin = (boxes[i].size().area()>boxes[j].size().area()?boxes[j].size().area():boxes[i].size().area());
-                if((abs((classIds[i]-classIds[j])<3)&&((boxes[i] & boxes[j]).size().area() > sizeMin * 0.3))){
-                    errorPoint == 0;
-                    //std::cout<<"Something Was wrong!"<<std::endl;
-                }
-            }
-        }
-        if(errorPoint == 0) continue;
-*/
         cv::rectangle(img, boxes[i], cv::Scalar(0, 255, 0), 2);
         std::string label = CLASS_NAMES[classIds[i]] + cv::format(": %.2f", confidences[i]);
 
@@ -256,6 +243,118 @@ cv::Mat tools::mainFunction(const cv::Mat &inputFrame)
     outputframe = enhanceContrast(inputFrame);
     outputframe = enhanceContrast(outputframe);
     // outputframe = adjustBrightness(inputFrame,10);
-    getContours(outputframe,15.0);
+    getContours(outputframe, 15.0);
     return outputframe;
+}
+
+cv::RotatedRect tools::getNormalizedRotatedRect_fortyfive(const cv::RotatedRect &rect)
+{
+    cv::RotatedRect normalizedRect = rect;
+
+    float angle = normalizedRect.angle;
+    float width = normalizedRect.size.width;
+    float height = normalizedRect.size.height;
+
+    if (width < height)
+    {
+        std::swap(width, height);
+        angle += 90.0f;
+    }
+
+    if (angle >= 90.0f)
+    {
+        angle -= 180.0f;
+    }
+    else if (angle < -90.0f)
+    {
+        angle += 180.0f;
+    }
+
+    if (angle > 45.0f)
+    {
+        angle -= 90.0f;
+        std::swap(width, height); 
+    }
+    else if (angle <= -45.0f)
+    {
+        angle += 90.0f;
+        std::swap(width, height); 
+    }
+
+    normalizedRect.angle = angle;
+    normalizedRect.size.width = width;
+    normalizedRect.size.height = height;
+
+    return normalizedRect;
+}
+
+const float EPSILON_FLOAT = 1e-4;
+const float EPSILON_ANGLE = 0.5;
+
+bool is_approx_equal(float a, float b, float epsilon)
+{
+    return std::abs(a - b) < epsilon;
+}
+
+bool is_approx_equal(const cv::Point2f &p1, const cv::Point2f &p2, float epsilon)
+{
+    return is_approx_equal(p1.x, p2.x, epsilon) &&
+           is_approx_equal(p1.y, p2.y, epsilon);
+}
+
+bool is_approx_equal(const cv::Size2f &s1, const cv::Size2f &s2, float epsilon)
+{
+    return (is_approx_equal(s1.width, s2.width, epsilon) &&
+            is_approx_equal(s1.height, s2.height, epsilon));
+}
+
+bool is_approx_equal(const cv::RotatedRect &r1, const cv::RotatedRect &r2,
+                     float center_epsilon, float size_epsilon, float angle_epsilon)
+{
+
+    if (!is_approx_equal(r1.center, r2.center, center_epsilon))
+    {
+        return false;
+    }
+
+    if (!is_approx_equal(r1.size, r2.size, size_epsilon))
+    {
+        return false;
+    }
+
+    if (!is_approx_equal(r1.angle, r2.angle, angle_epsilon))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool tools::is_pair_approx_equal(const Lightbar_Pair &pair1, const Lightbar_Pair &pair2)
+{
+
+    const float center_tol = 1.0;
+    const float size_tol = 2.0;
+    const float angle_tol = EPSILON_ANGLE;
+
+    bool left_equal = is_approx_equal(
+        pair1.left_LightBar,
+        pair2.left_LightBar,
+        center_tol,
+        size_tol,
+        angle_tol);
+
+    if (!left_equal)
+    {
+        return false;
+    }
+
+    bool right_equal = is_approx_equal(
+        pair1.right_LightBar,
+        pair2.right_LightBar,
+        center_tol,
+        size_tol,
+        angle_tol);
+
+    return right_equal;
 }

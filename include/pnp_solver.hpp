@@ -1,7 +1,7 @@
 #pragma once
 #ifndef PNP_SOLVER_HPP
 #define PNP_SOLVER_HPP
-#include "tools.hpp"
+#include "include_all.hpp"
 
 class afterDetections
 {

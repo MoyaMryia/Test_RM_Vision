@@ -201,6 +201,30 @@ tools/afterDetections.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.s
 .PHONY : tools/afterDetections.cpp.s
 
+tools/failback.o: tools/failback.cpp.o
+.PHONY : tools/failback.o
+
+# target to build an object file
+tools/failback.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/failback.cpp.o
+.PHONY : tools/failback.cpp.o
+
+tools/failback.i: tools/failback.cpp.i
+.PHONY : tools/failback.i
+
+# target to preprocess a source file
+tools/failback.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/failback.cpp.i
+.PHONY : tools/failback.cpp.i
+
+tools/failback.s: tools/failback.cpp.s
+.PHONY : tools/failback.s
+
+# target to generate assembly for a file
+tools/failback.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/failback.cpp.s
+.PHONY : tools/failback.cpp.s
+
 tools/robotCalculations.o: tools/robotCalculations.cpp.o
 .PHONY : tools/robotCalculations.o
 
@@ -291,6 +315,9 @@ help:
 	@echo "... tools/afterDetections.o"
 	@echo "... tools/afterDetections.i"
 	@echo "... tools/afterDetections.s"
+	@echo "... tools/failback.o"
+	@echo "... tools/failback.i"
+	@echo "... tools/failback.s"
 	@echo "... tools/robotCalculations.o"
 	@echo "... tools/robotCalculations.i"
 	@echo "... tools/robotCalculations.s"

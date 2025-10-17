@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Test.dir/src/yoloProcess.cpp.o.d"
   "CMakeFiles/Test.dir/tools/afterDetections.cpp.o"
   "CMakeFiles/Test.dir/tools/afterDetections.cpp.o.d"
+  "CMakeFiles/Test.dir/tools/failback.cpp.o"
+  "CMakeFiles/Test.dir/tools/failback.cpp.o.d"
   "CMakeFiles/Test.dir/tools/robotCalculations.cpp.o"
   "CMakeFiles/Test.dir/tools/robotCalculations.cpp.o.d"
   "CMakeFiles/Test.dir/tools/tools.cpp.o"

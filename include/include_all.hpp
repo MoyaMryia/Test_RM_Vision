@@ -2,8 +2,9 @@
 
 #define _ENEMY 2
 #define _FRIENDS 2-_ENEMY
-#define USING_YOLO
+//#define USING_YOLO
 #define USING_BACKUP
+//#define VIDEO
 
 #if !defined(USING_YOLO) && !defined(USING_BACKUP)
     #error "ERROR: At least one of the USING_YOLO and USING_BACKUP should be declaried."

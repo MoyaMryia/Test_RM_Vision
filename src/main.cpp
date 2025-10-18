@@ -15,18 +15,27 @@ int main(int argc, char **argv)
         return -1;
     }
     cv::Mat frame;
+#ifdef VIDEO
     long long total = 1;
     double t0 = 0;
     double t_last = cv::getTickCount();
     double freq = cv::getTickFrequency();
     double fps = 0.0;
+
     while (true)
     {
+
         t0 = cv::getTickCount();
+#endif
         if (!reader.readFrame(frame))
         {
+#ifdef VIDEO
             break;
+#else
+            return 0;
+#endif
         }
+
 #ifdef USING_YOLO
         std::vector<float> output_data = detector.preprocessAndInference(frame);
         // output_data的格式如下：
@@ -80,18 +89,53 @@ int main(int argc, char **argv)
                     // tools::drawLightbars(outputFrames[i],armorsYolo[i].Lightbars,cv::Scalar(0,255,0),2);
                 }
                 // tools::drawDetections(frame, boxes, classIds, confidences);
-                cv::imshow("output_binary" + std::to_string(i), binaryImage);
-                cv::imshow("output_pre" + std::to_string(i), preImage);
+                // cv::imshow("output_binary" + std::to_string(i), binaryImage);
+                // cv::imshow("output_pre" + std::to_string(i), preImage);
             }
         }
 #endif
+
 #ifdef USING_BACKUP
+        std::cout<<0<<std::endl;
         std::vector<Armor> armorsBackup;
+        // 有一个公共方法: tools::GetArmorRect
+        std::vector<cv::Mat> channelsBackup;
+        cv::split(frame, channelsBackup);
+        cv::Mat binaryImageBack;
+        cv::Mat preImageBack = channelsBackup[_ENEMY].clone();
+        cv::threshold(preImageBack, binaryImageBack, 130, 255, cv::THRESH_BINARY);
+        std::cout<<1<<std::endl;
+        //cv::imshow("Binary Test", binaryImageBack);
+        std::vector<std::vector<cv::Point>> contoursbackup;
+        cv::findContours(binaryImageBack, contoursbackup, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+        std::vector<cv::RotatedRect> rotaterectsBackup;
+        std::cout<<2<<std::endl;
+        for (const auto &contour : contoursbackup)
+        {
+            auto rotaterect = cv::minAreaRect(contour);
+            auto finrect = tools::getNormalizedRotatedRect_fortyfive(rotaterect);
+            if (failbackFunc::checkVaild(finrect))
+            {
+                rotaterectsBackup.emplace_back(finrect);
+                // tools::drawRotatedRect(frame, finrect, cv::Scalar(0, 255, 0), 2);
+            }
+        }
+        std::cout<<3<<std::endl;
+        // cv::drawContours(frame, contoursbackup, -1 ,cv::Scalar(0,255,0),2);
+        // failBack::findPairs
+        std::vector outLightBarBack = failbackFunc::findPairs(rotaterectsBackup, frame);
+        std::cout<<4<<std::endl;
+        for (const auto &lightbar : outLightBarBack)
+        {
+            tools::drawLightbars(frame, lightbar, cv::Scalar(0, 255, 0), 2);
+        }
+        std::cout<<5<<std::endl;
 #endif
-
-
-        // Merge these things
         std::vector<Armor> armors;
+// 这个Merge先不用 需要一些测试
+#if defined(EXPERIMENTIAL)
+        // Merge these things
+
 #if defined(USING_YOLO) && defined(USING_BACKUP)
 
         armors.reserve(armorsBackup.size() + armorsYolo.size());
@@ -109,17 +153,33 @@ int main(int argc, char **argv)
                 armors.push_back(armorCons);
             }
         }
-
 #endif
-// Without anyone
+#endif
+        // Without anyone
+
 #if !defined(USING_YOLO) && defined(USING_BACKUP)
         armors = armorsBackup;
 #endif
 #if defined(USING_YOLO) && !defined(USING_BACKUP)
         armors = armorsYolo;
 #endif
-//Otherwise ERROR POST.
-//Calculation for FPS Rate.
+
+        // Otherwise ERROR POST.
+        // Kalman
+        if(armors.size()>0){
+            //PartA: DetectNumbers
+            //StepA: Cut
+            //StepB: Compare
+            
+            //StepC: Using the number to find the Rect.
+
+            //PartB: Track
+
+            //PartC: Track speed and yaws
+
+        }
+        // Calculation for FPS Rate.
+#ifdef VIDEO
         double t1 = cv::getTickCount();
         double time_per_frame = (t1 - t_last) / freq;
         fps = 1.0 / time_per_frame;
@@ -132,12 +192,21 @@ int main(int argc, char **argv)
                     cv::Scalar(0, 255, 0),
                     2);
         t_last = t1;
-        cv::imshow("YOLOv8 Detection (ONNX Runtime)", frame);
+#endif
+        cv::imshow("Original", frame);
+#ifdef VIDEO
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27)
         {
+
             break;
+
         }
     }
+#endif
+#ifdef VIDEO
     cv::destroyAllWindows();
+#else
+    cv::waitKey(0);
+#endif
     return 0;
 }

@@ -86,7 +86,7 @@ int main(int argc, char **argv)
                     armorsYolo[i].Lightbars.left_LightBar = rotaterects[0];
                     armorsYolo[i].Lightbars.right_LightBar = rotaterects[1];
                     armorsYolo[i].position = failbackFunc::GetArmorRect(outputFrames[i], armorsYolo[i].Lightbars);
-                    // tools::drawLightbars(outputFrames[i],armorsYolo[i].Lightbars,cv::Scalar(0,255,0),2);
+                    tools::drawLightbars(outputFrames[i],armorsYolo[i].Lightbars,cv::Scalar(255,0,255),2);
                 }
                 // tools::drawDetections(frame, boxes, classIds, confidences);
                 // cv::imshow("output_binary" + std::to_string(i), binaryImage);
@@ -96,7 +96,6 @@ int main(int argc, char **argv)
 #endif
 
 #ifdef USING_BACKUP
-        std::cout<<0<<std::endl;
         std::vector<Armor> armorsBackup;
         // 有一个公共方法: tools::GetArmorRect
         std::vector<cv::Mat> channelsBackup;
@@ -104,12 +103,10 @@ int main(int argc, char **argv)
         cv::Mat binaryImageBack;
         cv::Mat preImageBack = channelsBackup[_ENEMY].clone();
         cv::threshold(preImageBack, binaryImageBack, 130, 255, cv::THRESH_BINARY);
-        std::cout<<1<<std::endl;
         //cv::imshow("Binary Test", binaryImageBack);
         std::vector<std::vector<cv::Point>> contoursbackup;
         cv::findContours(binaryImageBack, contoursbackup, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
         std::vector<cv::RotatedRect> rotaterectsBackup;
-        std::cout<<2<<std::endl;
         for (const auto &contour : contoursbackup)
         {
             auto rotaterect = cv::minAreaRect(contour);
@@ -120,16 +117,14 @@ int main(int argc, char **argv)
                 // tools::drawRotatedRect(frame, finrect, cv::Scalar(0, 255, 0), 2);
             }
         }
-        std::cout<<3<<std::endl;
         // cv::drawContours(frame, contoursbackup, -1 ,cv::Scalar(0,255,0),2);
         // failBack::findPairs
+
         std::vector outLightBarBack = failbackFunc::findPairs(rotaterectsBackup, frame);
-        std::cout<<4<<std::endl;
         for (const auto &lightbar : outLightBarBack)
         {
             tools::drawLightbars(frame, lightbar, cv::Scalar(0, 255, 0), 2);
         }
-        std::cout<<5<<std::endl;
 #endif
         std::vector<Armor> armors;
 // 这个Merge先不用 需要一些测试

@@ -11,5 +11,5 @@ Onnxruntime已被包含 装好OpenCV就行
 特别鸣谢：
 
 //    从：https://github.com/StudyingLover/robomaster-dataset-face 搞来的数据集 ~~对不起电脑太烂训练不了~~
-
+      https://github.com/hejiangda/RM-Archive/raw/master/Template.zip
 //    从NJU云盘拿下的训练文件

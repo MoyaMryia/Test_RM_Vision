@@ -43,7 +43,7 @@ std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pai
     Lightbar_Pair outp;
     outp.left_LightBar = a_ret;
     outp.right_LightBar = b_ret;
-    tools::drawLightbars(image, outp, cv::Scalar(0, 255, 0), 2);
+    //tools::drawLightbars(image, outp, cv::Scalar(0, 255, 0), 1);
     // cv::circle(image, ap, 10, cv::Scalar(0, 255, 255), -1);   // left up
     // cv::circle(image, bp, 10, cv::Scalar(255, 255, 0), -1);   // left down
     // cv::circle(image, cp, 10, cv::Scalar(255, 255, 255), -1); // right up
@@ -144,5 +144,45 @@ std::vector<Lightbar_Pair> findPairs_old(std::vector<cv::RotatedRect> inputRects
 }
 
 std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame){
-    return findPairs_old(inputRects,inputFrame);
+    std::vector<Lightbar_Pair> lightBars;
+
+    std::vector<int> canitbe;
+    for(int i = 0;i<inputRects.size();++i){
+        canitbe.push_back(0);
+    } 
+
+    for(int i = 0; i < inputRects.size();++i){
+        for(int j = 0; j < inputRects.size();++j){
+            if(((!(canitbe[i]))&&(!(canitbe[j])))&&(i!=j)){
+                //需要一个条件判断
+                auto a = inputRects[i];
+                auto b = inputRects[j];
+                auto a_x = a.center.x;
+                auto a_y = a.center.y;
+                auto b_x = b.center.x;
+                auto b_y = b.center.y;
+                auto center_dis = sqrt((a_x-b_x)*(a_x-b_x)+(a_y-b_y)*(a_y-b_y));
+                auto minus_corr = abs(abs(a.angle)-abs(b.angle));
+                auto averageHeight = (a.size.height + b.size.height) / 2.000000;
+                auto averageWidth = (a.size.width + b.size.width) / 2.000000;
+                if(((center_dis < averageHeight * 3.0000000) && (minus_corr < 22) //distance check
+                && abs(abs(atan(abs(a_y - b_y)/ abs(a_x - b_x)) * 180 / pi) - minus_corr) < 10)){//position check
+                    //需要修改一下 明天再说
+                    Lightbar_Pair ligs;
+                    if(a_x>b_x){
+                        ligs.left_LightBar = b;
+                        ligs.right_LightBar = a;
+                    }else{
+                        ligs.left_LightBar =a;
+                        ligs.right_LightBar = b;
+                    }
+                    lightBars.push_back(ligs);
+                    canitbe[i] = 1;
+                    canitbe[j] = 1;
+                }
+
+            }
+        }
+    }
+    return lightBars;
 }

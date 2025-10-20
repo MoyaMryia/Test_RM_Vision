@@ -140,39 +140,82 @@ bool failbackFunc::checkEnemy(cv::RotatedRect lightbar, cv::Mat frame)
     Lightbar_Pair a;
     a.left_LightBar = lightbar;
     a.right_LightBar = lightbar;
-    
+
     auto raw_rect = tools::bounding_rect_of_dual_rotated_rects(a);
     cv::Rect image_bounds(0, 0, frame.cols, frame.rows);
-    
 
     cv::Rect safe_rect = raw_rect & image_bounds;
-    
 
-    if (safe_rect.empty()) {
-        return 0; 
+    if (safe_rect.empty())
+    {
+        return 0;
     }
 
-    cv::Mat lightbarMat = frame(safe_rect); 
+    cv::Mat lightbarMat = frame(safe_rect);
 
     std::vector<cv::Mat> channels;
     cv::split(lightbarMat, channels);
 
     cv::Mat checkvaildFrame;
-    if (channels.size() < 3) return 0; // 安全检查
+    if (channels.size() < 3)
+        return 0; // 安全检查
 
     cv::Mat frame2 = channels[0] - channels[2];
     cv::threshold(frame2, checkvaildFrame, 130, 255, cv::THRESH_BINARY);
-    
+
     std::vector<std::vector<cv::Point>> contoursbackup;
     cv::findContours(checkvaildFrame, contoursbackup, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
-    
+
     if (contoursbackup.size() > 0)
         return 0;
-        
+
     return 1;
 }
 
 std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
 {
     return findPairs_Testing(inputRects, inputFrame);
+}
+
+std::vector<Armor> failbackFunc::mainFunction(cv::Mat frame)
+{
+    std::vector<Armor> armorsBackup;
+    std::vector<cv::Mat> channelsBackup;
+    cv::split(frame, channelsBackup);
+    cv::Mat binaryImageBack;
+    cv::Mat preImageBack = channelsBackup[_ENEMY].clone();
+    cv::threshold(preImageBack, binaryImageBack, 130, 255, cv::THRESH_BINARY);
+    // cv::imshow("Binary Test", binaryImageBack);
+    std::vector<std::vector<cv::Point>> contoursbackup;
+    cv::findContours(binaryImageBack, contoursbackup, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+    std::vector<cv::RotatedRect> rotaterectsBackup;
+    for (const auto &contour : contoursbackup)
+    {
+        auto rotaterect = cv::minAreaRect(contour);
+        auto finrect = tools::getNormalizedRotatedRect_fortyfive(rotaterect);
+        // 这里需要一个敌我识别 现在的方法很容易不认自己人
+        // if (failbackFunc::checkEnemy(finrect,frame))
+        if (failbackFunc::checkEnemy(finrect, frame))
+        {
+            // std::cout<<1<<std::endl;
+
+            if (failbackFunc::checkVaild(finrect))
+            {
+                rotaterectsBackup.emplace_back(finrect);
+                // tools::drawRotatedRect(frame, finrect, cv::Scalar(0, 255, 0), 2);
+            }
+        }
+    }
+    // cv::drawContours(frame, contoursbackup, -1 ,cv::Scalar(0,255,0),2);
+    // failBack::findPairs
+
+    std::vector<Lightbar_Pair> outLightBarBack = failbackFunc::findPairs(rotaterectsBackup, frame);
+    for (const auto &lightbar : outLightBarBack)
+    {
+        // tools::drawLightbars(frame, lightbar, cv::Scalar(0, 255, 0), 2);
+        Armor lar;
+        lar.Lightbars = lightbar;
+        armorsBackup.push_back(lar);
+    }
+    return armorsBackup;
 }

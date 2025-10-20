@@ -129,6 +129,30 @@ Test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
 .PHONY : Test/fast
 
+src/failback.o: src/failback.cpp.o
+.PHONY : src/failback.o
+
+# target to build an object file
+src/failback.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/failback.cpp.o
+.PHONY : src/failback.cpp.o
+
+src/failback.i: src/failback.cpp.i
+.PHONY : src/failback.i
+
+# target to preprocess a source file
+src/failback.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/failback.cpp.i
+.PHONY : src/failback.cpp.i
+
+src/failback.s: src/failback.cpp.s
+.PHONY : src/failback.s
+
+# target to generate assembly for a file
+src/failback.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/failback.cpp.s
+.PHONY : src/failback.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -176,30 +200,6 @@ src/yoloProcess.s: src/yoloProcess.cpp.s
 src/yoloProcess.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yoloProcess.cpp.s
 .PHONY : src/yoloProcess.cpp.s
-
-tools/failback.o: tools/failback.cpp.o
-.PHONY : tools/failback.o
-
-# target to build an object file
-tools/failback.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/failback.cpp.o
-.PHONY : tools/failback.cpp.o
-
-tools/failback.i: tools/failback.cpp.i
-.PHONY : tools/failback.i
-
-# target to preprocess a source file
-tools/failback.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/failback.cpp.i
-.PHONY : tools/failback.cpp.i
-
-tools/failback.s: tools/failback.cpp.s
-.PHONY : tools/failback.s
-
-# target to generate assembly for a file
-tools/failback.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/failback.cpp.s
-.PHONY : tools/failback.cpp.s
 
 tools/tools.o: tools/tools.cpp.o
 .PHONY : tools/tools.o
@@ -258,15 +258,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Test"
+	@echo "... src/failback.o"
+	@echo "... src/failback.i"
+	@echo "... src/failback.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
 	@echo "... src/yoloProcess.o"
 	@echo "... src/yoloProcess.i"
 	@echo "... src/yoloProcess.s"
-	@echo "... tools/failback.o"
-	@echo "... tools/failback.i"
-	@echo "... tools/failback.s"
 	@echo "... tools/tools.o"
 	@echo "... tools/tools.i"
 	@echo "... tools/tools.s"

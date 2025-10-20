@@ -4,7 +4,7 @@
 #define _FRIENDS 0
 //#define USING_YOLO
 #define USING_BACKUP
-#define VIDEO
+//#define VIDEO
 
 
 #if !defined(USING_YOLO) && !defined(USING_BACKUP)

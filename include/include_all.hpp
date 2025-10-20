@@ -2,7 +2,7 @@
 
 #define _ENEMY 2
 #define _FRIENDS 0
-#define USING_YOLO
+//#define USING_YOLO
 #define USING_BACKUP
 #define VIDEO
 

@@ -137,26 +137,39 @@ std::vector<Lightbar_Pair> findPairs_Testing(std::vector<cv::RotatedRect> inputR
 
 bool failbackFunc::checkEnemy(cv::RotatedRect lightbar, cv::Mat frame)
 {
-    std::cout<<lightbar.angle<<std::endl;
     Lightbar_Pair a;
     a.left_LightBar = lightbar;
     a.right_LightBar = lightbar;
-    cv::Mat lightbarMat = frame.clone();
-    lightbarMat = lightbarMat(tools::bounding_rect_of_dual_rotated_rects(a));
+    
+    auto raw_rect = tools::bounding_rect_of_dual_rotated_rects(a);
+    cv::Rect image_bounds(0, 0, frame.cols, frame.rows);
+    
+
+    cv::Rect safe_rect = raw_rect & image_bounds;
+    
+
+    if (safe_rect.empty()) {
+        return 0; 
+    }
+
+    cv::Mat lightbarMat = frame(safe_rect); 
+
     std::vector<cv::Mat> channels;
     cv::split(lightbarMat, channels);
-    if(lightbarMat.empty()){
-        std::cout<<123<<std::endl;
-        return 0;
-    }
+
     cv::Mat checkvaildFrame;
-    cv::Mat frame2 =channels[0] - channels[2];
+    if (channels.size() < 3) return 0; // 安全检查
+
+    cv::Mat frame2 = channels[0] - channels[2];
     cv::threshold(frame2, checkvaildFrame, 130, 255, cv::THRESH_BINARY);
+    
     std::vector<std::vector<cv::Point>> contoursbackup;
     cv::findContours(checkvaildFrame, contoursbackup, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+    
     if (contoursbackup.size() > 0)
-        return 1;
-    return 0;
+        return 0;
+        
+    return 1;
 }
 
 std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)

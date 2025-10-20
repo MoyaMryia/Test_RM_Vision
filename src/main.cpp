@@ -119,10 +119,10 @@ int main(int argc, char **argv)
             auto finrect = tools::getNormalizedRotatedRect_fortyfive(rotaterect);
             // 这里需要一个敌我识别 现在的方法很容易不认自己人
             //if (failbackFunc::checkEnemy(finrect,frame))
-            if(1)
+            if(failbackFunc::checkEnemy(finrect,frame))
             {   
                 //std::cout<<1<<std::endl;
-                failbackFunc::checkEnemy(finrect,frame);
+                
                 if (failbackFunc::checkVaild(finrect))
                 {
                     rotaterectsBackup.emplace_back(finrect);

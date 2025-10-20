@@ -5,6 +5,7 @@
 //#define USING_YOLO
 #define USING_BACKUP
 #define VIDEO
+#define DEBUG_P
 
 #if !defined(USING_YOLO) && !defined(USING_BACKUP)
     #error "ERROR: At least one of the USING_YOLO and USING_BACKUP should be declaried."

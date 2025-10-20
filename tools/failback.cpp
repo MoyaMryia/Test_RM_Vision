@@ -81,8 +81,56 @@ bool isApproximatelyParallel(const cv::RotatedRect& rect1,
     return false;
 }
 
-std::vector<Lightbar_Pair> findPairs_old(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
+
+std::vector<Lightbar_Pair> findPairs_Testing(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame){
+    std::vector<Lightbar_Pair> lightBars;
+
+    std::vector<int> canitbe;
+    for(int i = 0;i<inputRects.size();++i){
+        canitbe.push_back(0);
+    } 
+
+    for(int i = 0; i < inputRects.size();++i){
+        for(int j = 0; j < inputRects.size();++j){
+            if(((!(canitbe[i]))&&(!(canitbe[j])))&&(i!=j)){
+                //需要一个条件判断
+                auto a = inputRects[i];
+                auto b = inputRects[j];
+                auto a_x = a.center.x;
+                auto a_y = a.center.y;
+                auto b_x = b.center.x;
+                auto b_y = b.center.y;
+                auto center_dis = sqrt((a_x-b_x)*(a_x-b_x)+(a_y-b_y)*(a_y-b_y));
+                auto minus_corr = abs(abs(a.angle)-abs(b.angle));
+                auto averageHeight = (a.size.height + b.size.height) / 2.000000;
+                auto averageWidth = (a.size.width + b.size.width) / 2.000000;
+                if(((center_dis < averageHeight * 3.0000000) && (minus_corr < 22) //distance check
+                && abs(abs(atan(abs(a_y - b_y)/ abs(a_x - b_x)) * 180 / pi) - minus_corr) < 3)){//position check
+                    //需要修改一下 明天再说
+                    Lightbar_Pair ligs;
+                    if(a_x>b_x){
+                        ligs.left_LightBar = b;
+                        ligs.right_LightBar = a;
+                    }else{
+                        ligs.left_LightBar =a;
+                        ligs.right_LightBar = b;
+                    }
+                    lightBars.push_back(ligs);
+                    canitbe[i] = 1;
+                    canitbe[j] = 1;
+                }
+
+            }
+        }
+    }
+    return lightBars;
+}
+
+std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
 {
+#ifdef DEBUG_P
+    return findPairs_Testing(inputRects,inputFrame);
+#else
     std::vector<cv::RotatedRect> exersiRects;
     for (const auto &rects : inputRects)
     {
@@ -141,48 +189,6 @@ std::vector<Lightbar_Pair> findPairs_old(std::vector<cv::RotatedRect> inputRects
         a++;
     }
     return out_light;
+#endif
 }
 
-std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame){
-    std::vector<Lightbar_Pair> lightBars;
-
-    std::vector<int> canitbe;
-    for(int i = 0;i<inputRects.size();++i){
-        canitbe.push_back(0);
-    } 
-
-    for(int i = 0; i < inputRects.size();++i){
-        for(int j = 0; j < inputRects.size();++j){
-            if(((!(canitbe[i]))&&(!(canitbe[j])))&&(i!=j)){
-                //需要一个条件判断
-                auto a = inputRects[i];
-                auto b = inputRects[j];
-                auto a_x = a.center.x;
-                auto a_y = a.center.y;
-                auto b_x = b.center.x;
-                auto b_y = b.center.y;
-                auto center_dis = sqrt((a_x-b_x)*(a_x-b_x)+(a_y-b_y)*(a_y-b_y));
-                auto minus_corr = abs(abs(a.angle)-abs(b.angle));
-                auto averageHeight = (a.size.height + b.size.height) / 2.000000;
-                auto averageWidth = (a.size.width + b.size.width) / 2.000000;
-                if(((center_dis < averageHeight * 3.0000000) && (minus_corr < 22) //distance check
-                && abs(abs(atan(abs(a_y - b_y)/ abs(a_x - b_x)) * 180 / pi) - minus_corr) < 10)){//position check
-                    //需要修改一下 明天再说
-                    Lightbar_Pair ligs;
-                    if(a_x>b_x){
-                        ligs.left_LightBar = b;
-                        ligs.right_LightBar = a;
-                    }else{
-                        ligs.left_LightBar =a;
-                        ligs.right_LightBar = b;
-                    }
-                    lightBars.push_back(ligs);
-                    canitbe[i] = 1;
-                    canitbe[j] = 1;
-                }
-
-            }
-        }
-    }
-    return lightBars;
-}

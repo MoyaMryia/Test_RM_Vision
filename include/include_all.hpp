@@ -1,11 +1,11 @@
 #pragma once
 
 #define _ENEMY 2
-#define _FRIENDS 2-_ENEMY
-//#define USING_YOLO
+#define _FRIENDS 0
+#define USING_YOLO
 #define USING_BACKUP
 #define VIDEO
-#define DEBUG_P
+
 
 #if !defined(USING_YOLO) && !defined(USING_BACKUP)
     #error "ERROR: At least one of the USING_YOLO and USING_BACKUP should be declaried."
@@ -34,3 +34,4 @@
 #include "../include/failback.hpp"
 #include <cmath>
 #define pi 3.1415926535897
+

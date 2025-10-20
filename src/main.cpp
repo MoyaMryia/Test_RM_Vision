@@ -32,11 +32,12 @@ int main(int argc, char **argv)
 #ifdef VIDEO
             break;
 #else
-            return 0;
+        return 0;
 #endif
         }
 
 #ifdef USING_YOLO
+        // 高准度 低实时
         std::vector<float> output_data = detector.preprocessAndInference(frame);
         // output_data的格式如下：
         // [x1, y1, x2, y2, confidence, class_id],[x1, y1, x2, y2, confidence, class_id],[x1, y1, x2, y2, confidence, class_id] ...
@@ -48,9 +49,9 @@ int main(int argc, char **argv)
         std::vector<float> confidences;
         YOLOv8Detector::post_process_ort(frame, output_data, boxes, classIds, confidences);
         std::vector<Armor> armorsYolo;
-        std::vector<Robot> cars;
-        std::vector<Robot> watchers;
-        tools::classifyArmors(total, boxes, classIds, confidences, cars, watchers, armorsYolo);
+        std::vector<Robot> cars_mid;
+        std::vector<Robot> watchers_mid;
+        tools::classifyArmors(total, boxes, classIds, confidences, cars_mid, watchers_mid, armorsYolo);
         std::vector<cv::Mat> outputFrames;
         outputFrames = tools::chopFrame(armorsYolo, frame);
 
@@ -83,10 +84,14 @@ int main(int argc, char **argv)
                 {
                     if (rotaterects[0].center.x > rotaterects[1].center.x)
                         std::swap(rotaterects[0], rotaterects[1]);
+                    rotaterects[0].center.x += armorsYolo[i].Box.x;
+                    rotaterects[0].center.y += armorsYolo[i].Box.y;
+                    rotaterects[1].center.x += armorsYolo[i].Box.x;
+                    rotaterects[1].center.y += armorsYolo[i].Box.y;
                     armorsYolo[i].Lightbars.left_LightBar = rotaterects[0];
                     armorsYolo[i].Lightbars.right_LightBar = rotaterects[1];
-                    armorsYolo[i].position = failbackFunc::GetArmorRect(outputFrames[i], armorsYolo[i].Lightbars);
-                    tools::drawLightbars(outputFrames[i],armorsYolo[i].Lightbars,cv::Scalar(255,0,255),2);
+                    // armorsYolo[i].position = failbackFunc::GetArmorRect(outputFrames[i], armorsYolo[i].Lightbars);
+                    // tools::drawLightbars(outputFrames[i], armorsYolo[i].Lightbars, cv::Scalar(255, 0, 255), 2);
                 }
                 // tools::drawDetections(frame, boxes, classIds, confidences);
                 // cv::imshow("output_binary" + std::to_string(i), binaryImage);
@@ -96,6 +101,7 @@ int main(int argc, char **argv)
 #endif
 
 #ifdef USING_BACKUP
+        // 复杂情况准度低 但是常时有能力
         std::vector<Armor> armorsBackup;
         // 有一个公共方法: tools::GetArmorRect
         std::vector<cv::Mat> channelsBackup;
@@ -103,7 +109,7 @@ int main(int argc, char **argv)
         cv::Mat binaryImageBack;
         cv::Mat preImageBack = channelsBackup[_ENEMY].clone();
         cv::threshold(preImageBack, binaryImageBack, 130, 255, cv::THRESH_BINARY);
-        //cv::imshow("Binary Test", binaryImageBack);
+        // cv::imshow("Binary Test", binaryImageBack);
         std::vector<std::vector<cv::Point>> contoursbackup;
         cv::findContours(binaryImageBack, contoursbackup, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
         std::vector<cv::RotatedRect> rotaterectsBackup;
@@ -111,25 +117,32 @@ int main(int argc, char **argv)
         {
             auto rotaterect = cv::minAreaRect(contour);
             auto finrect = tools::getNormalizedRotatedRect_fortyfive(rotaterect);
-            if (failbackFunc::checkVaild(finrect))
-            {
-                rotaterectsBackup.emplace_back(finrect);
-                // tools::drawRotatedRect(frame, finrect, cv::Scalar(0, 255, 0), 2);
+            // 这里需要一个敌我识别 现在的方法很容易不认自己人
+            //if (failbackFunc::checkEnemy(finrect,frame))
+            if(1)
+            {   
+                //std::cout<<1<<std::endl;
+                failbackFunc::checkEnemy(finrect,frame);
+                if (failbackFunc::checkVaild(finrect))
+                {
+                    rotaterectsBackup.emplace_back(finrect);
+                    // tools::drawRotatedRect(frame, finrect, cv::Scalar(0, 255, 0), 2);
+                }
             }
         }
         // cv::drawContours(frame, contoursbackup, -1 ,cv::Scalar(0,255,0),2);
         // failBack::findPairs
 
-        std::vector outLightBarBack = failbackFunc::findPairs(rotaterectsBackup, frame);
+        std::vector<Lightbar_Pair> outLightBarBack = failbackFunc::findPairs(rotaterectsBackup, frame);
         for (const auto &lightbar : outLightBarBack)
         {
-            tools::drawLightbars(frame, lightbar, cv::Scalar(0, 255, 0), 2);
+            // tools::drawLightbars(frame, lightbar, cv::Scalar(0, 255, 0), 2);
+            Armor lar;
+            lar.Lightbars = lightbar;
+            armorsBackup.push_back(lar);
         }
 #endif
         std::vector<Armor> armors;
-// 这个Merge先不用 需要一些测试
-#if defined(EXPERIMENTIAL)
-        // Merge these things
 
 #if defined(USING_YOLO) && defined(USING_BACKUP)
 
@@ -149,7 +162,6 @@ int main(int argc, char **argv)
             }
         }
 #endif
-#endif
         // Without anyone
 
 #if !defined(USING_YOLO) && defined(USING_BACKUP)
@@ -158,20 +170,28 @@ int main(int argc, char **argv)
 #if defined(USING_YOLO) && !defined(USING_BACKUP)
         armors = armorsYolo;
 #endif
-
+        for (const auto &armorA : armors)
+        {
+            tools::drawLightbars(frame, armorA.Lightbars, cv::Scalar(0, 255, 0), 1);
+        }
         // Otherwise ERROR POST.
         // Kalman
-        if(armors.size()>0){
-            //PartA: DetectNumbers
-            //StepA: Cut
-            //StepB: Compare
-            
-            //StepC: Using the number to find the Rect.
+        if (armors.size() > 0)
+        {
+            // PartA: DetectNumbers
+            // StepA: Cut
+            for (int i = 0; i < armors.size(); ++i)
+            {
+                armors[i].position = failbackFunc::GetArmorRect(frame, armors[i].Lightbars);
+            }
+            // Step (A+B)/2 check if it's right
+            // StepB: Compare
 
-            //PartB: Track
+            // StepC: Using the number to find the Rect.
 
-            //PartC: Track speed and yaws
+            // PartB: Track
 
+            // PartC: Track speed and yaws
         }
         // Calculation for FPS Rate.
 #ifdef VIDEO
@@ -194,7 +214,6 @@ int main(int argc, char **argv)
         {
 
             break;
-
         }
     }
 #endif

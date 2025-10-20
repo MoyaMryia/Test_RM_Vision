@@ -102,33 +102,6 @@ std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, con
     return outputFrame;
 }
 
-cv::Mat tools::cropRotatedRect(cv::Mat &frame, const cv::RotatedRect &rRect)
-{
-    float width = rRect.size.width;
-    float height = rRect.size.height;
-    float angle = rRect.angle;
-    cv::Size2f rectSize(width, height);
-    if (angle < -45.f)
-    {
-        angle += 90.0;
-        std::swap(rectSize.width, rectSize.height);
-    }
-    else if (angle > 45.f)
-    {
-        angle -= 90.0;
-        std::swap(rectSize.width, rectSize.height);
-    }
-    cv::Mat M = cv::getRotationMatrix2D(rRect.center, angle, 1.0);
-    cv::Mat rotatedFrame;
-    cv::warpAffine(frame, rotatedFrame, M, frame.size(), cv::INTER_LINEAR, cv::BORDER_CONSTANT);
-    cv::Rect bbox = rRect.boundingRect();
-    cv::Point2f cropStart = bbox.tl();
-    cv::Rect2f targetRect(0, 0, rectSize.width, rectSize.height);
-    cv::Mat croppedImage;
-    cv::getRectSubPix(rotatedFrame, rectSize, rRect.center, croppedImage);
-    frame = croppedImage.clone();
-    return croppedImage;
-}
 
 void tools::drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
 {
@@ -237,16 +210,6 @@ void tools::drawDetections(cv::Mat &img, const std::vector<cv::Rect> &boxes, con
     }
 }
 
-cv::Mat tools::mainFunction(const cv::Mat &inputFrame)
-{
-    cv::Mat outputframe = inputFrame.clone();
-    outputframe = enhanceContrast(inputFrame);
-    outputframe = enhanceContrast(outputframe);
-    // outputframe = adjustBrightness(inputFrame,10);
-    getContours(outputframe, 15.0);
-    return outputframe;
-}
-
 cv::RotatedRect tools::getNormalizedRotatedRect_fortyfive(const cv::RotatedRect &rect)
 {
     cv::RotatedRect normalizedRect = rect;
@@ -288,73 +251,48 @@ cv::RotatedRect tools::getNormalizedRotatedRect_fortyfive(const cv::RotatedRect 
     return normalizedRect;
 }
 
-const float EPSILON_FLOAT = 1e-4;
-const float EPSILON_ANGLE = 0.5;
-
-bool is_approx_equal(float a, float b, float epsilon)
+cv::Rect tools::bounding_rect_of_dual_rotated_rects(const Lightbar_Pair& dualRects)
 {
-    return std::abs(a - b) < epsilon;
+    cv::Point2f vertices1[4];
+    dualRects.left_LightBar.points(vertices1);
+    cv::Point2f vertices2[4];
+    dualRects.right_LightBar.points(vertices2);
+
+    float min_x = vertices1[0].x;
+    float max_x = vertices1[0].x;
+    float min_y = vertices1[0].y;
+    float max_y = vertices1[0].y;
+
+    for (int i = 0; i < 4; i++)
+    {
+        min_x = std::min(min_x, vertices1[i].x);
+        max_x = std::max(max_x, vertices1[i].x);
+        min_y = std::min(min_y, vertices1[i].y);
+        max_y = std::max(max_y, vertices1[i].y);
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        min_x = std::min(min_x, vertices2[i].x);
+        max_x = std::max(max_x, vertices2[i].x);
+        min_y = std::min(min_y, vertices2[i].y);
+        max_y = std::max(max_y, vertices2[i].y);
+    }
+    
+    int x = static_cast<int>(std::floor(min_x));
+    int y = static_cast<int>(std::floor(min_y));
+    
+    int width = static_cast<int>(std::ceil(max_x)) - x;
+    int height = static_cast<int>(std::ceil(max_y)) - y;
+
+    width = std::max(1, width);
+    height = std::max(1, height);
+    
+    return cv::Rect(x, y, width, height);
 }
 
-bool is_approx_equal(const cv::Point2f &p1, const cv::Point2f &p2, float epsilon)
-{
-    return is_approx_equal(p1.x, p2.x, epsilon) &&
-           is_approx_equal(p1.y, p2.y, epsilon);
-}
-
-bool is_approx_equal(const cv::Size2f &s1, const cv::Size2f &s2, float epsilon)
-{
-    return (is_approx_equal(s1.width, s2.width, epsilon) &&
-            is_approx_equal(s1.height, s2.height, epsilon));
-}
-
-bool is_approx_equal(const cv::RotatedRect &r1, const cv::RotatedRect &r2,
-                     float center_epsilon, float size_epsilon, float angle_epsilon)
-{
-
-    if (!is_approx_equal(r1.center, r2.center, center_epsilon))
-    {
-        return false;
-    }
-
-    if (!is_approx_equal(r1.size, r2.size, size_epsilon))
-    {
-        return false;
-    }
-
-    if (!is_approx_equal(r1.angle, r2.angle, angle_epsilon))
-    {
-        return false;
-    }
-
-    return true;
-}
-
-bool tools::is_pair_approx_equal(const Lightbar_Pair &pair1, const Lightbar_Pair &pair2)
-{
-
-    const float center_tol = 1.0;
-    const float size_tol = 2.0;
-    const float angle_tol = EPSILON_ANGLE;
-
-    bool left_equal = is_approx_equal(
-        pair1.left_LightBar,
-        pair2.left_LightBar,
-        center_tol,
-        size_tol,
-        angle_tol);
-
-    if (!left_equal)
-    {
-        return false;
-    }
-
-    bool right_equal = is_approx_equal(
-        pair1.right_LightBar,
-        pair2.right_LightBar,
-        center_tol,
-        size_tol,
-        angle_tol);
-
-    return right_equal;
+bool tools::is_pair_approx_equal(const Lightbar_Pair& pair1, const Lightbar_Pair& pair2){
+    cv::Rect a_ret = bounding_rect_of_dual_rotated_rects(pair1),b_ret = bounding_rect_of_dual_rotated_rects(pair2);
+    cv::Rect t = a_ret & b_ret;
+    if(t.area()*1.000000/(((a_ret.area()+b_ret.area())*1.000000)/2) > 0.7) return 1;
+    return 0;
 }

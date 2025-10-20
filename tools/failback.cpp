@@ -1,6 +1,7 @@
+
 #include "../include/failback.hpp"
 
-//线性外推做法
+// 线性外推做法
 
 std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pair &inputPairs)
 {
@@ -43,11 +44,11 @@ std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pai
     Lightbar_Pair outp;
     outp.left_LightBar = a_ret;
     outp.right_LightBar = b_ret;
-    //tools::drawLightbars(image, outp, cv::Scalar(0, 255, 0), 1);
-    // cv::circle(image, ap, 10, cv::Scalar(0, 255, 255), -1);   // left up
-    // cv::circle(image, bp, 10, cv::Scalar(255, 255, 0), -1);   // left down
-    // cv::circle(image, cp, 10, cv::Scalar(255, 255, 255), -1); // right up
-    // cv::circle(image, dp, 10, cv::Scalar(0, 255, 0), -1);     // right down
+    // tools::drawLightbars(image, outp, cv::Scalar(0, 255, 0), 1);
+    //  cv::circle(image, ap, 10, cv::Scalar(0, 255, 255), -1);   // left up
+    //  cv::circle(image, bp, 10, cv::Scalar(255, 255, 0), -1);   // left down
+    //  cv::circle(image, cp, 10, cv::Scalar(255, 255, 255), -1); // right up
+    //  cv::circle(image, dp, 10, cv::Scalar(0, 255, 0), -1);     // right down
     return contour_points;
 }
 
@@ -62,133 +63,103 @@ bool failbackFunc::checkVaild(cv::RotatedRect inputRect)
     return 1;
 }
 
-bool isApproximatelyParallel(const cv::RotatedRect& rect1,
-                            const cv::RotatedRect& rect2,
-                            double angleTolerance )//default 5 some condition 10
+bool isApproximatelyParallel(const cv::RotatedRect &rect1,
+                             const cv::RotatedRect &rect2,
+                             double angleTolerance) // default 5 some condition 10
 {
     double angle1 = rect1.angle;
     double angle2 = rect2.angle;
 
     double angleDiff = std::abs(angle1 - angle2);
-    if (angleDiff <= angleTolerance) {
+    if (angleDiff <= angleTolerance)
+    {
         return true;
     }
     double diff90 = std::abs(90.0 - angleDiff);
-    if (diff90 <= angleTolerance) {
+    if (diff90 <= angleTolerance)
+    {
         return true;
     }
 
     return false;
 }
 
-
-std::vector<Lightbar_Pair> findPairs_Testing(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame){
+std::vector<Lightbar_Pair> findPairs_Testing(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
+{
     std::vector<Lightbar_Pair> lightBars;
 
     std::vector<int> canitbe;
-    for(int i = 0;i<inputRects.size();++i){
+    for (int i = 0; i < inputRects.size(); ++i)
+    {
         canitbe.push_back(0);
-    } 
+    }
 
-    for(int i = 0; i < inputRects.size();++i){
-        for(int j = 0; j < inputRects.size();++j){
-            if(((!(canitbe[i]))&&(!(canitbe[j])))&&(i!=j)){
-                //需要一个条件判断
+    for (int i = 0; i < inputRects.size(); ++i)
+    {
+        for (int j = 0; j < inputRects.size(); ++j)
+        {
+            if (((!(canitbe[i])) && (!(canitbe[j]))) && (i != j))
+            {
+                // 需要一个条件判断
                 auto a = inputRects[i];
                 auto b = inputRects[j];
                 auto a_x = a.center.x;
                 auto a_y = a.center.y;
                 auto b_x = b.center.x;
                 auto b_y = b.center.y;
-                auto center_dis = sqrt((a_x-b_x)*(a_x-b_x)+(a_y-b_y)*(a_y-b_y));
-                auto minus_corr = abs(abs(a.angle)-abs(b.angle));
+                auto center_dis = sqrt((a_x - b_x) * (a_x - b_x) + (a_y - b_y) * (a_y - b_y));
+                auto minus_corr = abs(abs(a.angle) - abs(b.angle));
                 auto averageHeight = (a.size.height + b.size.height) / 2.000000;
                 auto averageWidth = (a.size.width + b.size.width) / 2.000000;
-                if(((center_dis < averageHeight * 3.0000000) && (minus_corr < 22) //distance check
-                && abs(abs(atan(abs(a_y - b_y)/ abs(a_x - b_x)) * 180 / pi) - minus_corr) < 3)){//position check
-                    //需要修改一下 明天再说
+                if (((center_dis < averageHeight * 3.0000000) && (minus_corr < 22) // distance check
+                     && abs(abs(atan(abs(a_y - b_y) / abs(a_x - b_x)) * 180 / pi) - minus_corr) < 3))
+                { // position check
                     Lightbar_Pair ligs;
-                    if(a_x>b_x){
+                    if (a_x > b_x)
+                    {
                         ligs.left_LightBar = b;
                         ligs.right_LightBar = a;
-                    }else{
-                        ligs.left_LightBar =a;
+                    }
+                    else
+                    {
+                        ligs.left_LightBar = a;
                         ligs.right_LightBar = b;
                     }
                     lightBars.push_back(ligs);
                     canitbe[i] = 1;
                     canitbe[j] = 1;
                 }
-
             }
         }
     }
     return lightBars;
 }
 
-std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
+bool failbackFunc::checkEnemy(cv::RotatedRect lightbar, cv::Mat frame)
 {
-#ifdef DEBUG_P
-    return findPairs_Testing(inputRects,inputFrame);
-#else
-    std::vector<cv::RotatedRect> exersiRects;
-    for (const auto &rects : inputRects)
-    {
-        exersiRects.emplace_back(rects);
+    std::cout<<lightbar.angle<<std::endl;
+    Lightbar_Pair a;
+    a.left_LightBar = lightbar;
+    a.right_LightBar = lightbar;
+    cv::Mat lightbarMat = frame.clone();
+    lightbarMat = lightbarMat(tools::bounding_rect_of_dual_rotated_rects(a));
+    std::vector<cv::Mat> channels;
+    cv::split(lightbarMat, channels);
+    if(lightbarMat.empty()){
+        std::cout<<123<<std::endl;
+        return 0;
     }
-    std::vector<Lightbar_Pair> out_light;
-    auto a = exersiRects.begin();
-    auto b = exersiRects.begin();
-
-    while (a != exersiRects.end())
-    {
-        if (((((*a).center.x) * ((*a).center.x)) + (((*a).center.y) * ((*a).center.y))) > 0)
-        {
-            auto b = exersiRects.begin();
-            while (b != exersiRects.end())
-            {
-                if (((((*b).center.x) * ((*b).center.x)) + (((*b).center.y) * ((*b).center.y))) > 0)
-                {
-                    cv::Point2f apoint = (*a).center;
-                    cv::Point2f bpoint = (*b).center;
-                    double alen = ((*a).size.height > (*a).size.width ? (*a).size.height : (*a).size.width);
-                    double blen = ((*b).size.height > (*b).size.width ? (*b).size.height : (*b).size.width);
-                    double alon = ((*a).size.height < (*a).size.width ? (*a).size.height : (*a).size.width);
-                    double blon = ((*b).size.height < (*b).size.width ? (*b).size.height : (*b).size.width);
-                    double cmpx = (alen + blen) / 2.0000000;
-                    double cmpy = (alon + blon) / 2.0000000;
-                    double disx = apoint.x - bpoint.x;
-                    double disy = apoint.y - bpoint.y;
-                    if ((disx * disx) + (disy * disy) > 0)
-                    {
-                        /*
-                        std::cout<<"Searching for these points"<<std::endl;
-                        std::cout<<"A:"<<apoint.x<<" "<<apoint.y<<" "<<alen<<" "<<alon<<std::endl;
-                        std::cout<<"B:"<<bpoint.x<<" "<<bpoint.y<<" "<<blen<<" "<<blon<<std::endl;
-                        std::cout<<"Expected:"<<cmpx<<" "<<cmpy<<std::endl;
-                        std::cout<<"Reality:"<<disx<<" "<<disy<<std::endl;
-                        std::cout<<std::endl;
-                        */
-                        if (((disx < cmpx * 3.000000) && (disx > cmpx * -3.000000)) && ((disy < cmpy * 0.7500) && (disy > cmpy * -0.7500)))
-                        {
-                            Lightbar_Pair adds;
-                            adds.left_LightBar = (*a);
-                            adds.right_LightBar = (*b);
-                            (*a).center.x = 0;
-                            (*b).center.x = 0;
-                            (*a).center.y = 0;
-                            (*b).center.y = 0;
-                            out_light.push_back(adds);
-                            // std::cout<<"foundreal"<<std::endl;
-                        }
-                    }
-                }
-                b++;
-            }
-        }
-        a++;
-    }
-    return out_light;
-#endif
+    cv::Mat checkvaildFrame;
+    cv::Mat frame2 =channels[0] - channels[2];
+    cv::threshold(frame2, checkvaildFrame, 130, 255, cv::THRESH_BINARY);
+    std::vector<std::vector<cv::Point>> contoursbackup;
+    cv::findContours(checkvaildFrame, contoursbackup, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
+    if (contoursbackup.size() > 0)
+        return 1;
+    return 0;
 }
 
+std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
+{
+    return findPairs_Testing(inputRects, inputFrame);
+}

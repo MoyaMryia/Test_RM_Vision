@@ -1,5 +1,6 @@
 CMakeFiles/Test.dir/src/yoloProcess.cpp.o: \
  /home/moyamryia/NJU_RM/src/yoloProcess.cpp /usr/include/stdc-predef.h \
+ /home/moyamryia/NJU_RM/src/../include/yolodetect.hpp \
  /usr/include/c++/13/iostream /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -356,17 +357,12 @@ CMakeFiles/Test.dir/src/yoloProcess.cpp.o: \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
  /usr/include/opencv4/opencv2/video/background_segm.hpp \
- /home/moyamryia/NJU_RM/src/../include/yolodetect.hpp \
- /home/moyamryia/NJU_RM/src/../include/../include/tools.hpp \
- /home/moyamryia/NJU_RM/src/../include/../include/include_all.hpp \
- /home/moyamryia/NJU_RM/include/../include/armor.hpp \
- /home/moyamryia/NJU_RM/src/../include/../include/../onnxruntime/include/onnxruntime_cxx_api.h \
- /home/moyamryia/NJU_RM/src/../include/../include/../onnxruntime/include/onnxruntime_c_api.h \
+ /home/moyamryia/NJU_RM/src/../include/../onnxruntime/include/onnxruntime_cxx_api.h \
+ /home/moyamryia/NJU_RM/src/../include/../onnxruntime/include/onnxruntime_c_api.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
- /home/moyamryia/NJU_RM/src/../include/../include/../onnxruntime/include/onnxruntime_ep_c_api.h \
- /home/moyamryia/NJU_RM/src/../include/../include/../onnxruntime/include/onnxruntime_float16.h \
+ /home/moyamryia/NJU_RM/src/../include/../onnxruntime/include/onnxruntime_ep_c_api.h \
+ /home/moyamryia/NJU_RM/src/../include/../onnxruntime/include/onnxruntime_float16.h \
  /usr/include/c++/13/variant \
- /home/moyamryia/NJU_RM/src/../include/../include/../onnxruntime/include/onnxruntime_cxx_inline.h \
+ /home/moyamryia/NJU_RM/src/../include/../onnxruntime/include/onnxruntime_cxx_inline.h \
  /usr/include/c++/13/iterator /usr/include/c++/13/bits/stream_iterator.h \
- /home/moyamryia/NJU_RM/src/../include/../include/../include/videoReader.hpp \
- /home/moyamryia/NJU_RM/src/../include/../include/../include/failback.hpp
+ /home/moyamryia/NJU_RM/src/../include/../include/armor.hpp

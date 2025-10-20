@@ -1,4 +1,7 @@
 #include "../include/include_all.hpp"
+#include "../include/tools.hpp"
+#include "../include/failback.hpp"
+#include "../include/yolodetect.hpp"
 
 int main(int argc, char **argv)
 {

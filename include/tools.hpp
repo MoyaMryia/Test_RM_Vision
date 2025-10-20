@@ -1,12 +1,11 @@
 #pragma once
 #include "include_all.hpp"
+
 class tools
 {
 public:
     static void drawLightbars(cv::Mat &image, const Lightbar_Pair &inputPairs, const cv::Scalar &color, int thickness);
-    static cv::Mat enhanceContrast(const cv::Mat &inputFrame);
     static std::vector<std::vector<cv::Point>> getContours(cv::Mat &inputFrame,double minAreaThreshold);
-    static cv::Mat adjustBrightness(const cv::Mat &inputFrame, double beta);
     static void drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness);
     static std::vector<cv::Mat> chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame);
     static cv::RotatedRect getNormalizedRotatedRect_fortyfive(const cv::RotatedRect &rect);

@@ -177,30 +177,6 @@ src/yoloProcess.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/yoloProcess.cpp.s
 .PHONY : src/yoloProcess.cpp.s
 
-tools/afterDetections.o: tools/afterDetections.cpp.o
-.PHONY : tools/afterDetections.o
-
-# target to build an object file
-tools/afterDetections.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.o
-.PHONY : tools/afterDetections.cpp.o
-
-tools/afterDetections.i: tools/afterDetections.cpp.i
-.PHONY : tools/afterDetections.i
-
-# target to preprocess a source file
-tools/afterDetections.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.i
-.PHONY : tools/afterDetections.cpp.i
-
-tools/afterDetections.s: tools/afterDetections.cpp.s
-.PHONY : tools/afterDetections.s
-
-# target to generate assembly for a file
-tools/afterDetections.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/afterDetections.cpp.s
-.PHONY : tools/afterDetections.cpp.s
-
 tools/failback.o: tools/failback.cpp.o
 .PHONY : tools/failback.o
 
@@ -224,30 +200,6 @@ tools/failback.s: tools/failback.cpp.s
 tools/failback.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/failback.cpp.s
 .PHONY : tools/failback.cpp.s
-
-tools/robotCalculations.o: tools/robotCalculations.cpp.o
-.PHONY : tools/robotCalculations.o
-
-# target to build an object file
-tools/robotCalculations.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/robotCalculations.cpp.o
-.PHONY : tools/robotCalculations.cpp.o
-
-tools/robotCalculations.i: tools/robotCalculations.cpp.i
-.PHONY : tools/robotCalculations.i
-
-# target to preprocess a source file
-tools/robotCalculations.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/robotCalculations.cpp.i
-.PHONY : tools/robotCalculations.cpp.i
-
-tools/robotCalculations.s: tools/robotCalculations.cpp.s
-.PHONY : tools/robotCalculations.s
-
-# target to generate assembly for a file
-tools/robotCalculations.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tools/robotCalculations.cpp.s
-.PHONY : tools/robotCalculations.cpp.s
 
 tools/tools.o: tools/tools.cpp.o
 .PHONY : tools/tools.o
@@ -312,15 +264,9 @@ help:
 	@echo "... src/yoloProcess.o"
 	@echo "... src/yoloProcess.i"
 	@echo "... src/yoloProcess.s"
-	@echo "... tools/afterDetections.o"
-	@echo "... tools/afterDetections.i"
-	@echo "... tools/afterDetections.s"
 	@echo "... tools/failback.o"
 	@echo "... tools/failback.i"
 	@echo "... tools/failback.s"
-	@echo "... tools/robotCalculations.o"
-	@echo "... tools/robotCalculations.i"
-	@echo "... tools/robotCalculations.s"
 	@echo "... tools/tools.o"
 	@echo "... tools/tools.i"
 	@echo "... tools/tools.s"

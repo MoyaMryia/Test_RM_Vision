@@ -1,5 +1,6 @@
 #include "../include/tools.hpp"
 #include <opencv2/opencv.hpp>
+
 float maxx(float a, float b)
 {
     if (a > b)
@@ -20,76 +21,6 @@ const std::vector<std::string> CLASS_NAMES = {
     "watcher_blue", "watcher_red", "watcher_unknown"};
 
 // 测试筛选的时候使用的 现在我估计用处不大
-cv::Mat tools::enhanceContrast(const cv::Mat &inputFrame)
-{
-    if (inputFrame.empty())
-    {
-        std::cerr << "Error: Input frame is empty." << std::endl;
-        return cv::Mat();
-    }
-
-    cv::Mat outputFrame;
-
-    if (inputFrame.channels() == 3)
-    {
-        // 对于彩色图像，直接对 RGB 通道进行均衡化可能会导致颜色失真。
-        // 最佳做法是将其转换到 YUV 或 HSV 颜色空间，只对亮度/明度通道 (Y 或 V) 进行均衡化。
-
-        cv::Mat yuv;
-        // 转换到 YUV 颜色空间 (Y 是亮度通道)
-        cv::cvtColor(inputFrame, yuv, cv::COLOR_BGR2YUV);
-
-        // 分割 YUV 图像到三个通道
-        std::vector<cv::Mat> channels;
-        cv::split(yuv, channels); // channels[0] 是 Y (亮度) 通道
-
-        // 对亮度通道进行直方图均衡化
-        // 示例：使用 CLAHE 代替基本的 equalizeHist
-        cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE(1.5, cv::Size(8, 8));
-        // 2.0 是对比度限制，(8, 8) 是分块大小
-        clahe->apply(channels[0], channels[0]); // 应用于亮度通道
-
-        // 合并通道回 YUV 图像
-        cv::merge(channels, yuv);
-
-        // 转换回 BGR 颜色空间作为输出
-        cv::cvtColor(yuv, outputFrame, cv::COLOR_YUV2BGR);
-    }
-    // 3. 处理灰度图像 (1 通道)
-    else if (inputFrame.channels() == 1)
-    {
-        // 对于灰度图像，直接应用直方图均衡化
-        cv::equalizeHist(inputFrame, outputFrame);
-    }
-    else
-    {
-        std::cerr << "Warning: Unsupported number of channels. Returning original image." << std::endl;
-        outputFrame = inputFrame.clone();
-    }
-
-    return outputFrame;
-}
-
-cv::Mat tools::adjustBrightness(const cv::Mat &inputFrame, double beta)
-{
-
-    if (inputFrame.empty())
-    {
-        std::cerr << "Error: Input frame is empty." << std::endl;
-        return cv::Mat();
-    }
-
-    cv::Mat outputFrame;
-    // 保持 alpha 为 1.0，只调整亮度
-    double alpha = 1.0;
-
-    // outputFrame = alpha * inputFrame + beta
-    // 确保 beta 是整数。
-    inputFrame.convertTo(outputFrame, -1, alpha, (double)beta);
-
-    return outputFrame;
-}
-
 std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, const cv::Mat &inputFrame)
 {
     std::vector<cv::Mat> outputFrame;
@@ -101,7 +32,6 @@ std::vector<cv::Mat> tools::chopFrame(const std::vector<Armor> &inputArmors, con
 
     return outputFrame;
 }
-
 
 void tools::drawRotatedRect(cv::Mat &image, const cv::RotatedRect &rotatedRect, const cv::Scalar &color, int thickness)
 {
@@ -172,7 +102,7 @@ void tools::classifyArmors(long long &total, const std::vector<cv::Rect> &boxes,
             {
                 int k = classIds[i] - 3;
                 // blue 0 red 1 white 2;
-                t.color = cv::Scalar(maxx(255, std::abs(k - 1) * 255), maxx(0, 255 * (k - 1)), min(255, 255 * k));
+                t.color = cv::Scalar(maxx(255, std::abs(k - 1) * 255), maxx(0, 255 * (k - 1)), minn(255, 255 * k));
                 t.carorwatcher = 1;
                 cars.push_back(t);
             }
@@ -180,7 +110,7 @@ void tools::classifyArmors(long long &total, const std::vector<cv::Rect> &boxes,
             {
                 int k = classIds[i] - 6;
                 // blue 0 red 1 white 2;
-                t.color = cv::Scalar(maxx(255, std::abs(k - 1) * 255), maxx(0, 255 * (k - 1)), min(255, 255 * k));
+                t.color = cv::Scalar(maxx(255, std::abs(k - 1) * 255), maxx(0, 255 * (k - 1)), minn(255, 255 * k));
                 t.carorwatcher = 0;
                 watchers.push_back(t);
             }

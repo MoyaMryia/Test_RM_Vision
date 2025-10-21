@@ -127,6 +127,10 @@ std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> 
                         ligs.left_LightBar = a;
                         ligs.right_LightBar = b;
                     }
+                    double rate = center_dis * 1.000000 / (averageHeight * 2.000000);
+                    if(rate < 1.90000){
+                        ligs.size = 0;
+                    }else ligs.size = 1;
                     lightBars.push_back(ligs);
                     canitbe[i] = 1;
                     canitbe[j] = 1;

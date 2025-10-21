@@ -8,6 +8,7 @@
 struct Lightbar_Pair{
   cv::RotatedRect left_LightBar;
   cv::RotatedRect right_LightBar;
+  int size;
 };
 
 struct Armor

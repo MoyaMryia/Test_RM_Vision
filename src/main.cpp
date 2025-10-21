@@ -5,6 +5,25 @@
 
 int main(int argc, char **argv)
 {
+    std::vector<cv::Point3f> POINT_3D_OF_ARMOR_BIG = std::vector<cv::Point3f>
+        {
+            cv::Point3f(-105, -30, 0), // tl
+            cv::Point3f(105, -30, 0), // tr
+            cv::Point3f(105, 30, 0), // br
+            cv::Point3f(-105, 30, 0) // bl
+        };
+    std::vector<cv::Point3f> POINT_3D_OF_ARMOR_SMALL = std::vector<cv::Point3f>
+{
+	cv::Point3f(-65, -35, 0),	//tl
+	cv::Point3f(65, -35, 0),	//tr
+	cv::Point3f(65, 35, 0),		//br
+	cv::Point3f(-65, 35, 0)		//bl
+};
+    cv::Mat CAMERA_MATRIX = (cv::Mat_<double>(3, 3) <<
+        1.0391876564768361e+03, 0, 9.4661629904337065e+02,
+        0, 1.0349035035562770e+03, 5.3417040085263443e+02,
+        0, 0, 1
+    );
     DigitTemplates templ = MatchNumber::loadTemplates("templates/", 1);
 #ifdef USING_YOLO
     YOLOv8Detector detector;
@@ -94,12 +113,15 @@ int main(int argc, char **argv)
                 armors[i].position = failbackFunc::GetArmorRect(frame, armors[i].Lightbars);
                 if (tools::cropQuadrilateral(armors[i].position, frame, armorFrame))
                 {
-                    
+                    // 这个地方 以后使用CUDA优化
                     MatchResult resultas = MatchNumber::recognizeSingleDigitByFeature(armorFrame, templ);
-                    //std::cout<<"Finish one"<<std::endl;
-                    if(resultas.digit == -1){
+                    // std::cout<<"Finish one"<<std::endl;
+                    if (resultas.digit == -1 || resultas.score < 0.5)
+                    {
                         continue;
-                    }else{
+                    }
+                    else
+                    {
                         Armor finalOne = armors[i];
                         finalOne.car_num = resultas.digit;
                         armorFiltered.push_back(finalOne);
@@ -111,8 +133,7 @@ int main(int argc, char **argv)
                 cv::imshow("Test" + std::to_string(i), binary);
             }
 
-            //Step B: What's the future?
-            //明天再说吧 处理一下追踪和预测
+            // PnP_Calculations
         }
 
         // Calculation for FPS Rate.

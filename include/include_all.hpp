@@ -33,3 +33,5 @@
 #include "afterDetect.hpp"
 #define pi 3.1415926535897
 
+//+=65 +=35 +=370 +=105 +=30
+//small big

@@ -87,6 +87,7 @@ MatchResult MatchNumber::recognizeSingleDigitByFeature(
             catch (...)
             {
                 std::cerr << "Wrong Picture!" << std::endl;
+                return MatchResult;
             }
 
             // 3. 找到当前尺度和模板的最佳匹配

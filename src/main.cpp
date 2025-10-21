@@ -96,8 +96,15 @@ int main(int argc, char **argv)
                 if (tools::cropQuadrilateral(armors[i].position, frame, armorFrame))
                 {
                     
-                    MatchNumber::recognizeSingleDigitByFeature(armorFrame, templ);
+                    MatchResult resultas = MatchNumber::recognizeSingleDigitByFeature(armorFrame, templ);
                     //std::cout<<"Finish one"<<std::endl;
+                    if(resultas.digit == -1){
+                        continue;
+                    }else{
+                        Armor finalOne = armors[i];
+                        finalOne.car_num = resultas.digit;
+                        armorFiltered.push_back(finalOne);
+                    }
                 }
                 cv::Mat gray, binary;
                 cv::cvtColor(armorFrame, gray, cv::COLOR_BGR2GRAY);

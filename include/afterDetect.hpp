@@ -21,8 +21,8 @@ public:
     const cv::Mat& frame, 
     const DigitTemplates& templates, 
     double threshold = 0,
-    double min_scale = 1.0,
-    double max_scale = 30.0,
+    double min_scale = 1.5,
+    double max_scale = 15.0,
     double step_scale = 0.1
 );
     static DigitTemplates loadTemplates(const std::string &template_dir, int mode);

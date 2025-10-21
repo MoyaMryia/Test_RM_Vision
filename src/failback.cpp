@@ -3,7 +3,7 @@
 
 // 线性外推做法
 
-std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pair &inputPairs)
+std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pair &inputPairs, int mode)
 {
     std::vector<cv::Point2f> contour_points;
     cv::RotatedRect a_ret = tools::getNormalizedRotatedRect_fortyfive(inputPairs.left_LightBar);
@@ -27,14 +27,14 @@ std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pai
     // std::cout << "a:angle:" << a_ret.angle << ' ' << (a_ret.angle) / 360.00000 * pi << ' ' << asin << ' ' << acos << std::endl;
     // std::cout << "b:angle:" << a_ret.angle << ' ' << (b_ret.angle) / 360.00000 * pi << ' ' << bsin << ' ' << bcos << std::endl;
 
-    ap.x = a_ret.center.x + (alon / 2.000000) * acos + alen * 1.000000 * asin;
-    bp.x = a_ret.center.x + (alon / 2.000000) * acos - alen * 1.000000 * asin;
-    cp.x = b_ret.center.x - (blon / 2.000000) * bcos + blen * 1.000000 * bsin;
-    dp.x = b_ret.center.x - (blon / 2.000000) * bcos - blen * 1.000000 * bsin;
-    ap.y = a_ret.center.y + (alon / 2.000000) * asin - alen * 1.000000 * acos;
-    bp.y = a_ret.center.y + (alon / 2.000000) * asin + alen * 1.000000 * acos;
-    cp.y = b_ret.center.y - (blon / 2.000000) * bsin - blen * 1.000000 * bcos;
-    dp.y = b_ret.center.y - (blon / 2.000000) * bsin + blen * 1.000000 * bcos;
+    ap.x = a_ret.center.x + (-mode)*(alon / 2.000000) * acos + alen * 1.000000 * asin;
+    bp.x = a_ret.center.x + (-mode)*(alon / 2.000000) * acos - alen * 1.000000 * asin;
+    cp.x = b_ret.center.x - (-mode)*(blon / 2.000000) * bcos + blen * 1.000000 * bsin;
+    dp.x = b_ret.center.x - (-mode)*(blon / 2.000000) * bcos - blen * 1.000000 * bsin;
+    ap.y = a_ret.center.y + (-mode)*(alon / 2.000000) * asin - alen * 1.000000 * acos;
+    bp.y = a_ret.center.y + (-mode)*(alon / 2.000000) * asin + alen * 1.000000 * acos;
+    cp.y = b_ret.center.y - (-mode)*(blon / 2.000000) * bsin - blen * 1.000000 * bcos;
+    dp.y = b_ret.center.y - (-mode)*(blon / 2.000000) * bsin + blen * 1.000000 * bcos;
     contour_points.push_back(ap);
     contour_points.push_back(cp);
     contour_points.push_back(dp);

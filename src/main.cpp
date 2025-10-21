@@ -83,12 +83,11 @@ int main(int argc, char **argv)
             //    tools::drawLightbars(frame, armorA.Lightbars, cv::Scalar(0, 255, 0), 1);
         }
         // Otherwise ERROR POST.
-        // Kalman
         std::vector<Armor> armorFiltered;
         if (armors.size() > 0)
         {
             // PartA: DetectNumbers
-            // StepA: Cut
+            // StepA: Cut & Check & DetectNumbers
             for (int i = 0; i < armors.size(); ++i)
             {
                 cv::Mat armorFrame;
@@ -111,6 +110,9 @@ int main(int argc, char **argv)
                 cv::threshold(gray, binary, 53, 255, cv::THRESH_BINARY);
                 cv::imshow("Test" + std::to_string(i), binary);
             }
+
+            //Step B: What's the future?
+            //明天再说吧 处理一下追踪和预测
         }
 
         // Calculation for FPS Rate.

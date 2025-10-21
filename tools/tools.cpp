@@ -220,6 +220,40 @@ cv::Rect tools::bounding_rect_of_dual_rotated_rects(const Lightbar_Pair& dualRec
     return cv::Rect(x, y, width, height);
 }
 
+bool tools::cropQuadrilateral(
+    const std::vector<cv::Point2f>& srcPoints,
+    const cv::Mat& frame_x,
+    cv::Mat& frame_out,
+    cv::Size outputSize)
+{
+    cv::Mat frame = frame_x.clone();
+    if (srcPoints.size() != 4)
+    {
+        return false;
+    }
+
+    std::vector<cv::Point2f> dstPoints(4);
+    if (outputSize.width <= 0 || outputSize.height <= 0)
+    {
+        double topWidth = cv::norm(srcPoints[0] - srcPoints[1]);
+        double bottomWidth = cv::norm(srcPoints[3] - srcPoints[2]);
+        double leftHeight = cv::norm(srcPoints[0] - srcPoints[3]);
+        double rightHeight = cv::norm(srcPoints[1] - srcPoints[2]);
+        int width = cvRound(std::max(topWidth, bottomWidth));
+        int height = cvRound(std::max(leftHeight, rightHeight));
+        
+        outputSize = cv::Size(width, height);
+    }
+    // 左上右上右下左下
+    dstPoints[0] = cv::Point2f(0, 0);
+    dstPoints[1] = cv::Point2f((float)outputSize.width, 0);
+    dstPoints[2] = cv::Point2f((float)outputSize.width, (float)outputSize.height);
+    dstPoints[3] = cv::Point2f(0, (float)outputSize.height);
+    cv::Mat M = cv::getPerspectiveTransform(srcPoints, dstPoints);
+    cv::warpPerspective(frame, frame_out, M, outputSize);
+    return true;
+}
+
 bool tools::is_pair_approx_equal(const Lightbar_Pair& pair1, const Lightbar_Pair& pair2){
     cv::Rect a_ret = bounding_rect_of_dual_rotated_rects(pair1),b_ret = bounding_rect_of_dual_rotated_rects(pair2);
     cv::Rect t = a_ret & b_ret;

@@ -1,9 +1,6 @@
-CMakeFiles/Test.dir/src/failback.cpp.o: \
- /home/moyamryia/NJU_RM/src/failback.cpp /usr/include/stdc-predef.h \
- /home/moyamryia/NJU_RM/src/../include/failback.hpp \
- /home/moyamryia/NJU_RM/src/../include/tools.hpp \
- /home/moyamryia/NJU_RM/src/../include/include_all.hpp \
- /home/moyamryia/NJU_RM/src/../include/armor.hpp \
+CMakeFiles/Test.dir/src/afterDetect.cpp.o: \
+ /home/moyamryia/NJU_RM/src/afterDetect.cpp /usr/include/stdc-predef.h \
+ /home/moyamryia/NJU_RM/src/../include/afterDetect.hpp \
  /usr/include/opencv4/opencv2/opencv.hpp \
  /usr/include/opencv4/opencv2/opencv_modules.hpp \
  /usr/include/opencv4/opencv2/core.hpp \
@@ -355,14 +352,6 @@ CMakeFiles/Test.dir/src/failback.cpp.o: \
  /usr/include/opencv4/opencv2/video.hpp \
  /usr/include/opencv4/opencv2/video/tracking.hpp \
  /usr/include/opencv4/opencv2/video/background_segm.hpp \
- /home/moyamryia/NJU_RM/src/../include/videoReader.hpp \
- /usr/include/c++/13/fstream \
- /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
- /usr/include/c++/13/bits/fstream.tcc /usr/include/c++/13/numeric \
- /usr/include/c++/13/bits/stl_numeric.h \
- /usr/include/c++/13/pstl/glue_numeric_defs.h \
- /home/moyamryia/NJU_RM/src/../include/afterDetect.hpp \
  /usr/include/c++/13/filesystem /usr/include/c++/13/bits/fs_fwd.h \
  /usr/include/c++/13/bits/fs_path.h /usr/include/c++/13/codecvt \
  /usr/include/c++/13/bits/fs_dir.h /usr/include/c++/13/bits/fs_ops.h

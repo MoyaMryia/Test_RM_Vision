@@ -79,26 +79,26 @@ int main(int argc, char **argv)
 #endif
         for (const auto &armorA : armors)
         {
-            tools::drawLightbars(frame, armorA.Lightbars, cv::Scalar(0, 255, 0), 1);
+            //    tools::drawLightbars(frame, armorA.Lightbars, cv::Scalar(0, 255, 0), 1);
         }
         // Otherwise ERROR POST.
         // Kalman
+        std::vector<Armor> armorFiltered;
         if (armors.size() > 0)
         {
             // PartA: DetectNumbers
             // StepA: Cut
             for (int i = 0; i < armors.size(); ++i)
             {
+                cv::Mat armorFrame;
                 armors[i].position = failbackFunc::GetArmorRect(frame, armors[i].Lightbars);
+                if (tools::cropQuadrilateral(armors[i].position, frame, armorFrame))
+                {
+                    DigitTemplates templ = MatchNumber::loadTemplates("templates/",1);
+                    MatchNumber::recognizeSingleDigitByFeature(armorFrame,templ);
+                }
+                cv::imshow("Test",armorFrame);
             }
-            // Step (A+B)/2 check if it's right
-            // StepB: Compare
-
-            // StepC: Using the number to find the Rect.
-
-            // PartB: Track
-
-            // PartC: Track speed and yaws
         }
 
         // Calculation for FPS Rate.
@@ -116,7 +116,7 @@ int main(int argc, char **argv)
                     2);
         t_last = t1;
 #endif
-        cv::imshow("Original", frame);
+
 #ifdef VIDEO
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27)
         {

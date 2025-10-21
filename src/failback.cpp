@@ -36,19 +36,21 @@ std::vector<cv::Point2f> failbackFunc::GetArmorRect(cv::Mat &image, Lightbar_Pai
     cp.y = b_ret.center.y - (blon / 2.000000) * bsin - blen * 1.000000 * bcos;
     dp.y = b_ret.center.y - (blon / 2.000000) * bsin + blen * 1.000000 * bcos;
     contour_points.push_back(ap);
-    contour_points.push_back(bp);
     contour_points.push_back(cp);
     contour_points.push_back(dp);
+    contour_points.push_back(bp);
     cv::RotatedRect rRect = cv::minAreaRect(contour_points);
     // tools::drawLightbars(image, inputPairs, cv::Scalar(0, 255, 0), 2);
     Lightbar_Pair outp;
     outp.left_LightBar = a_ret;
     outp.right_LightBar = b_ret;
     // tools::drawLightbars(image, outp, cv::Scalar(0, 255, 0), 1);
-    //  cv::circle(image, ap, 10, cv::Scalar(0, 255, 255), -1);   // left up
-    //  cv::circle(image, bp, 10, cv::Scalar(255, 255, 0), -1);   // left down
-    //  cv::circle(image, cp, 10, cv::Scalar(255, 255, 255), -1); // right up
-    //  cv::circle(image, dp, 10, cv::Scalar(0, 255, 0), -1);     // right down
+    /*
+      cv::circle(image, ap, 10, cv::Scalar(0, 255, 255), -1);   // left up
+      cv::circle(image, bp, 10, cv::Scalar(255, 255, 0), -1);   // left down
+      cv::circle(image, cp, 10, cv::Scalar(255, 255, 255), -1); // right up
+      cv::circle(image, dp, 10, cv::Scalar(0, 255, 0), -1);     // right down
+    */
     return contour_points;
 }
 
@@ -84,7 +86,7 @@ bool isApproximatelyParallel(const cv::RotatedRect &rect1,
     return false;
 }
 
-std::vector<Lightbar_Pair> findPairs_Testing(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
+std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
 {
     std::vector<Lightbar_Pair> lightBars;
 
@@ -170,11 +172,6 @@ bool failbackFunc::checkEnemy(cv::RotatedRect lightbar, cv::Mat frame)
         return 0;
 
     return 1;
-}
-
-std::vector<Lightbar_Pair> failbackFunc::findPairs(std::vector<cv::RotatedRect> inputRects, const cv::Mat &inputFrame)
-{
-    return findPairs_Testing(inputRects, inputFrame);
 }
 
 std::vector<Armor> failbackFunc::mainFunction(cv::Mat frame)

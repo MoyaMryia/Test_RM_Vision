@@ -129,6 +129,30 @@ Test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
 .PHONY : Test/fast
 
+src/afterDetect.o: src/afterDetect.cpp.o
+.PHONY : src/afterDetect.o
+
+# target to build an object file
+src/afterDetect.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/afterDetect.cpp.o
+.PHONY : src/afterDetect.cpp.o
+
+src/afterDetect.i: src/afterDetect.cpp.i
+.PHONY : src/afterDetect.i
+
+# target to preprocess a source file
+src/afterDetect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/afterDetect.cpp.i
+.PHONY : src/afterDetect.cpp.i
+
+src/afterDetect.s: src/afterDetect.cpp.s
+.PHONY : src/afterDetect.s
+
+# target to generate assembly for a file
+src/afterDetect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/afterDetect.cpp.s
+.PHONY : src/afterDetect.cpp.s
+
 src/failback.o: src/failback.cpp.o
 .PHONY : src/failback.o
 
@@ -258,6 +282,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Test"
+	@echo "... src/afterDetect.o"
+	@echo "... src/afterDetect.i"
+	@echo "... src/afterDetect.s"
 	@echo "... src/failback.o"
 	@echo "... src/failback.i"
 	@echo "... src/failback.s"

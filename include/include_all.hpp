@@ -4,7 +4,7 @@
 #define _FRIENDS 0
 //#define USING_YOLO
 #define USING_BACKUP
-//#define VIDEO
+#define VIDEO
 
 
 #if !defined(USING_YOLO) && !defined(USING_BACKUP)
@@ -19,8 +19,8 @@
     #warning "WARNING: _FRIENDS not defined."
 #endif
 
-#include <../include/armor.hpp>
-#include "../include/videoReader.hpp"
+#include "armor.hpp"
+#include "videoReader.hpp"
 #include <iostream>
 #include <algorithm>
 #include <fstream>
@@ -30,5 +30,6 @@
 #include <memory>
 #include <opencv2/opencv.hpp>    
 #include <cmath>
+#include "afterDetect.hpp"
 #define pi 3.1415926535897
 

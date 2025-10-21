@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Test.dir/src/afterDetect.cpp.o"
+  "CMakeFiles/Test.dir/src/afterDetect.cpp.o.d"
   "CMakeFiles/Test.dir/src/failback.cpp.o"
   "CMakeFiles/Test.dir/src/failback.cpp.o.d"
   "CMakeFiles/Test.dir/src/main.cpp.o"

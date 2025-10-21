@@ -5,6 +5,7 @@
 
 int main(int argc, char **argv)
 {
+    DigitTemplates templ = MatchNumber::loadTemplates("templates/", 1);
 #ifdef USING_YOLO
     YOLOv8Detector detector;
     if (!detector.loadModel(MODEL_PATH))
@@ -94,10 +95,14 @@ int main(int argc, char **argv)
                 armors[i].position = failbackFunc::GetArmorRect(frame, armors[i].Lightbars);
                 if (tools::cropQuadrilateral(armors[i].position, frame, armorFrame))
                 {
-                    DigitTemplates templ = MatchNumber::loadTemplates("templates/",1);
-                    MatchNumber::recognizeSingleDigitByFeature(armorFrame,templ);
+                    
+                    MatchNumber::recognizeSingleDigitByFeature(armorFrame, templ);
+                    //std::cout<<"Finish one"<<std::endl;
                 }
-                cv::imshow("Test",armorFrame);
+                cv::Mat gray, binary;
+                cv::cvtColor(armorFrame, gray, cv::COLOR_BGR2GRAY);
+                cv::threshold(gray, binary, 53, 255, cv::THRESH_BINARY);
+                cv::imshow("Test" + std::to_string(i), binary);
             }
         }
 
@@ -105,8 +110,8 @@ int main(int argc, char **argv)
 #ifdef VIDEO
         double t1 = cv::getTickCount();
         double time_per_frame = (t1 - t_last) / freq;
-        fps = 1.0 / time_per_frame;
-        std::string fps_text = "FPS: " + std::to_string(static_cast<int>(fps));
+        fps = 1.00000 / time_per_frame;
+        std::string fps_text = "FPS: " + std::to_string(static_cast<double>(fps));
         cv::putText(frame,
                     fps_text,
                     cv::Point(10, 30),
@@ -115,6 +120,7 @@ int main(int argc, char **argv)
                     cv::Scalar(0, 255, 0),
                     2);
         t_last = t1;
+        cv::imshow("Output", frame);
 #endif
 
 #ifdef VIDEO

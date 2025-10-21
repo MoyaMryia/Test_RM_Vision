@@ -1,121 +1,124 @@
 #include "../include/afterDetect.hpp"
 
-
-
-DigitTemplates MatchNumber::loadTemplates(const std::string& template_dir,int mode) {
+DigitTemplates MatchNumber::loadTemplates(const std::string &template_dir, int mode)
+{
     DigitTemplates templates;
     std::string dir = template_dir;
-    if (!dir.empty() && dir.back() != '/' && dir.back() != '\\') {
+    if (!dir.empty() && dir.back() != '/' && dir.back() != '\\')
+    {
         dir += "/";
     }
-    try {
-        for (int i = 0; i <= 8; ++i) {
-            std::string filename = dir + std::to_string(i*mode) + ".jpg";
-            if (!fs::exists(filename)) {
+    try
+    {
+        for (int i = 0; i <= 8; ++i)
+        {
+            std::string filename = dir + std::to_string(i * mode) + ".jpg";
+            if (!fs::exists(filename))
+            {
                 continue;
             }
-            cv::Mat templ = cv::imread(filename, cv::IMREAD_GRAYSCALE); 
-            if (!templ.empty()) {
+            cv::Mat templ = cv::imread(filename, cv::IMREAD_GRAYSCALE);
+            if (!templ.empty())
+            {
                 templates[i] = templ;
-            } else {
-
+            }
+            else
+            {
             }
         }
-    } catch (const fs::filesystem_error& e) {
     }
-    
-    if (templates.empty()) {
+    catch (const fs::filesystem_error &e)
+    {
+    }
+
+    if (templates.empty())
+    {
     }
 
     return templates;
 }
 
 MatchResult MatchNumber::recognizeSingleDigitByFeature(
-    const cv::Mat& frame,
-    const DigitTemplates& templates,
-    int min_inlier_count
-) {
-    
-    if (frame.empty() || templates.empty()) {
+    const cv::Mat &frame,
+    const DigitTemplates &templates,
+    double threshold,
+    double min_scale,
+    double max_scale,
+    double step_scale)
+{
+    if (frame.empty() || templates.empty())
+    {
         return MatchResult();
     }
-    
-    auto detector = cv::ORB::create(500); 
-    auto matcher = cv::BFMatcher::create(cv::NORM_HAMMING);
 
-    cv::Mat frame_gray_te,frame_gray;
+    cv::Mat frame_gray_te, frame_gray;
     cv::cvtColor(frame, frame_gray_te, cv::COLOR_BGR2GRAY);
-    cv::threshold(frame_gray_te,frame_gray,30,255,cv::THRESH_BINARY);
-    std::vector<cv::KeyPoint> kp_scene;
-    cv::Mat desc_scene;
-    detector->detectAndCompute(frame_gray, cv::noArray(), kp_scene, desc_scene);
-
-    if (desc_scene.empty()) {
-        std::cerr << "目标图像未检测到特征点！" << std::endl;
-        return MatchResult();
-    }
-
+    cv::threshold(frame_gray_te, frame_gray, 53, 255, cv::THRESH_BINARY);
     MatchResult best_match;
 
-    for (const auto& pair : templates) {
-        int digit = pair.first;
-        const cv::Mat& templ = pair.second;
-        std::vector<cv::KeyPoint> kp_templ;
-        cv::Mat desc_templ;
-        detector->detectAndCompute(templ, cv::noArray(), kp_templ, desc_templ);
+    // 遍历所有尺度 (Scale)
+    for (double scale = max_scale; scale >= min_scale; scale -= step_scale)
+    {
 
-        if (desc_templ.empty()) continue;
-
-        std::vector<std::vector<cv::DMatch>> knn_matches;
-        matcher->knnMatch(desc_templ, desc_scene, knn_matches, 2);
-        const float ratio_thresh = 0.75f;
-        std::vector<cv::DMatch> good_matches;
-        for (size_t i = 0; i < knn_matches.size(); i++) {
-            if (knn_matches[i][0].distance < ratio_thresh * knn_matches[i][1].distance) {
-                good_matches.push_back(knn_matches[i][0]);
-            }
+        // 确保缩放后的模板不会比目标帧大
+        if (templates.begin()->second.cols * scale > frame_gray.cols ||
+            templates.begin()->second.rows * scale > frame_gray.rows)
+        {
+            continue;
         }
-        if (good_matches.size() >= 4) {
-            std::vector<cv::Point2f> pts_templ, pts_scene;
-            for (const auto& match : good_matches) {
-                pts_templ.push_back(kp_templ[match.queryIdx].pt);
-                pts_scene.push_back(kp_scene[match.trainIdx].pt);
+
+        // 遍历所有数字模板
+        for (const auto &pair : templates)
+        {
+            int digit = pair.first;
+            const cv::Mat &original_templ = pair.second;
+
+            cv::Mat scaled_templ;
+            // 1. 缩放模板（关键步骤）
+            // 模板匹配应该在目标图像上滑动，所以我们缩放模板到目标数字的大小
+            cv::resize(original_templ, scaled_templ, cv::Size(), scale, scale, cv::INTER_LINEAR);
+
+            // 2. 模板匹配
+            cv::Mat result;
+            try
+            {
+                cv::matchTemplate(frame_gray, scaled_templ, result, cv::TM_CCOEFF_NORMED);
+            }
+            catch (...)
+            {
+                std::cerr << "Wrong Picture!" << std::endl;
             }
 
-            cv::Mat mask;
-            cv::Mat H = cv::findHomography(pts_templ, pts_scene, cv::RANSAC, 5.0, mask);
-            int inlier_count = cv::countNonZero(mask);
-
-            if (inlier_count >= min_inlier_count && inlier_count > best_match.score) {
-                std::vector<cv::Point2f> templ_corners(4);
-                templ_corners[0] = cv::Point2f(0, 0);
-                templ_corners[1] = cv::Point2f((float)templ.cols, 0);
-                templ_corners[2] = cv::Point2f((float)templ.cols, (float)templ.rows);
-                templ_corners[3] = cv::Point2f(0, (float)templ.rows);
-                std::vector<cv::Point2f> scene_corners(4);
-                cv::perspectiveTransform(templ_corners, scene_corners, H);
-                float min_x = scene_corners[0].x, max_x = scene_corners[0].x;
-                float min_y = scene_corners[0].y, max_y = scene_corners[0].y;
-                for (int i = 1; i < 4; i++) {
-                    min_x = std::min(min_x, scene_corners[i].x);
-                    max_x = std::max(max_x, scene_corners[i].x);
-                    min_y = std::min(min_y, scene_corners[i].y);
-                    max_y = std::max(max_y, scene_corners[i].y);
-                }
-
-                best_match.score = (double)inlier_count;
+            // 3. 找到当前尺度和模板的最佳匹配
+            double minVal, maxVal;
+            cv::Point minLoc, maxLoc;
+            cv::minMaxLoc(result, &minVal, &maxVal, &minLoc, &maxLoc);
+            /*std::cout << "当前匹配度: 数字 " << digit
+                      << " (得分: " << maxVal
+                      << ", 缩放: " << scale << ")" << std::endl;*/
+            // 4. 更新全局最佳匹配
+            if (maxVal > best_match.score)
+            {
+                best_match.score = maxVal;
                 best_match.digit = digit;
-                best_match.location = cv::Rect((int)min_x, (int)min_y, (int)(max_x - min_x), (int)(max_y - min_y));
+                best_match.scale = scale;
+                // 注意：匹配矩形的位置和尺寸是基于当前缩放后的模板
+                best_match.location = cv::Rect(maxLoc.x, maxLoc.y, scaled_templ.cols, scaled_templ.rows);
             }
         }
     }
 
-    if (best_match.digit != -1) {
-        std::cout << "特征匹配成功: 数字 " << best_match.digit 
-                  << " (内点数: " << best_match.score << ")" << std::endl;
-    } else {
-        std::cout << "未找到具有足够内点的有效匹配 (要求: " << min_inlier_count << ")。" << std::endl;
+    // 5. 最终判断
+    if (best_match.score >= threshold)
+    {
+        std::cout << "匹配度最高: 数字 " << best_match.digit
+                  << " (得分: " << best_match.score
+                  << ", 缩放: " << best_match.scale << ")" << std::endl;
+        return best_match;
     }
-    
-    return best_match;
+    else
+    {
+        std::cout << "未找到满足阈值 (" << threshold << ") 的有效数字。" << std::endl;
+        return MatchResult();
+    }
 }

@@ -7,20 +7,23 @@
 
 namespace fs = std::filesystem;
 using DigitTemplates = std::map<int, cv::Mat>;
-struct MatchResult
-{
-    int digit = -1;
-    double score = 0.0;
-    cv::Rect location;
-    double scale = 1.0;
+struct MatchResult {
+    int digit = -1;       // 识别出的数字
+    double score = 0.0;   // 最高的匹配度
+    cv::Rect location;    // 匹配区域的矩形
+    double scale = 1.0;   // 最佳匹配时的缩放比例
 };
 
 class MatchNumber
 {
 public:
     static MatchResult recognizeSingleDigitByFeature(
-        const cv::Mat &frame,
-        const DigitTemplates &templates,
-        int min_inlier_count = 10);
+    const cv::Mat& frame, 
+    const DigitTemplates& templates, 
+    double threshold = 0,
+    double min_scale = 1.0,
+    double max_scale = 30.0,
+    double step_scale = 0.1
+);
     static DigitTemplates loadTemplates(const std::string &template_dir, int mode);
 };

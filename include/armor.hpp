@@ -5,7 +5,8 @@
 
 #define ARMOR_HPP
 
-struct Lightbar_Pair{
+struct Lightbar_Pair
+{
   cv::RotatedRect left_LightBar;
   cv::RotatedRect right_LightBar;
   int size;
@@ -20,10 +21,11 @@ struct Armor
   int car_num;      // 根据ResNet识别结果得到的装甲板数字
   Lightbar_Pair Lightbars;
   std::vector<cv::Point2f> position;
-  float priority;       // 评分系统给出的打击评分
-  float yaw;            // pnp解算出的偏航角
-  cv::Point3f p_camera; // pnp解算出的三维位置信息，包含(x, y, z)
+  float priority; // 评分系统给出的打击评分
+  cv::Mat rVec = cv::Mat::zeros(3, 1, CV_64FC1);
+  cv::Mat tVec = cv::Mat::zeros(3, 1, CV_64FC1);
   int classId;
+  bool size;
 };
 struct Robot
 {

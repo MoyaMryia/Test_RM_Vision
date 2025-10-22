@@ -5,26 +5,27 @@
 
 int main(int argc, char **argv)
 {
-    std::vector<cv::Point3f> POINT_3D_OF_ARMOR_BIG = std::vector<cv::Point3f>
-        {
-            cv::Point3f(-105, -30, 0), // tl
-            cv::Point3f(105, -30, 0), // tr
-            cv::Point3f(105, 30, 0), // br
-            cv::Point3f(-105, 30, 0) // bl
-        };
-    std::vector<cv::Point3f> POINT_3D_OF_ARMOR_SMALL = std::vector<cv::Point3f>
-{
-	cv::Point3f(-65, -35, 0),	//tl
-	cv::Point3f(65, -35, 0),	//tr
-	cv::Point3f(65, 35, 0),		//br
-	cv::Point3f(-65, 35, 0)		//bl
-};
-    cv::Mat CAMERA_MATRIX = (cv::Mat_<double>(3, 3) <<
-        1.0391876564768361e+03, 0, 9.4661629904337065e+02,
-        0, 1.0349035035562770e+03, 5.3417040085263443e+02,
-        0, 0, 1
-    );
+    std::vector<cv::Point3f> POINT_3D_OF_ARMOR_BIG = std::vector<cv::Point3f>{
+        cv::Point3f(-117.5, -63.5, 0), // tl
+        cv::Point3f(117.5, -63.5, 0),  // tr
+        cv::Point3f(117.5, 63.5, 0),   // br
+        cv::Point3f(-117.5, 63.5, 0)   // bl
+    };
+    std::vector<cv::Point3f> POINT_3D_OF_ARMOR_SMALL = std::vector<cv::Point3f>{
+        cv::Point3f(-70, -62.5, 0), // tl
+        cv::Point3f(70, -62.5, 0),  // tr
+        cv::Point3f(70, 62.5, 0),   // br
+        cv::Point3f(-70, 62.5, 0)   // bl
+    };
+    // 根据相机的实际参数进行修正，这里是抄SEU RM队的  主要是我TM没有这一块的数据，谁能救我
+    cv::Mat CAMERA_MATRIX = (cv::Mat_<double>(3, 3) << 1.0391876564768361e+03, 0, 9.4661629904337065e+02,
+                             0, 1.0349035035562770e+03, 5.3417040085263443e+02,
+                             0, 0, 1);
+    // 到底是多少啊 到底是多少？
+    cv::Mat DISTCOEFFS = (cv::Mat_<double>(5, 1) << 0.0, 0.0, 0.0, 0.0, 0.0);
+
     DigitTemplates templ = MatchNumber::loadTemplates("templates/", 1);
+    DigitTemplates templtoo = MatchNumber::loadTemplates("templates/", 11);
 #ifdef USING_YOLO
     YOLOv8Detector detector;
     if (!detector.loadModel(MODEL_PATH))
@@ -48,7 +49,6 @@ int main(int argc, char **argv)
 
     while (true)
     {
-
         t0 = cv::getTickCount();
 #endif
         if (!reader.readFrame(frame))
@@ -59,7 +59,6 @@ int main(int argc, char **argv)
         return 0;
 #endif
         }
-
 #ifdef USING_YOLO
         std::vector<Armor> armorsYolo = YOLOv8Detector::mainFunction(frame, detector, total);
 
@@ -70,9 +69,7 @@ int main(int argc, char **argv)
         std::vector<Armor> armorsBackup = failbackFunc::mainFunction(frame);
         // 有一个公共方法: tools::GetArmorRect
 #endif
-
         std::vector<Armor> armors;
-
 #if defined(USING_YOLO) && defined(USING_BACKUP)
 
         armors.reserve(armorsBackup.size() + armorsYolo.size());
@@ -97,10 +94,6 @@ int main(int argc, char **argv)
 #if defined(USING_YOLO) && !defined(USING_BACKUP)
         armors = armorsYolo;
 #endif
-        for (const auto &armorA : armors)
-        {
-            //    tools::drawLightbars(frame, armorA.Lightbars, cv::Scalar(0, 255, 0), 1);
-        }
         // Otherwise ERROR POST.
         std::vector<Armor> armorFiltered;
         if (armors.size() > 0)
@@ -115,16 +108,30 @@ int main(int argc, char **argv)
                 {
                     // 这个地方 以后使用CUDA优化
                     MatchResult resultas = MatchNumber::recognizeSingleDigitByFeature(armorFrame, templ);
-                    // std::cout<<"Finish one"<<std::endl;
-                    if (resultas.digit == -1 || resultas.score < 0.5)
+                    MatchResult resultasToo = MatchNumber::recognizeSingleDigitByFeature(armorFrame, templtoo);
+                    std::cout << "Finish one" << std::endl;
+
+                    // 先不动了
+                    // 我他妈怎么知道
+                    if ((resultas.score > resultasToo.score) || (resultas.score = resultasToo.score && resultas.scale > resultasToo.scale))
                     {
-                        continue;
+                        if (resultas.score > 0.5)
+                        {
+                            Armor armorfin = armors[i];
+                            armorfin.car_num = resultas.digit;
+                            armorfin.size = 0;
+                            armorFiltered.push_back(armorfin);
+                        }
                     }
                     else
                     {
-                        Armor finalOne = armors[i];
-                        finalOne.car_num = resultas.digit;
-                        armorFiltered.push_back(finalOne);
+                        if (resultasToo.score > 0.5)
+                        {
+                            Armor armorfin = armors[i];
+                            armorfin.car_num = resultasToo.digit;
+                            armorfin.size = 1;
+                            armorFiltered.push_back(armorfin);
+                        }
                     }
                 }
                 cv::Mat gray, binary;
@@ -134,6 +141,21 @@ int main(int argc, char **argv)
             }
 
             // PnP_Calculations
+            for (auto &armorOne : armorFiltered)
+            {
+                if (armorOne.size)
+                {
+                    // Big
+                    cv::solvePnP(POINT_3D_OF_ARMOR_BIG, armorOne.position, CAMERA_MATRIX, DISTCOEFFS, armorOne.rVec, armorOne.tVec);
+                }
+                else
+                {
+                    // Small
+                    cv::solvePnP(POINT_3D_OF_ARMOR_SMALL, armorOne.position, CAMERA_MATRIX, DISTCOEFFS, armorOne.rVec, armorOne.tVec);
+                }
+            }
+
+            
         }
 
         // Calculation for FPS Rate.

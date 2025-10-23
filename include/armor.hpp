@@ -22,10 +22,11 @@ struct Armor
   Lightbar_Pair Lightbars;
   std::vector<cv::Point2f> position;
   float priority; // 评分系统给出的打击评分
-  cv::Mat rVec = cv::Mat::zeros(3, 1, CV_64FC1);
-  cv::Mat tVec = cv::Mat::zeros(3, 1, CV_64FC1);
+  cv::Vec3d rVec ;
+  cv::Vec3d tVec ;
   int classId;
   bool size;
+  int colorInt;
 };
 struct Robot
 {

@@ -216,6 +216,7 @@ std::vector<Armor> failbackFunc::mainFunction(cv::Mat frame)
         // tools::drawLightbars(frame, lightbar, cv::Scalar(0, 255, 0), 2);
         Armor lar;
         lar.Lightbars = lightbar;
+        lar.Box = tools::bounding_rect_of_dual_rotated_rects(lightbar);
         armorsBackup.push_back(lar);
     }
     return armorsBackup;

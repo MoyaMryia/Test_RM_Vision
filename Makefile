@@ -201,6 +201,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/tracker.o: src/tracker.cpp.o
+.PHONY : src/tracker.o
+
+# target to build an object file
+src/tracker.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/tracker.cpp.o
+.PHONY : src/tracker.cpp.o
+
+src/tracker.i: src/tracker.cpp.i
+.PHONY : src/tracker.i
+
+# target to preprocess a source file
+src/tracker.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/tracker.cpp.i
+.PHONY : src/tracker.cpp.i
+
+src/tracker.s: src/tracker.cpp.s
+.PHONY : src/tracker.s
+
+# target to generate assembly for a file
+src/tracker.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/src/tracker.cpp.s
+.PHONY : src/tracker.cpp.s
+
 src/yoloProcess.o: src/yoloProcess.cpp.o
 .PHONY : src/yoloProcess.o
 
@@ -291,6 +315,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/tracker.o"
+	@echo "... src/tracker.i"
+	@echo "... src/tracker.s"
 	@echo "... src/yoloProcess.o"
 	@echo "... src/yoloProcess.i"
 	@echo "... src/yoloProcess.s"

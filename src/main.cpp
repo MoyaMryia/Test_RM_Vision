@@ -5,6 +5,7 @@
 
 int main(int argc, char **argv)
 {
+
     std::vector<cv::Point3f> POINT_3D_OF_ARMOR_BIG = std::vector<cv::Point3f>{
         cv::Point3f(-117.5, -63.5, 0), // tl
         cv::Point3f(117.5, -63.5, 0),  // tr
@@ -26,13 +27,14 @@ int main(int argc, char **argv)
 
     DigitTemplates templ = MatchNumber::loadTemplates("templates/", 1);
     DigitTemplates templtoo = MatchNumber::loadTemplates("templates/", 11);
+
 #ifdef USING_YOLO
     YOLOv8Detector detector;
     if (!detector.loadModel(MODEL_PATH))
     {
         return -1;
     }
-    long long total = 1;
+
 #endif
     VideoReader reader(argv[1]);
     if (!reader.isOpened())
@@ -49,8 +51,10 @@ int main(int argc, char **argv)
 
     while (true)
     {
+
         t0 = cv::getTickCount();
 #endif
+        long long total = 0;
         if (!reader.readFrame(frame))
         {
 #ifdef VIDEO
@@ -96,6 +100,7 @@ int main(int argc, char **argv)
 #endif
         // Otherwise ERROR POST.
         std::vector<Armor> armorFiltered;
+        long long totalfin = 0;
         if (armors.size() > 0)
         {
             // PartA: DetectNumbers
@@ -120,6 +125,7 @@ int main(int argc, char **argv)
                             Armor armorfin = armors[i];
                             armorfin.car_num = resultas.digit;
                             armorfin.size = 0;
+                            armorfin.detect_id = ++totalfin;
                             armorFiltered.push_back(armorfin);
                         }
                     }
@@ -130,6 +136,7 @@ int main(int argc, char **argv)
                             Armor armorfin = armors[i];
                             armorfin.car_num = resultasToo.digit;
                             armorfin.size = 1;
+                            armorfin.detect_id = ++totalfin;
                             armorFiltered.push_back(armorfin);
                         }
                     }
@@ -154,8 +161,6 @@ int main(int argc, char **argv)
                     cv::solvePnP(POINT_3D_OF_ARMOR_SMALL, armorOne.position, CAMERA_MATRIX, DISTCOEFFS, armorOne.rVec, armorOne.tVec);
                 }
             }
-
-            
         }
 
         // Calculation for FPS Rate.
@@ -172,9 +177,10 @@ int main(int argc, char **argv)
                     cv::Scalar(0, 255, 0),
                     2);
         t_last = t1;
+        // At here, start Kalman
+
         cv::imshow("Output", frame);
 #endif
-
 #ifdef VIDEO
         if (cv::waitKey(25) == 'q' || cv::waitKey(25) == 27)
         {
